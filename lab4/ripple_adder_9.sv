@@ -2,7 +2,7 @@ module ripple_adder_9
 (
 	input  [7:0] A, B,
 	input         fn, cin,		// function select, decides if we add or subtract
-	output [8:0] S
+	output logic [7:0] S, //technically dont need 9th bit since it's just 8th bit again
 );
 
     /* TODO
@@ -10,7 +10,7 @@ module ripple_adder_9
      * Insert code here to implement a ripple adder.
      * Your code should be completly combinational (don't use always_ff or always_latch).
      * Feel free to create sub-modules or other files. */
-	logic c1, c2, c3, c4, c5, c6, c7, c8, M;
+	logic c1, c2, c3, c4, c5, c6, c7, c8;
 	logic [7:0] B_fn;
 	
 	always_comb
@@ -29,6 +29,6 @@ module ripple_adder_9
 	full_adder FA5(.x(A[5]), .y(B_fn[5]), .z(c5), .s(S[5]), .c(c6));
 	full_adder FA6(.x(A[6]), .y(B_fn[6]), .z(c6), .s(S[6]), .c(c7));
 	full_adder FA7(.x(A[7]), .y(B_fn[7]), .z(c7), .s(S[7]), .c(c8));
-	full_adder FA8(.x(A[7]), .y(B_fn[7]), .z(c8), .s(S[8]), .c());
+	//full_adder FA8(.x(A[7]), .y(B_fn[7]), .z(c7), .s(X), .c());
 
 endmodule
