@@ -1,5 +1,5 @@
 module control (input logic Clk, Run, Reset_Load_Clear, M
-                output logic Clr_Ld, Shift, fn )  
+                output logic Clear, LoadA, LoadB, Shift, fn )  
         //module for the FSM of the multiplier
     enum logic [4:0] {Start, L1, S1, L2, S2, L3, S3, L4, S4, L5, S5, L6, S6, L7, S7, L8, S8, Comp} curr_state, next_state;
     
@@ -45,32 +45,42 @@ module control (input logic Clk, Run, Reset_Load_Clear, M
         case (curr_state)   
             Start: //start state
                 begin  
-                    Clr_Ld = Reset_Load_Clear; //output = input
+                    Clear = Reset_Load_Clear; //output = input
                     Shift = 1'b0;
                     fn = 1'b0;
+                    LoadB = 1'b0;
+                    LoadA = 1'b0;
                 end
             CAX: //clear a and x
                 begin 
-                    Clr_Ld = 1'b1;
+                    Clear = 1'b1;
                     Shift = 1'b0;
                     fn = 1'b0;
+                    LoadB = 1'b0;
+                    LoadA = 1'b0;
                 end
             L1, L2, L3, L4, L5, L6, L7: 
                 begin
-                    Clr_Ld = 1'b1;
+                    Clear = 1'b0;
+                    LoadA = 1'b1;
                     Shift = 1'b0;
                     fn = 1'b0;
+                    LoadB = 1'b0;
                 end
             S1, S2, S3, S4, S5, S6, S7, S8:
                 begin
-                    Clr_Ld = 1'b0;
+                    Clear = 1'b0;
+                    LoadA = 1'b0;
                     Shift = 1'b1;
                     fn = 1'b0;
+                    LoadB = 1'b0;
                 end
             L8:  // only different load/add state
                 begin
-                    Clr_Ld = 1'b0;
+                    Clear = 1'b0;
+                    LoadB = 1'b0;
                     Shift = 1'b0;
+                    LoadA = 1'b1;
                     if (M)
                         fn = 1'b1;
                     else   
@@ -79,8 +89,10 @@ module control (input logic Clk, Run, Reset_Load_Clear, M
             Comp: //end state, stops everything
                 begin
                         fn = 1'b0;
-                        Clr_Ld = 1'b0;
+                        Clear = 1'b0;
                         Shift = 1'b0;
+                        LoadB = 1'b0;
+                        LoadA = 1'b0;
                 end
         endcase
     end 
