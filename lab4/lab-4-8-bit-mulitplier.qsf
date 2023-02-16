@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name DEVICE 10M50DAF484C7G
-set_global_assignment -name TOP_LEVEL_ENTITY control_8_bit_multiplier
+set_global_assignment -name TOP_LEVEL_ENTITY Processor
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "20:52:41  FEBRUARY 14, 2023"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -51,10 +51,10 @@ set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name SYSTEMVERILOG_FILE Processor.sv
+set_global_assignment -name SYSTEMVERILOG_FILE control.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ripple_adder_9.sv
 set_global_assignment -name SYSTEMVERILOG_FILE reg_8.sv
-set_global_assignment -name SYSTEMVERILOG_FILE control_8_bit_multiplier.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Synchronizers.sv
 set_global_assignment -name SYSTEMVERILOG_FILE HexDriver.sv
 set_global_assignment -name SYSTEMVERILOG_FILE full_adder.sv
-set_global_assignment -name SYSTEMVERILOG_FILE adder2.sv
