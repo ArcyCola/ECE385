@@ -1,7 +1,7 @@
-module control (input logic Clk, Run, Reset_Load_Clear, M,
-                output logic Clear, LoadA, LoadB, Shift, fn );
+module control (input logic Clk, Run, Reset_Load_Clear, M
+                output logic Clear, LoadA, LoadB, Shift, fn )  
         //module for the FSM of the multiplier
-    enum logic [4:0] {Start, L1, S1, L2, S2, L3, S3, L4, S4, L5, S5, L6, S6, L7, S7, L8, S8, Comp,CAX} curr_state, next_state;
+    enum logic [4:0] {Start, L1, S1, L2, S2, L3, S3, L4, S4, L5, S5, L6, S6, L7, S7, L8, S8, Comp} curr_state, next_state;
     
     //copied from lab 2.2 vv
     always_ff @ (posedge Clk)

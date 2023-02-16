@@ -1,6 +1,6 @@
 module reg_8 ( input						Clk, Reset, Load, Shift_En, Shift_In,
 					input						[7:0] D,
-					output logic 			[7:0] Data_Out
+					output logic 			[7:0] Data_Out,
 					output logic               Shift_Out);
 					
 		always_ff @ (posedge Clk)

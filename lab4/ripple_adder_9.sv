@@ -2,7 +2,7 @@ module ripple_adder_9
 (
 	input  [7:0] A, B,
 	input         fn, cin,		// function select, decides if we add or subtract
-	output logic [7:0] S, //technically dont need 9th bit since it's just 8th bit again
+	output logic [7:0] S //technically dont need 9th bit since it's just 8th bit again
 );
 
     /* TODO
