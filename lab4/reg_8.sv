@@ -32,7 +32,7 @@ module reg_1 ( 	input		Clk, Reset, Load, Shift_En, Shift_In,
 				else if(Load)
 					Data <= D;
 				
-				
+	
 		end
 
 endmodule
