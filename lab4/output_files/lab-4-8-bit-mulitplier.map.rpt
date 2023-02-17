@@ -1,5 +1,5 @@
 Analysis & Synthesis report for lab-4-8-bit-mulitplier
-Thu Feb 16 18:46:15 2023
+Thu Feb 16 18:59:56 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -49,7 +49,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Thu Feb 16 18:46:15 2023       ;
+; Analysis & Synthesis Status        ; Successful - Thu Feb 16 18:59:55 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; lab-4-8-bit-mulitplier                      ;
 ; Top-level Entity Name              ; Processor                                   ;
@@ -159,31 +159,31 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 8           ;
-; Maximum allowed            ; 4           ;
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 2           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 4           ;
+; Maximum used               ; 2           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                            ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                        ; Library ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------+---------+
-; Processor.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv      ;         ;
-; control.sv                       ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/control.sv        ;         ;
-; ripple_adder_9.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/ripple_adder_9.sv ;         ;
-; reg_8.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv          ;         ;
-; Synchronizers.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Synchronizers.sv  ;         ;
-; HexDriver.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/HexDriver.sv      ;         ;
-; full_adder.sv                    ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/full_adder.sv     ;         ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                               ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                           ; Library ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------+---------+
+; Processor.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv      ;         ;
+; control.sv                       ; yes             ; User SystemVerilog HDL File  ; C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/control.sv        ;         ;
+; ripple_adder_9.sv                ; yes             ; User SystemVerilog HDL File  ; C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/ripple_adder_9.sv ;         ;
+; reg_8.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/reg_8.sv          ;         ;
+; Synchronizers.sv                 ; yes             ; User SystemVerilog HDL File  ; C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Synchronizers.sv  ;         ;
+; HexDriver.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/HexDriver.sv      ;         ;
+; full_adder.sv                    ; yes             ; User SystemVerilog HDL File  ; C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/full_adder.sv     ;         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------+---------+
 
 
 +---------------------------------------------------------+
@@ -257,29 +257,29 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Encoding Type:  One-Hot
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; State Machine - |Processor|control:fsm|curr_state                                                                                                                                                                                                                                                                                      ;
-+------------------+------------------+-----------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+----------------+
-; Name             ; curr_state.Reset ; curr_state.Comp ; curr_state.S8 ; curr_state.L8 ; curr_state.S7 ; curr_state.L7 ; curr_state.S6 ; curr_state.L6 ; curr_state.S5 ; curr_state.L5 ; curr_state.S4 ; curr_state.L4 ; curr_state.S3 ; curr_state.L3 ; curr_state.S2 ; curr_state.L2 ; curr_state.S1 ; curr_state.L1 ; curr_state.CAX ;
-+------------------+------------------+-----------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+----------------+
-; curr_state.CAX   ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0              ;
-; curr_state.L1    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 1              ;
-; curr_state.S1    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 1              ;
-; curr_state.L2    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 1              ;
-; curr_state.S2    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.L3    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.S3    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.L4    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.S4    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.L5    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.S5    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.L6    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.S6    ; 0                ; 0               ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.L7    ; 0                ; 0               ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.S7    ; 0                ; 0               ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.L8    ; 0                ; 0               ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.S8    ; 0                ; 0               ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.Comp  ; 0                ; 1               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-; curr_state.Reset ; 1                ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1              ;
-+------------------+------------------+-----------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+----------------+
++------------------+----------------+-----------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+------------------+
+; Name             ; curr_state.CAX ; curr_state.Comp ; curr_state.S8 ; curr_state.L8 ; curr_state.S7 ; curr_state.L7 ; curr_state.S6 ; curr_state.L6 ; curr_state.S5 ; curr_state.L5 ; curr_state.S4 ; curr_state.L4 ; curr_state.S3 ; curr_state.L3 ; curr_state.S2 ; curr_state.L2 ; curr_state.S1 ; curr_state.L1 ; curr_state.Reset ;
++------------------+----------------+-----------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+------------------+
+; curr_state.Reset ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0                ;
+; curr_state.L1    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 1                ;
+; curr_state.S1    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 1                ;
+; curr_state.L2    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 1                ;
+; curr_state.S2    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.L3    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.S3    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.L4    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.S4    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.L5    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.S5    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.L6    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.S6    ; 0              ; 0               ; 0             ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.L7    ; 0              ; 0               ; 0             ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.S7    ; 0              ; 0               ; 0             ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.L8    ; 0              ; 0               ; 0             ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.S8    ; 0              ; 0               ; 1             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.Comp  ; 0              ; 1               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
+; curr_state.CAX   ; 1              ; 0               ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 0             ; 1                ;
++------------------+----------------+-----------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+------------------+
 
 
 +------------------------------------------------------------+
@@ -386,42 +386,42 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Thu Feb 16 18:46:04 2023
+    Info: Processing started: Thu Feb 16 18:59:39 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off lab-4-8-bit-mulitplier -c lab-4-8-bit-mulitplier
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file testbench.sv
-    Info (12023): Found entity 1: testbench File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/testbench.sv Line: 1
+    Info (12023): Found entity 1: testbench File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/testbench.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file adder2.sv
-    Info (12023): Found entity 1: adder2 File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/adder2.sv Line: 1
+    Info (12023): Found entity 1: adder2 File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/adder2.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file processor.sv
-    Info (12023): Found entity 1: Processor File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 1
+    Info (12023): Found entity 1: Processor File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file control.sv
-    Info (12023): Found entity 1: control File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/control.sv Line: 1
+    Info (12023): Found entity 1: control File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/control.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file ripple_adder_9.sv
-    Info (12023): Found entity 1: ripple_adder_9 File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/ripple_adder_9.sv Line: 1
+    Info (12023): Found entity 1: ripple_adder_9 File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/ripple_adder_9.sv Line: 1
 Info (12021): Found 2 design units, including 2 entities, in source file reg_8.sv
-    Info (12023): Found entity 1: reg_8 File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv Line: 1
-    Info (12023): Found entity 2: reg_1 File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv Line: 22
+    Info (12023): Found entity 1: reg_8 File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/reg_8.sv Line: 1
+    Info (12023): Found entity 2: reg_1 File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/reg_8.sv Line: 22
 Info (12021): Found 3 design units, including 3 entities, in source file synchronizers.sv
-    Info (12023): Found entity 1: sync File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Synchronizers.sv Line: 4
-    Info (12023): Found entity 2: sync_r0 File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Synchronizers.sv Line: 18
-    Info (12023): Found entity 3: sync_r1 File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Synchronizers.sv Line: 39
+    Info (12023): Found entity 1: sync File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Synchronizers.sv Line: 4
+    Info (12023): Found entity 2: sync_r0 File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Synchronizers.sv Line: 18
+    Info (12023): Found entity 3: sync_r1 File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Synchronizers.sv Line: 39
 Info (12021): Found 1 design units, including 1 entities, in source file hexdriver.sv
-    Info (12023): Found entity 1: HexDriver File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/HexDriver.sv Line: 1
+    Info (12023): Found entity 1: HexDriver File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/HexDriver.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file full_adder.sv
-    Info (12023): Found entity 1: full_adder File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/full_adder.sv Line: 1
+    Info (12023): Found entity 1: full_adder File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/full_adder.sv Line: 1
 Info (12127): Elaborating entity "Processor" for the top level hierarchy
-Info (12128): Elaborating entity "sync" for hierarchy "sync:syncForRun" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 11
-Info (12128): Elaborating entity "control" for hierarchy "control:fsm" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 17
-Info (12128): Elaborating entity "reg_8" for hierarchy "reg_8:RegA" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 21
-Info (12128): Elaborating entity "reg_1" for hierarchy "reg_1:RegX" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 27
-Info (12128): Elaborating entity "ripple_adder_9" for hierarchy "ripple_adder_9:adder" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 29
-Info (12128): Elaborating entity "full_adder" for hierarchy "ripple_adder_9:adder|full_adder:FA0" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/ripple_adder_9.sv Line: 24
-Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:HexAU" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 31
+Info (12128): Elaborating entity "sync" for hierarchy "sync:syncForRun" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 11
+Info (12128): Elaborating entity "control" for hierarchy "control:fsm" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 17
+Info (12128): Elaborating entity "reg_8" for hierarchy "reg_8:RegA" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 21
+Info (12128): Elaborating entity "reg_1" for hierarchy "reg_1:RegX" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 27
+Info (12128): Elaborating entity "ripple_adder_9" for hierarchy "ripple_adder_9:adder" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 29
+Info (12128): Elaborating entity "full_adder" for hierarchy "ripple_adder_9:adder|full_adder:FA0" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/ripple_adder_9.sv Line: 24
+Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:HexAU" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 31
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 5 registers lost all their fanouts during netlist optimizations.
-Info (144001): Generated suppressed messages file C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/output_files/lab-4-8-bit-mulitplier.map.smsg
+Info (144001): Generated suppressed messages file C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/output_files/lab-4-8-bit-mulitplier.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Info (21057): Implemented 155 device resources after synthesis - the final resource count might be different
@@ -429,15 +429,15 @@ Info (21057): Implemented 155 device resources after synthesis - the final resou
     Info (21059): Implemented 45 output pins
     Info (21061): Implemented 99 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4767 megabytes
-    Info: Processing ended: Thu Feb 16 18:46:15 2023
-    Info: Elapsed time: 00:00:11
-    Info: Total CPU time (on all processors): 00:00:09
+    Info: Peak virtual memory: 4741 megabytes
+    Info: Processing ended: Thu Feb 16 18:59:56 2023
+    Info: Elapsed time: 00:00:17
+    Info: Total CPU time (on all processors): 00:00:33
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/output_files/lab-4-8-bit-mulitplier.map.smsg.
+The suppressed messages can be found in C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/output_files/lab-4-8-bit-mulitplier.map.smsg.
 
 

@@ -1,5 +1,5 @@
 Flow report for lab-4-8-bit-mulitplier
-Thu Feb 16 18:46:38 2023
+Thu Feb 16 19:00:33 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,14 +40,14 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Feb 16 18:46:38 2023       ;
+; Flow Status                        ; Successful - Thu Feb 16 19:00:32 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; lab-4-8-bit-mulitplier                      ;
 ; Top-level Entity Name              ; Processor                                   ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 89 / 49,760 ( < 1 % )                       ;
+; Total logic elements               ; 91 / 49,760 ( < 1 % )                       ;
 ;     Total combinational functions  ; 88 / 49,760 ( < 1 % )                       ;
 ;     Dedicated logic registers      ; 46 / 49,760 ( < 1 % )                       ;
 ; Total registers                    ; 46                                          ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+------------------------+
 ; Option            ; Setting                ;
 +-------------------+------------------------+
-; Start date & time ; 02/16/2023 18:46:04    ;
+; Start date & time ; 02/16/2023 18:59:40    ;
 ; Main task         ; Compilation            ;
 ; Revision Name     ; lab-4-8-bit-mulitplier ;
 +-------------------+------------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------+----------------------------------------+------------------------+-------------+----------------+
 ; Assignment Name                      ; Value                                  ; Default Value          ; Entity Name ; Section Id     ;
 +--------------------------------------+----------------------------------------+------------------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 220128052722595.167659476417904        ; --                     ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                ; 273105146869631.167659558013572        ; --                     ; --          ; --             ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --                     ; --          ; testbench      ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; testbench                              ; --                     ; --          ; eda_simulation ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Systemverilog Hdl                      ; --                     ; --          ; eda_simulation ;
@@ -104,26 +104,26 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:11     ; 1.0                     ; 4767 MB             ; 00:00:09                           ;
-; Fitter               ; 00:00:12     ; 1.0                     ; 5636 MB             ; 00:00:08                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 4685 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:02     ; 1.1                     ; 4818 MB             ; 00:00:02                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4647 MB             ; 00:00:01                           ;
-; Total                ; 00:00:29     ; --                      ; --                  ; 00:00:22                           ;
+; Analysis & Synthesis ; 00:00:16     ; 1.0                     ; 4732 MB             ; 00:00:33                           ;
+; Fitter               ; 00:00:19     ; 1.0                     ; 5373 MB             ; 00:00:22                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 4682 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:07     ; 1.0                     ; 4792 MB             ; 00:00:06                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4643 MB             ; 00:00:01                           ;
+; Total                ; 00:00:47     ; --                      ; --                  ; 00:01:05                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+----------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                        ;
-+----------------------+----------------------+------------+------------+----------------+
-; Module Name          ; Machine Hostname     ; OS Name    ; OS Version ; Processor type ;
-+----------------------+----------------------+------------+------------+----------------+
-; Analysis & Synthesis ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer   ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
-+----------------------+----------------------+------------+------------+----------------+
++------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                    ;
++----------------------+------------------+------------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
++----------------------+------------------+------------+------------+----------------+
+; Analysis & Synthesis ; DESKTOP-V71JMP7  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; DESKTOP-V71JMP7  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; DESKTOP-V71JMP7  ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; DESKTOP-V71JMP7  ; Windows 10 ; 10.0       ; x86_64         ;
+; EDA Netlist Writer   ; DESKTOP-V71JMP7  ; Windows 10 ; 10.0       ; x86_64         ;
++----------------------+------------------+------------+------------+----------------+
 
 
 ------------

@@ -7,7 +7,7 @@ module control (input logic Clk, Run, Reset_Load_Clear, M,
     always_ff @ (posedge Clk)
     begin
         if (Reset_Load_Clear)
-            curr_state <= CAX;
+            curr_state <= Reset;
         // else if (!Reset_Load_Clear)
         //     curr_state <= Reset;
         else 

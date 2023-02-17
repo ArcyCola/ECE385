@@ -1,11 +1,11 @@
-Fitter Status : Successful - Thu Feb 16 18:46:28 2023
+Fitter Status : Successful - Thu Feb 16 19:00:16 2023
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : lab-4-8-bit-mulitplier
 Top-level Entity Name : Processor
 Family : MAX 10
 Device : 10M50DAF484C7G
 Timing Models : Final
-Total logic elements : 89 / 49,760 ( < 1 % )
+Total logic elements : 91 / 49,760 ( < 1 % )
     Total combinational functions : 88 / 49,760 ( < 1 % )
     Dedicated logic registers : 46 / 49,760 ( < 1 % )
 Total registers : 46
