@@ -8,8 +8,8 @@ logic syncRun, syncReset, Clear, LoadA, LoadB, Shift, fn, X_in, LSB_A, M;
 logic [7:0] A_in, SW_s, Mux;
 
 //Synchronizers for buttons and switches
-sync syncForRun(.Clk(Clk), .d(Run), .q(syncRun));
-sync syncForReset(.Clk(Clk), .d(Reset_Load_Clear), .q(syncReset)); 
+sync syncForRun(.Clk(Clk), .d(~Run), .q(syncRun));
+sync syncForReset(.Clk(Clk), .d(~Reset_Load_Clear), .q(syncReset)); 
 sync syncForSwtiches[7:0] (.Clk(Clk), .d(SW), .q(SW_s));
 
 //top level unit for this lab
