@@ -1,5 +1,5 @@
 Analysis & Synthesis report for lab-4-8-bit-mulitplier
-Fri Feb 17 15:28:52 2023
+Fri Feb 17 16:21:42 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -18,12 +18,11 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
  10. General Register Statistics
  11. Multiplexer Restructuring Statistics (Restructuring Performed)
  12. Port Connectivity Checks: "ripple_adder_9:adder|full_adder:FA7"
- 13. Port Connectivity Checks: "reg_1:RegX"
- 14. Port Connectivity Checks: "reg_8:RegB"
- 15. Post-Synthesis Netlist Statistics for Top Partition
- 16. Elapsed Time Per Partition
- 17. Analysis & Synthesis Messages
- 18. Analysis & Synthesis Suppressed Messages
+ 13. Port Connectivity Checks: "reg_8:RegB"
+ 14. Post-Synthesis Netlist Statistics for Top Partition
+ 15. Elapsed Time Per Partition
+ 16. Analysis & Synthesis Messages
+ 17. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -49,7 +48,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Feb 17 15:28:52 2023       ;
+; Analysis & Synthesis Status        ; Successful - Fri Feb 17 16:21:42 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; lab-4-8-bit-mulitplier                      ;
 ; Top-level Entity Name              ; Processor                                   ;
@@ -331,15 +330,6 @@ Encoding Type:  One-Hot
 +------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "reg_1:RegX"                                                                                                                                                                     ;
-+------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port ; Type  ; Severity ; Details                                                                                                                                                                          ;
-+------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; D    ; Input ; Warning  ; Input port expression (8 bits) is wider than the input port (1 bits) it drives.  The 7 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
-+------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-
 +---------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "reg_8:RegB"                                                                              ;
 +-----------+--------+----------+-------------------------------------------------------------------------------------+
@@ -387,7 +377,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Fri Feb 17 15:28:37 2023
+    Info: Processing started: Fri Feb 17 16:21:25 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off lab-4-8-bit-mulitplier -c lab-4-8-bit-mulitplier
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -420,7 +410,6 @@ Info (12128): Elaborating entity "reg_1" for hierarchy "reg_1:RegX" File: C:/Use
 Info (12128): Elaborating entity "ripple_adder_9" for hierarchy "ripple_adder_9:adder" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 29
 Info (12128): Elaborating entity "full_adder" for hierarchy "ripple_adder_9:adder|full_adder:FA0" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/ripple_adder_9.sv Line: 24
 Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:HexAU" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 38
-Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 5 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/output_files/lab-4-8-bit-mulitplier.map.smsg
@@ -430,11 +419,11 @@ Info (21057): Implemented 162 device resources after synthesis - the final resou
     Info (21058): Implemented 11 input pins
     Info (21059): Implemented 45 output pins
     Info (21061): Implemented 106 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
     Info: Peak virtual memory: 4767 megabytes
-    Info: Processing ended: Fri Feb 17 15:28:52 2023
-    Info: Elapsed time: 00:00:15
-    Info: Total CPU time (on all processors): 00:00:13
+    Info: Processing ended: Fri Feb 17 16:21:42 2023
+    Info: Elapsed time: 00:00:17
+    Info: Total CPU time (on all processors): 00:00:15
 
 
 +------------------------------------------+

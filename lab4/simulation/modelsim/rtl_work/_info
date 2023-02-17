@@ -10,7 +10,7 @@ cModel Technology
 Z0 dC:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/simulation/modelsim
 vcontrol
 Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z2 !s110 1676669417
+Z2 !s110 1676672591
 !i10b 1
 !s100 DA@eIl@>e;VVV^GVQnAEX2
 IP@kDX?zQJ8;eS_SK5V3fM3
@@ -26,7 +26,7 @@ Z4 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z5 !s108 1676669417.000000
+Z5 !s108 1676672591.000000
 !s107 C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/control.sv|
 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4|C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/control.sv|
 !i113 1
@@ -35,7 +35,7 @@ Z7 !s92 -sv -work work {+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab
 Z8 tCvgOpt 0
 vfull_adder
 R1
-Z9 !s110 1676669418
+Z9 !s110 1676672592
 !i10b 1
 !s100 U4T@D5b1heIThP>mnUo]i3
 Ie91Lff9IgPTS0EiN8^A@g0
@@ -51,7 +51,7 @@ R4
 r1
 !s85 0
 31
-Z10 !s108 1676669418.000000
+Z10 !s108 1676672592.000000
 !s107 C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/full_adder.sv|
 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4|C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/full_adder.sv|
 !i113 1
@@ -88,13 +88,13 @@ vProcessor
 R1
 R9
 !i10b 1
-!s100 `fLfMNDF_8Wjn>8cKPEDz1
-I22aJ?X;;XBDgUZ]m4<7g>2
+!s100 CCT1DH:kd06E4Y58[MekS2
+I<L=3SbA;FGkEXU44IZMW`0
 R3
 !s105 Processor_sv_unit
 S1
 R0
-w1676669316
+w1676672484
 8C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv
 FC:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv
 L0 1
@@ -187,7 +187,7 @@ R7
 R8
 vsync
 R1
-R9
+R2
 !i10b 1
 !s100 2W5Vz0:F6ckE2`eJOTK5l1
 IYjgnjSfCC3zOC0G?k2CPg3
@@ -212,7 +212,7 @@ R7
 R8
 vsync_r0
 R1
-R9
+R2
 !i10b 1
 !s100 IGd9f_F;JNjVBLQ@DAnD10
 I`B0WNidBfN527;hOzld_i2
@@ -237,7 +237,7 @@ R7
 R8
 vsync_r1
 R1
-R9
+R2
 !i10b 1
 !s100 1CXiH1DYDbAUS69Ee2j060
 ISG8HMCSQAi4WDhI=O@6BR2
@@ -264,13 +264,13 @@ vtestbench
 R1
 R9
 !i10b 1
-!s100 bX?7OW5:Nd6RSal37oang3
-IDJFEmZOLSRUDXAaPZGY2W1
+!s100 DIXk9Ro]Fogii?QODRWFn3
+IQz4WKi27eR@TlVilVC:c92
 R3
 !s105 testbench_sv_unit
 S1
 R0
-w1676668772
+w1676672066
 8C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/testbench.sv
 FC:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/testbench.sv
 L0 1

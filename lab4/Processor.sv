@@ -24,7 +24,7 @@ reg_8           RegB(.Clk(Clk), .Reset(), .Load(LoadB),
                     .Data_Out(Bval), .Shift_Out(M));
 reg_1           RegX(.Clk(Clk), .Reset(Clear), .Load(LoadA), 
                     .Shift_En(Shift), .Shift_In(A_in[7]),
-                    .D(SW_s), .Data(Xval));
+                    .D(fn), .Data(Xval));
 
 ripple_adder_9  adder(.A(Aval), .B(Mux), .fn(fn), .cin(fn), .S(A_in));
 always_comb

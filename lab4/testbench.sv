@@ -112,7 +112,7 @@ Reset_Load_Clear = 0;
 #50 Run = 0; 
 
 
-//test H74 * H74
+//test H74 * 74
 #200 Run = 1;
 
 #2 Reset_Load_Clear = 0; 
@@ -128,5 +128,39 @@ Reset_Load_Clear = 0;
 
 #50 Run = 0; 
 
+
+//test H8c*8c
+#200 Run = 1;
+
+#2 Reset_Load_Clear = 0; 
+
+#2 Reset_Load_Clear = 1;
+ 
+#10 SW = 8'b10001100;		// b = H74
+
+#2 Reset_Load_Clear = 0; 
+
+#10 Reset_Load_Clear = 1; 
+
+
+#50 Run = 0; 
+
+// testing -7 * -59
+
+#200 Run = 1;
+
+#2 Reset_Load_Clear = 0; 
+
+#2 Reset_Load_Clear = 1;
+ 
+#10 SW = 8'b10001100;		// 8c
+
+#2 Reset_Load_Clear = 0; 
+
+#10 Reset_Load_Clear = 1; 
+
+#2 SW = 8'b01110100; 		// switches = -7
+
+#50 Run = 0;
 end
 endmodule
