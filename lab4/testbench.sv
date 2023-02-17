@@ -39,25 +39,76 @@ end
 // Everything happens sequentially inside an initial block
 // as in a software program
 initial begin: TEST_VECTORS
-Run = 0; 
-Reset_Load_Clear = 1; 
+// testing 7 * (-59) = -413
+Run = 1; 
+Reset_Load_Clear = 0; 
 
-#2 Reset_Load_Clear = 0;
+#2 Reset_Load_Clear = 1;
  
-#10 SW = 8'b11000101;
+#10 SW = 8'b11000101;	// b = -59
 
-#2 Reset_Load_Clear = 1; 
+#2 Reset_Load_Clear = 0; 
 
-#10 Reset_Load_Clear = 0; 
+#10 Reset_Load_Clear = 1; 
 
+#2 SW = 8'd7; 	// Switches = 7
 
-#2 SW = 8'd7; 
-
-#10 Run = 1; 
+#10 Run = 0; 
    
+	
+// testing -7 * 59 = -413
+#200 Run = 1;
+
+#2 Reset_Load_Clear = 0; 
+
+#2 Reset_Load_Clear = 1;
+ 
+#10 SW = 8'b00111011;		// b = 59
+
+#2 Reset_Load_Clear = 0; 
+
+#10 Reset_Load_Clear = 1; 
+
+#2 SW = 8'b11111001; 		// switches = -7
+
+#10 Run = 0; 
 
 
+// testing 7*59 = 413
+
+#200 Run = 1;
+
+#2 Reset_Load_Clear = 0; 
+
+#2 Reset_Load_Clear = 1;
+ 
+#10 SW = 8'b00111011;		// b = 59
+
+#2 Reset_Load_Clear = 0; 
+
+#10 Reset_Load_Clear = 1; 
+
+#2 SW = 8'd7; 		// switches = 7
+
+#50 Run = 0; 
 
 
+// testing -7 * -59
+
+#200 Run = 1;
+
+#2 Reset_Load_Clear = 0; 
+
+#2 Reset_Load_Clear = 1;
+ 
+#10 SW = 8'b11000101;		// b = -59
+
+#2 Reset_Load_Clear = 0; 
+
+#10 Reset_Load_Clear = 1; 
+
+#2 SW = 8'b11111001; 		// switches = -7
+
+#50 Run = 0; 
 end
 endmodule

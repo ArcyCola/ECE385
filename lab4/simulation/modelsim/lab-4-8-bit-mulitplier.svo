@@ -16,7 +16,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
 
-// DATE "02/16/2023 21:31:52"
+// DATE "02/16/2023 23:01:27"
 
 // 
 // Device: Altera 10M50DAF484C7G Package FBGA484
@@ -40,17 +40,17 @@ module Processor (
 	Aval,
 	Bval,
 	Xval);
-input 	logic [7:0] SW ;
-input 	logic Clk ;
-input 	logic Reset_Load_Clear ;
-input 	logic Run ;
-output 	logic [6:0] HEX0 ;
-output 	logic [6:0] HEX1 ;
-output 	logic [6:0] HEX2 ;
-output 	logic [6:0] HEX3 ;
-output 	logic [7:0] Aval ;
-output 	logic [7:0] Bval ;
-output 	logic Xval ;
+input 	[7:0] SW;
+input 	Clk;
+input 	Reset_Load_Clear;
+input 	Run;
+output 	[6:0] HEX0;
+output 	[6:0] HEX1;
+output 	[6:0] HEX2;
+output 	[6:0] HEX3;
+output 	[7:0] Aval;
+output 	[7:0] Bval;
+output 	Xval;
 
 // Design Ports Information
 // HEX0[0]	=>  Location: PIN_C14,	 I/O Standard: 2.5 V,	 Current Strength: Default
