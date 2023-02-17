@@ -39,24 +39,21 @@ end
 // Everything happens sequentially inside an initial block
 // as in a software program
 initial begin: TEST_VECTORS
-Run = 1; 
+Run = 0; 
 Reset_Load_Clear = 1; 
 
-#2 Reset_Load_Clear = 0; 
+#2 Reset_Load_Clear = 0;
+ 
+#10 SW = 8'd7;
 
 #2 Reset_Load_Clear = 1; 
-
-#2 SW = 8'd7; 
 
 #10 Reset_Load_Clear = 0; 
 
-#2 Reset_Load_Clear = 1; 
 
 #2 SW = 8'd59; 
 
-#10 Run = 0; 
-
-#2 Run = 1; 
+#10 Run = 1; 
    
 
 

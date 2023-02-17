@@ -1,12 +1,12 @@
-Analysis & Synthesis Status : Successful - Thu Feb 16 17:33:39 2023
+Analysis & Synthesis Status : Successful - Thu Feb 16 18:46:15 2023
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : lab-4-8-bit-mulitplier
 Top-level Entity Name : Processor
 Family : MAX 10
-Total logic elements : 90
+Total logic elements : 98
     Total combinational functions : 87
-    Dedicated logic registers : 38
-Total registers : 38
+    Dedicated logic registers : 46
+Total registers : 46
 Total pins : 56
 Total virtual pins : 0
 Total memory bits : 0
