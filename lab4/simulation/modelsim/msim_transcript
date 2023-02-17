@@ -125,3 +125,7 @@
 #    Time: 0 ps  Iteration: 0  Instance: /testbench/processor0/fsm
 # ** Warning: (vsim-8315) C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/control.sv(21): No condition is true in the unique/priority if/case statement.
 #    Time: 10 ns  Iteration: 2  Instance: /testbench/processor0/fsm
+# Break key hit
+# Simulation stop requested.
+# End time: 19:50:59 on Feb 16,2023, Elapsed time: 0:49:15
+# Errors: 0, Warnings: 3
