@@ -5,7 +5,8 @@ module Processor (  input logic [7:0] SW,
                     output logic Xval       );
 
 logic syncRun, syncReset, Clear, LoadA, LoadB, Shift, fn, X_in, LSB_A, M;
-logic [7:0] A_in, SW_s, Mux;
+logic [8:0] A_in;
+logic [7:0] SW_s, Mux;
 
 //Synchronizers for buttons and switches
 sync syncForRun(.Clk(Clk), .d(~Run), .q(syncRun));
@@ -23,8 +24,8 @@ reg_8           RegB(.Clk(Clk), .Reset(), .Load(LoadB),
                     .Shift_En(Shift), .Shift_In(LSB_A), .D(SW_s),
                     .Data_Out(Bval), .Shift_Out(M));
 reg_1           RegX(.Clk(Clk), .Reset(Clear), .Load(LoadA), 
-                    .Shift_En(Shift), .Shift_In(A_in[7]),
-                    .D(fn), .Data(Xval));
+                    .Shift_En(Shift), .Shift_In(A_in[8]),
+                    .D(A_in[8]), .Data(Xval));
 
 ripple_adder_9  adder(.A(Aval), .B(Mux), .fn(fn), .cin(fn), .S(A_in));
 always_comb

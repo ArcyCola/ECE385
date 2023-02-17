@@ -1,5 +1,5 @@
 Analysis & Synthesis report for lab-4-8-bit-mulitplier
-Fri Feb 17 16:21:42 2023
+Fri Feb 17 16:58:24 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -17,12 +17,13 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   9. Registers Removed During Synthesis
  10. General Register Statistics
  11. Multiplexer Restructuring Statistics (Restructuring Performed)
- 12. Port Connectivity Checks: "ripple_adder_9:adder|full_adder:FA7"
+ 12. Port Connectivity Checks: "ripple_adder_9:adder|full_adder:FA8"
  13. Port Connectivity Checks: "reg_8:RegB"
- 14. Post-Synthesis Netlist Statistics for Top Partition
- 15. Elapsed Time Per Partition
- 16. Analysis & Synthesis Messages
- 17. Analysis & Synthesis Suppressed Messages
+ 14. Port Connectivity Checks: "reg_8:RegA"
+ 15. Post-Synthesis Netlist Statistics for Top Partition
+ 16. Elapsed Time Per Partition
+ 17. Analysis & Synthesis Messages
+ 18. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -48,13 +49,13 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Feb 17 16:21:42 2023       ;
+; Analysis & Synthesis Status        ; Successful - Fri Feb 17 16:58:24 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; lab-4-8-bit-mulitplier                      ;
 ; Top-level Entity Name              ; Processor                                   ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 106                                         ;
-;     Total combinational functions  ; 98                                          ;
+; Total logic elements               ; 108                                         ;
+;     Total combinational functions  ; 100                                         ;
 ;     Dedicated logic registers      ; 46                                          ;
 ; Total registers                    ; 46                                          ;
 ; Total pins                         ; 56                                          ;
@@ -190,16 +191,16 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 106       ;
+; Estimated Total logic elements              ; 108       ;
 ;                                             ;           ;
-; Total combinational functions               ; 98        ;
+; Total combinational functions               ; 100       ;
 ; Logic element usage by number of LUT inputs ;           ;
-;     -- 4 input functions                    ; 67        ;
+;     -- 4 input functions                    ; 68        ;
 ;     -- 3 input functions                    ; 5         ;
-;     -- <=2 input functions                  ; 26        ;
+;     -- <=2 input functions                  ; 27        ;
 ;                                             ;           ;
 ; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 98        ;
+;     -- normal mode                          ; 100       ;
 ;     -- arithmetic mode                      ; 0         ;
 ;                                             ;           ;
 ; Total registers                             ; 46        ;
@@ -212,8 +213,8 @@ refer to the applicable agreement for further details.
 ;                                             ;           ;
 ; Maximum fan-out node                        ; Clk~input ;
 ; Maximum fan-out                             ; 46        ;
-; Total fan-out                               ; 543       ;
-; Average fan-out                             ; 2.12      ;
+; Total fan-out                               ; 549       ;
+; Average fan-out                             ; 2.13      ;
 +---------------------------------------------+-----------+
 
 
@@ -222,7 +223,7 @@ refer to the applicable agreement for further details.
 +------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------+----------------+--------------+
 ; Compilation Hierarchy Node   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                            ; Entity Name    ; Library Name ;
 +------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------+----------------+--------------+
-; |Processor                   ; 98 (6)              ; 46 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 56   ; 0            ; 0          ; |Processor                                     ; Processor      ; work         ;
+; |Processor                   ; 100 (7)             ; 46 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 56   ; 0            ; 0          ; |Processor                                     ; Processor      ; work         ;
 ;    |HexDriver:HexAL|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|HexDriver:HexAL                     ; HexDriver      ; work         ;
 ;    |HexDriver:HexAU|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|HexDriver:HexAU                     ; HexDriver      ; work         ;
 ;    |HexDriver:HexBL|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|HexDriver:HexBL                     ; HexDriver      ; work         ;
@@ -231,7 +232,7 @@ refer to the applicable agreement for further details.
 ;    |reg_1:RegX|              ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|reg_1:RegX                          ; reg_1          ; work         ;
 ;    |reg_8:RegA|              ; 11 (11)             ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|reg_8:RegA                          ; reg_8          ; work         ;
 ;    |reg_8:RegB|              ; 9 (9)               ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|reg_8:RegB                          ; reg_8          ; work         ;
-;    |ripple_adder_9:adder|    ; 15 (0)              ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder                ; ripple_adder_9 ; work         ;
+;    |ripple_adder_9:adder|    ; 16 (0)              ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder                ; ripple_adder_9 ; work         ;
 ;       |full_adder:FA0|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA0 ; full_adder     ; work         ;
 ;       |full_adder:FA1|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA1 ; full_adder     ; work         ;
 ;       |full_adder:FA2|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA2 ; full_adder     ; work         ;
@@ -240,6 +241,7 @@ refer to the applicable agreement for further details.
 ;       |full_adder:FA5|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA5 ; full_adder     ; work         ;
 ;       |full_adder:FA6|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA6 ; full_adder     ; work         ;
 ;       |full_adder:FA7|       ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA7 ; full_adder     ; work         ;
+;       |full_adder:FA8|       ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA8 ; full_adder     ; work         ;
 ;    |sync:syncForReset|       ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|sync:syncForReset                   ; sync           ; work         ;
 ;    |sync:syncForRun|         ; 1 (1)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|sync:syncForRun                     ; sync           ; work         ;
 ;    |sync:syncForSwtiches[0]| ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|sync:syncForSwtiches[0]             ; sync           ; work         ;
@@ -316,18 +318,18 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output        ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |Processor|reg_8:RegB|Data_Out[0] ;
-; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Processor|reg_8:RegA|Data_Out[4] ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |Processor|reg_8:RegB|Data_Out[4] ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Processor|reg_8:RegA|Data_Out[2] ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "ripple_adder_9:adder|full_adder:FA7"                                                ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; Port ; Type   ; Severity ; Details                                                                             ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; c    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
++-----------------------------------------------------------------+
+; Port Connectivity Checks: "ripple_adder_9:adder|full_adder:FA8" ;
++------+--------+----------+--------------------------------------+
+; Port ; Type   ; Severity ; Details                              ;
++------+--------+----------+--------------------------------------+
+; c    ; Output ; Info     ; Explicitly unconnected               ;
++------+--------+----------+--------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------+
@@ -340,6 +342,15 @@ Encoding Type:  One-Hot
 +-----------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "reg_8:RegA"                                                                                                                                                                     ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                                                                                          ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; D    ; Input ; Warning  ; Input port expression (9 bits) is wider than the input port (8 bits) it drives.  The 1 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
@@ -350,15 +361,15 @@ Encoding Type:  One-Hot
 ;     ENA               ; 16                          ;
 ;     SCLR              ; 1                           ;
 ;     plain             ; 29                          ;
-; cycloneiii_lcell_comb ; 102                         ;
-;     normal            ; 102                         ;
+; cycloneiii_lcell_comb ; 104                         ;
+;     normal            ; 104                         ;
 ;         1 data inputs ; 6                           ;
-;         2 data inputs ; 24                          ;
+;         2 data inputs ; 25                          ;
 ;         3 data inputs ; 5                           ;
-;         4 data inputs ; 67                          ;
+;         4 data inputs ; 68                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 8.00                        ;
-; Average LUT depth     ; 2.76                        ;
+; Max LUT depth         ; 9.00                        ;
+; Average LUT depth     ; 3.03                        ;
 +-----------------------+-----------------------------+
 
 
@@ -377,7 +388,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Fri Feb 17 16:21:25 2023
+    Info: Processing started: Fri Feb 17 16:58:09 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off lab-4-8-bit-mulitplier -c lab-4-8-bit-mulitplier
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -403,26 +414,27 @@ Info (12021): Found 1 design units, including 1 entities, in source file hexdriv
 Info (12021): Found 1 design units, including 1 entities, in source file full_adder.sv
     Info (12023): Found entity 1: full_adder File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/full_adder.sv Line: 1
 Info (12127): Elaborating entity "Processor" for the top level hierarchy
-Info (12128): Elaborating entity "sync" for hierarchy "sync:syncForRun" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 11
-Info (12128): Elaborating entity "control" for hierarchy "control:fsm" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 17
-Info (12128): Elaborating entity "reg_8" for hierarchy "reg_8:RegA" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 21
-Info (12128): Elaborating entity "reg_1" for hierarchy "reg_1:RegX" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 27
-Info (12128): Elaborating entity "ripple_adder_9" for hierarchy "ripple_adder_9:adder" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 29
+Info (12128): Elaborating entity "sync" for hierarchy "sync:syncForRun" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 12
+Info (12128): Elaborating entity "control" for hierarchy "control:fsm" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 18
+Info (12128): Elaborating entity "reg_8" for hierarchy "reg_8:RegA" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 22
+Info (12128): Elaborating entity "reg_1" for hierarchy "reg_1:RegX" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 28
+Info (12128): Elaborating entity "ripple_adder_9" for hierarchy "ripple_adder_9:adder" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 30
 Info (12128): Elaborating entity "full_adder" for hierarchy "ripple_adder_9:adder|full_adder:FA0" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/ripple_adder_9.sv Line: 24
-Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:HexAU" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 38
+Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:HexAU" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv Line: 39
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 5 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/output_files/lab-4-8-bit-mulitplier.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 162 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 164 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 11 input pins
     Info (21059): Implemented 45 output pins
-    Info (21061): Implemented 106 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info (21061): Implemented 108 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
     Info: Peak virtual memory: 4767 megabytes
-    Info: Processing ended: Fri Feb 17 16:21:42 2023
-    Info: Elapsed time: 00:00:17
+    Info: Processing ended: Fri Feb 17 16:58:24 2023
+    Info: Elapsed time: 00:00:15
     Info: Total CPU time (on all processors): 00:00:15
 
 

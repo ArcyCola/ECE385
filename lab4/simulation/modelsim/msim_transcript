@@ -12,27 +12,27 @@
 # 
 # vlog -sv -work work +incdir+C:/Users/arcy\ cruz/OneDrive/Documents/ECE385/lab4 {C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/control.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 16:23:11 on Feb 17,2023
+# Start time: 16:44:11 on Feb 17,2023
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4" C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/control.sv 
 # -- Compiling module control
 # 
 # Top level modules:
 # 	control
-# End time: 16:23:11 on Feb 17,2023, Elapsed time: 0:00:00
+# End time: 16:44:12 on Feb 17,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/arcy\ cruz/OneDrive/Documents/ECE385/lab4 {C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/ripple_adder_9.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 16:23:11 on Feb 17,2023
+# Start time: 16:44:12 on Feb 17,2023
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4" C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/ripple_adder_9.sv 
 # -- Compiling module ripple_adder_9
 # 
 # Top level modules:
 # 	ripple_adder_9
-# End time: 16:23:11 on Feb 17,2023, Elapsed time: 0:00:00
+# End time: 16:44:12 on Feb 17,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/arcy\ cruz/OneDrive/Documents/ECE385/lab4 {C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 16:23:11 on Feb 17,2023
+# Start time: 16:44:12 on Feb 17,2023
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4" C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv 
 # -- Compiling module reg_8
 # -- Compiling module reg_1
@@ -40,11 +40,11 @@
 # Top level modules:
 # 	reg_8
 # 	reg_1
-# End time: 16:23:11 on Feb 17,2023, Elapsed time: 0:00:00
+# End time: 16:44:12 on Feb 17,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/arcy\ cruz/OneDrive/Documents/ECE385/lab4 {C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Synchronizers.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 16:23:11 on Feb 17,2023
+# Start time: 16:44:12 on Feb 17,2023
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4" C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Synchronizers.sv 
 # -- Compiling module sync
 # -- Compiling module sync_r0
@@ -54,53 +54,53 @@
 # 	sync
 # 	sync_r0
 # 	sync_r1
-# End time: 16:23:11 on Feb 17,2023, Elapsed time: 0:00:00
+# End time: 16:44:12 on Feb 17,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/arcy\ cruz/OneDrive/Documents/ECE385/lab4 {C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/HexDriver.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 16:23:12 on Feb 17,2023
+# Start time: 16:44:12 on Feb 17,2023
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4" C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/HexDriver.sv 
 # -- Compiling module HexDriver
 # 
 # Top level modules:
 # 	HexDriver
-# End time: 16:23:12 on Feb 17,2023, Elapsed time: 0:00:00
+# End time: 16:44:12 on Feb 17,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/arcy\ cruz/OneDrive/Documents/ECE385/lab4 {C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/full_adder.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 16:23:12 on Feb 17,2023
+# Start time: 16:44:12 on Feb 17,2023
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4" C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/full_adder.sv 
 # -- Compiling module full_adder
 # 
 # Top level modules:
 # 	full_adder
-# End time: 16:23:12 on Feb 17,2023, Elapsed time: 0:00:00
+# End time: 16:44:12 on Feb 17,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/arcy\ cruz/OneDrive/Documents/ECE385/lab4 {C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 16:23:12 on Feb 17,2023
+# Start time: 16:44:12 on Feb 17,2023
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4" C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv 
 # -- Compiling module Processor
 # 
 # Top level modules:
 # 	Processor
-# End time: 16:23:12 on Feb 17,2023, Elapsed time: 0:00:00
+# End time: 16:44:12 on Feb 17,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlog -sv -work work +incdir+C:/Users/arcy\ cruz/OneDrive/Documents/ECE385/lab4 {C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/testbench.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 16:23:12 on Feb 17,2023
+# Start time: 16:44:13 on Feb 17,2023
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4" C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/testbench.sv 
 # -- Compiling module testbench
 # 
 # Top level modules:
 # 	testbench
-# End time: 16:23:12 on Feb 17,2023, Elapsed time: 0:00:00
+# End time: 16:44:13 on Feb 17,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L fiftyfivenm_ver -L rtl_work -L work -voptargs="+acc"  testbench
 # vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L fiftyfivenm_ver -L rtl_work -L work -voptargs=""+acc"" testbench 
-# Start time: 16:23:12 on Feb 17,2023
+# Start time: 16:44:13 on Feb 17,2023
 # Loading sv_std.std
 # Loading work.testbench
 # Loading work.Processor
@@ -111,6 +111,10 @@
 # Loading work.ripple_adder_9
 # Loading work.full_adder
 # Loading work.HexDriver
+# ** Warning: (vsim-3015) C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv(20): [PCDPC] - Port size (8) does not match connection size (9) for port 'D'. The port definition is at: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv(2).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/processor0/RegA File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv
+# ** Warning: (vsim-3015) C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv(26): [PCDPC] - Port size (1) does not match connection size (8) for port 'D'. The port definition is at: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv(23).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/processor0/RegX File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/reg_8.sv
 # 
 # add wave *
 # view structure
@@ -118,7 +122,7 @@
 # view signals
 # .main_pane.objects.interior.cs.body.tree
 # run -all
-# ** Warning: (vsim-8315) C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv(32): No condition is true in the unique/priority if/case statement.
+# ** Warning: (vsim-8315) C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv(33): No condition is true in the unique/priority if/case statement.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench/processor0
 # ** Warning: (vsim-8315) C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/ripple_adder_9.sv(18): No condition is true in the unique/priority if/case statement.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench/processor0/adder
@@ -126,5 +130,9 @@
 #    Time: 0 ps  Iteration: 0  Instance: /testbench/processor0/fsm
 # ** Warning: (vsim-8315) C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/control.sv(21): No condition is true in the unique/priority if/case statement.
 #    Time: 10 ns  Iteration: 2  Instance: /testbench/processor0/fsm
-# ** Warning: (vsim-8315) C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv(32): No condition is true in the unique/priority if/case statement.
+# ** Warning: (vsim-8315) C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab4/Processor.sv(33): No condition is true in the unique/priority if/case statement.
 #    Time: 130 ns  Iteration: 2  Instance: /testbench/processor0
+# Break key hit
+# Simulation stop requested.
+# End time: 16:53:56 on Feb 17,2023, Elapsed time: 0:09:43
+# Errors: 0, Warnings: 7
