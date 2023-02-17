@@ -5,7 +5,7 @@ module Processor (  input logic [7:0] SW,
                     output logic Xval       );
 
 logic syncRun, syncReset, Clear, LoadA, LoadB, Shift, fn, X_in, LSB_A, M;
-logic [7:0] A_in, SW_s;
+logic [7:0] A_in, SW_s, Mux;
 
 //Synchronizers for buttons and switches
 sync syncForRun(.Clk(Clk), .d(Run), .q(syncRun));
@@ -14,7 +14,7 @@ sync syncForSwtiches[7:0] (.Clk(Clk), .d(SW), .q(SW_s));
 
 //top level unit for this lab
 control         fsm(.Clk(Clk), .Run(syncRun), .Reset_Load_Clear(syncReset),
-                    .M(), .Clear, .LoadA, .LoadB, .Shift, .fn); 
+                    .M(Bval[0]), .Clear, .LoadA, .LoadB, .Shift, .fn); 
 
 reg_8           RegA(.Clk(Clk), .Reset(Clear), .Load(LoadA), 
                     .Shift_En(Shift), .Shift_In(Xval), .D(A_in),
@@ -26,7 +26,14 @@ reg_1           RegX(.Clk(Clk), .Reset(Clear), .Load(LoadA),
                     .Shift_En(Shift), .Shift_In(A_in[7]),
                     .D(A_in[7]), .Data(Xval));
 
-ripple_adder_9  adder(.A(Aval), .B(SW_s), .fn(fn), .cin(fn), .S(A_in));
+ripple_adder_9  adder(.A(Aval), .B(Mux), .fn(fn), .cin(fn), .S(A_in));
+always_comb
+begin
+	unique case(Bval[0])
+		1'b0	:	Mux <= 8'b00000000;
+		1'b1	:	Mux <= SW_s;
+endcase
+end
 
 HexDriver       HexAU(.In0(Aval[7:4]), .Out0(HEX3));
 HexDriver       HexAL(.In0(Aval[3:0]), .Out0(HEX2));

@@ -44,14 +44,14 @@ Reset_Load_Clear = 1;
 
 #2 Reset_Load_Clear = 0;
  
-#10 SW = 8'd7;
+#10 SW = 8'b11000101;
 
 #2 Reset_Load_Clear = 1; 
 
 #10 Reset_Load_Clear = 0; 
 
 
-#2 SW = 8'd59; 
+#2 SW = 8'd7; 
 
 #10 Run = 1; 
    

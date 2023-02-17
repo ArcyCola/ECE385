@@ -1,5 +1,5 @@
 Analysis & Synthesis report for lab-4-8-bit-mulitplier
-Thu Feb 16 18:59:56 2023
+Thu Feb 16 21:09:31 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -19,11 +19,10 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
  11. Multiplexer Restructuring Statistics (Restructuring Performed)
  12. Port Connectivity Checks: "ripple_adder_9:adder|full_adder:FA7"
  13. Port Connectivity Checks: "reg_8:RegB"
- 14. Port Connectivity Checks: "control:fsm"
- 15. Post-Synthesis Netlist Statistics for Top Partition
- 16. Elapsed Time Per Partition
- 17. Analysis & Synthesis Messages
- 18. Analysis & Synthesis Suppressed Messages
+ 14. Post-Synthesis Netlist Statistics for Top Partition
+ 15. Elapsed Time Per Partition
+ 16. Analysis & Synthesis Messages
+ 17. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -49,13 +48,13 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Thu Feb 16 18:59:55 2023       ;
+; Analysis & Synthesis Status        ; Successful - Thu Feb 16 21:09:31 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; lab-4-8-bit-mulitplier                      ;
 ; Top-level Entity Name              ; Processor                                   ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 98                                          ;
-;     Total combinational functions  ; 87                                          ;
+; Total logic elements               ; 106                                         ;
+;     Total combinational functions  ; 95                                          ;
 ;     Dedicated logic registers      ; 46                                          ;
 ; Total registers                    ; 46                                          ;
 ; Total pins                         ; 56                                          ;
@@ -191,16 +190,16 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 98        ;
+; Estimated Total logic elements              ; 106       ;
 ;                                             ;           ;
-; Total combinational functions               ; 87        ;
+; Total combinational functions               ; 95        ;
 ; Logic element usage by number of LUT inputs ;           ;
-;     -- 4 input functions                    ; 59        ;
-;     -- 3 input functions                    ; 7         ;
-;     -- <=2 input functions                  ; 21        ;
+;     -- 4 input functions                    ; 66        ;
+;     -- 3 input functions                    ; 5         ;
+;     -- <=2 input functions                  ; 24        ;
 ;                                             ;           ;
 ; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 87        ;
+;     -- normal mode                          ; 95        ;
 ;     -- arithmetic mode                      ; 0         ;
 ;                                             ;           ;
 ; Total registers                             ; 46        ;
@@ -213,8 +212,8 @@ refer to the applicable agreement for further details.
 ;                                             ;           ;
 ; Maximum fan-out node                        ; Clk~input ;
 ; Maximum fan-out                             ; 46        ;
-; Total fan-out                               ; 509       ;
-; Average fan-out                             ; 2.08      ;
+; Total fan-out                               ; 537       ;
+; Average fan-out                             ; 2.12      ;
 +---------------------------------------------+-----------+
 
 
@@ -223,23 +222,24 @@ refer to the applicable agreement for further details.
 +------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------+----------------+--------------+
 ; Compilation Hierarchy Node   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                            ; Entity Name    ; Library Name ;
 +------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------+----------------+--------------+
-; |Processor                   ; 87 (0)              ; 46 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 56   ; 0            ; 0          ; |Processor                                     ; Processor      ; work         ;
+; |Processor                   ; 95 (6)              ; 46 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 56   ; 0            ; 0          ; |Processor                                     ; Processor      ; work         ;
 ;    |HexDriver:HexAL|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|HexDriver:HexAL                     ; HexDriver      ; work         ;
 ;    |HexDriver:HexAU|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|HexDriver:HexAU                     ; HexDriver      ; work         ;
 ;    |HexDriver:HexBL|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|HexDriver:HexBL                     ; HexDriver      ; work         ;
 ;    |HexDriver:HexBU|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|HexDriver:HexBU                     ; HexDriver      ; work         ;
-;    |control:fsm|             ; 25 (25)             ; 19 (19)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|control:fsm                         ; control        ; work         ;
+;    |control:fsm|             ; 26 (26)             ; 19 (19)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|control:fsm                         ; control        ; work         ;
 ;    |reg_1:RegX|              ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|reg_1:RegX                          ; reg_1          ; work         ;
-;    |reg_8:RegA|              ; 12 (12)             ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|reg_8:RegA                          ; reg_8          ; work         ;
+;    |reg_8:RegA|              ; 11 (11)             ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|reg_8:RegA                          ; reg_8          ; work         ;
 ;    |reg_8:RegB|              ; 9 (9)               ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|reg_8:RegB                          ; reg_8          ; work         ;
-;    |ripple_adder_9:adder|    ; 13 (0)              ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder                ; ripple_adder_9 ; work         ;
-;       |full_adder:FA0|       ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA0 ; full_adder     ; work         ;
+;    |ripple_adder_9:adder|    ; 15 (0)              ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder                ; ripple_adder_9 ; work         ;
+;       |full_adder:FA0|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA0 ; full_adder     ; work         ;
 ;       |full_adder:FA1|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA1 ; full_adder     ; work         ;
 ;       |full_adder:FA2|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA2 ; full_adder     ; work         ;
-;       |full_adder:FA3|       ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA3 ; full_adder     ; work         ;
-;       |full_adder:FA4|       ; 3 (3)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA4 ; full_adder     ; work         ;
+;       |full_adder:FA3|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA3 ; full_adder     ; work         ;
+;       |full_adder:FA4|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA4 ; full_adder     ; work         ;
 ;       |full_adder:FA5|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA5 ; full_adder     ; work         ;
-;       |full_adder:FA7|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA7 ; full_adder     ; work         ;
+;       |full_adder:FA6|       ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA6 ; full_adder     ; work         ;
+;       |full_adder:FA7|       ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|ripple_adder_9:adder|full_adder:FA7 ; full_adder     ; work         ;
 ;    |sync:syncForReset|       ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|sync:syncForReset                   ; sync           ; work         ;
 ;    |sync:syncForRun|         ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|sync:syncForRun                     ; sync           ; work         ;
 ;    |sync:syncForSwtiches[0]| ; 0 (0)               ; 1 (1)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |Processor|sync:syncForSwtiches[0]             ; sync           ; work         ;
@@ -316,8 +316,8 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output        ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |Processor|reg_8:RegB|Data_Out[4] ;
-; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Processor|reg_8:RegA|Data_Out[5] ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |Processor|reg_8:RegB|Data_Out[0] ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Processor|reg_8:RegA|Data_Out[4] ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
 
 
@@ -340,15 +340,6 @@ Encoding Type:  One-Hot
 +-----------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+--------------------------------------------------+
-; Port Connectivity Checks: "control:fsm"          ;
-+------+-------+----------+------------------------+
-; Port ; Type  ; Severity ; Details                ;
-+------+-------+----------+------------------------+
-; M    ; Input ; Info     ; Explicitly unconnected ;
-+------+-------+----------+------------------------+
-
-
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
@@ -359,15 +350,15 @@ Encoding Type:  One-Hot
 ;     ENA               ; 16                          ;
 ;     SCLR              ; 1                           ;
 ;     plain             ; 29                          ;
-; cycloneiii_lcell_comb ; 91                          ;
-;     normal            ; 91                          ;
+; cycloneiii_lcell_comb ; 99                          ;
+;     normal            ; 99                          ;
 ;         1 data inputs ; 4                           ;
-;         2 data inputs ; 21                          ;
-;         3 data inputs ; 7                           ;
-;         4 data inputs ; 59                          ;
+;         2 data inputs ; 24                          ;
+;         3 data inputs ; 5                           ;
+;         4 data inputs ; 66                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 6.00                        ;
-; Average LUT depth     ; 2.30                        ;
+; Max LUT depth         ; 8.00                        ;
+; Average LUT depth     ; 2.77                        ;
 +-----------------------+-----------------------------+
 
 
@@ -376,7 +367,7 @@ Encoding Type:  One-Hot
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:01     ;
 +----------------+--------------+
 
 
@@ -386,7 +377,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Thu Feb 16 18:59:39 2023
+    Info: Processing started: Thu Feb 16 21:09:11 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off lab-4-8-bit-mulitplier -c lab-4-8-bit-mulitplier
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -418,21 +409,21 @@ Info (12128): Elaborating entity "reg_8" for hierarchy "reg_8:RegA" File: C:/Use
 Info (12128): Elaborating entity "reg_1" for hierarchy "reg_1:RegX" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 27
 Info (12128): Elaborating entity "ripple_adder_9" for hierarchy "ripple_adder_9:adder" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 29
 Info (12128): Elaborating entity "full_adder" for hierarchy "ripple_adder_9:adder|full_adder:FA0" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/ripple_adder_9.sv Line: 24
-Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:HexAU" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 31
+Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:HexAU" File: C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/Processor.sv Line: 38
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 5 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Users/eemil/OneDrive/Documents/GitHub/ECE385/lab4/output_files/lab-4-8-bit-mulitplier.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 155 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 163 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 11 input pins
     Info (21059): Implemented 45 output pins
-    Info (21061): Implemented 99 logic cells
+    Info (21061): Implemented 107 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4741 megabytes
-    Info: Processing ended: Thu Feb 16 18:59:56 2023
-    Info: Elapsed time: 00:00:17
-    Info: Total CPU time (on all processors): 00:00:33
+    Info: Peak virtual memory: 4743 megabytes
+    Info: Processing ended: Thu Feb 16 21:09:31 2023
+    Info: Elapsed time: 00:00:20
+    Info: Total CPU time (on all processors): 00:00:39
 
 
 +------------------------------------------+

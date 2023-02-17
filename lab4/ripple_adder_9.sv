@@ -16,7 +16,7 @@ module ripple_adder_9
 	always_comb
 	begin 
 		unique case (fn)
-			1'b1 : B_fn = B ^ fn; //fn = 1
+			1'b1 : B_fn = B ^ {8{fn}}; //fn = 1
 			1'b0 : B_fn = B; //for fn = 0
 		endcase
 	end 
