@@ -7,22 +7,22 @@ timeprecision 1ns;
 // These signals are internal because the processor will be 
 // instantiated as a submodule in testbench.
 logic Clk = 0;
-logic [7:0] SW;
-logic Reset_Load_Clear, Run;
-logic [6:0]  HEX0, HEX1, HEX2, HEX3;
-logic [7:0] Aval, Bval;
-logic Xval;
+logic [9:0] SW;
+logic Reset_Clear, Run_Accumulate;
+logic [6:0]  HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
+
 
 // To store expected results
 
-				
+logic [16:0] In, Out;
+
 // A counter to count the instances where simulation results
 // do no match with expected results
 integer ErrorCnt = 0;
 		
 // Instantiating the DUT
 // Make sure the module and signal names match with those in your design
-Processor processor0(.*);	
+adder_toplevel processor0(.*);	
 
 // Toggle the clock
 // #1 means wait for a delay of 1 timeunit
