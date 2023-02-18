@@ -52,7 +52,7 @@ module adder_toplevel  (input Clk, Reset_Clear, Run_Accumulate,
 
 
 		// Hex units that display contents of SW and register R in hex
-		HexDriver		AHex0 (
+		HexDriver		AHex0 (						//hex0 and hex1 are SW, plus the two LEDS
 								.In0(SW[3:0]),
 								.Out0(HEX0) );
 								

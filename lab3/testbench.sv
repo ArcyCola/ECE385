@@ -9,12 +9,11 @@ timeprecision 1ns;
 logic Clk = 0;
 logic [9:0] SW;
 logic Reset_Clear, Run_Accumulate;
+logic [9:0] LED;
 logic [6:0]  HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
 
 
 // To store expected results
-
-logic [16:0] In, Out;
 
 // A counter to count the instances where simulation results
 // do no match with expected results
@@ -40,93 +39,18 @@ end
 // as in a software program
 initial begin: TEST_VECTORS
 // testing 7 * (-59) = -413
-Run = 1; 
-Reset_Load_Clear = 0; 
+Run_Accumulate = 1; 
+Reset_Clear = 0; 
 
-#2 Reset_Load_Clear = 1;
+#2 Reset_Clear = 1;
  
-#10 SW = 8'b11000101;	// b = -59
+#10 SW = 10'b11000101;	//
 
-#2 Reset_Load_Clear = 0; 
-
-#10 Reset_Load_Clear = 1; 
-
-#2 SW = 8'd7; 	// Switches = 7
-
-#10 Run = 0; 
+#10 Run_Accumulate = 0; 
    
 	
-// testing -7 * 59 = -413
-#200 Run = 1;
+#100 Run_Accumulate = 1;
 
-#2 Reset_Load_Clear = 0; 
-
-#2 Reset_Load_Clear = 1;
- 
-#10 SW = 8'b00111011;		// b = 59
-
-#2 Reset_Load_Clear = 0; 
-
-#10 Reset_Load_Clear = 1; 
-
-#2 SW = 8'b11111001; 		// switches = -7
-
-#10 Run = 0; 
-
-
-// testing 7*59 = 413
-
-#200 Run = 1;
-
-#2 Reset_Load_Clear = 0; 
-
-#2 Reset_Load_Clear = 1;
- 
-#10 SW = 8'b00111011;		// b = 59
-
-#2 Reset_Load_Clear = 0; 
-
-#10 Reset_Load_Clear = 1; 
-
-#2 SW = 8'd7; 		// switches = 7
-
-#50 Run = 0; 
-
-
-// testing -7 * -59
-
-#200 Run = 1;
-
-#2 Reset_Load_Clear = 0; 
-
-#2 Reset_Load_Clear = 1;
- 
-#10 SW = 8'b11000101;		// b = -59
-
-#2 Reset_Load_Clear = 0; 
-
-#10 Reset_Load_Clear = 1; 
-
-#2 SW = 8'b11111001; 		// switches = -7
-
-#50 Run = 0; 
-
-
-//test H74 * H74
-#200 Run = 1;
-
-#2 Reset_Load_Clear = 0; 
-
-#2 Reset_Load_Clear = 1;
- 
-#10 SW = 8'b01110100;		// b = H74
-
-#2 Reset_Load_Clear = 0; 
-
-#10 Reset_Load_Clear = 1; 
-
-
-#50 Run = 0; 
-
+#10 Run_Accumulate = 0; //add again
 end
 endmodule
