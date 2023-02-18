@@ -38,19 +38,18 @@ end
 // Everything happens sequentially inside an initial block
 // as in a software program
 initial begin: TEST_VECTORS
-// testing 7 * (-59) = -413
 Run_Accumulate = 1; 
 Reset_Clear = 0; 
 
 #2 Reset_Clear = 1;
  
-#10 SW = 10'b11000101;	//
+#10 SW = 10'b0110000001; //385
 
 #10 Run_Accumulate = 0; 
    
 	
 #100 Run_Accumulate = 1;
 
-#10 Run_Accumulate = 0; //add again
+#10 Run_Accumulate = 0; //add 385 again
 end
 endmodule
