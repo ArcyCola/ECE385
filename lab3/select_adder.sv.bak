@@ -18,8 +18,8 @@ endmodule
 module select_adder (
 	input  [15:0] A, B,
 	input         cin,
-	output logic [15:0] S,
-	output        logic cout
+	output [15:0] S,
+	output        cout
 );
 
     /* TODO

@@ -1,5 +1,5 @@
 Assembler report for lab-3-16-bit-adder
-Sat Feb 18 17:35:59 2023
+Sat Feb 18 23:36:39 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -37,7 +37,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Sat Feb 18 17:35:59 2023 ;
+; Assembler Status      ; Successful - Sat Feb 18 23:36:39 2023 ;
 ; Revision Name         ; lab-3-16-bit-adder                    ;
 ; Top-level Entity Name ; adder_toplevel                        ;
 ; Family                ; MAX 10                                ;
@@ -66,8 +66,8 @@ refer to the applicable agreement for further details.
 +----------------+------------------------------------------------------------------------------------------------+
 ; Option         ; Setting                                                                                        ;
 +----------------+------------------------------------------------------------------------------------------------+
-; JTAG usercode  ; 0x0027FDC6                                                                                     ;
-; Checksum       ; 0x0027FDC6                                                                                     ;
+; JTAG usercode  ; 0x00283C1B                                                                                     ;
+; Checksum       ; 0x00283C1B                                                                                     ;
 +----------------+------------------------------------------------------------------------------------------------+
 
 
@@ -77,14 +77,14 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Feb 18 17:35:55 2023
+    Info: Processing started: Sat Feb 18 23:36:35 2023
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off lab-3-16-bit-adder -c lab-3-16-bit-adder
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4682 megabytes
-    Info: Processing ended: Sat Feb 18 17:35:59 2023
+    Info: Peak virtual memory: 4686 megabytes
+    Info: Processing ended: Sat Feb 18 23:36:39 2023
     Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:03
 

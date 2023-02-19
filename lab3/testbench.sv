@@ -10,6 +10,7 @@ logic Clk = 0;
 logic [9:0] SW, LED;
 logic Reset_Clear, Run_Accumulate;
 logic [6:0]  HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
+logic [16:0] S, Out;
 
 
 // To store expected results
@@ -37,18 +38,29 @@ end
 // Everything happens sequentially inside an initial block
 // as in a software program
 initial begin: TEST_VECTORS
-Run_Accumulate = 1; //technically off because buttons are active low
-Reset_Clear = 0; 
+Run_Accumulate = 0; //technically off because buttons are active low
+Reset_Clear = 1; 
 
+#2 Reset_Clear = 0;
 #2 Reset_Clear = 1;
- 
-#10 SW = 10'b0110000001; //385
 
-#10 Run_Accumulate = 0; 
+#2 SW = 10'b0110000001; //385
+
+#2 Run_Accumulate = 1;
+
+#2 Run_Accumulate = 0;
+
+#5 Run_Accumulate = 1; 
+
+#5 Run_Accumulate = 0;
+
+#5 Run_Accumulate = 1; //add 385 again
+ 
+
    
 	
-#100 Run_Accumulate = 1;
+//#100 Run_Accumulate = 1;
 
-#10 Run_Accumulate = 0; //add 385 again
+//#10 Run_Accumulate = 0; //add 385 again
 end
 endmodule

@@ -16,6 +16,142 @@
 					"strict" : false
 				},
 				{
+					"name" : "S[0]",
+					"strict" : false
+				},
+				{
+					"name" : "S[1]",
+					"strict" : false
+				},
+				{
+					"name" : "S[2]",
+					"strict" : false
+				},
+				{
+					"name" : "S[3]",
+					"strict" : false
+				},
+				{
+					"name" : "S[4]",
+					"strict" : false
+				},
+				{
+					"name" : "S[5]",
+					"strict" : false
+				},
+				{
+					"name" : "S[6]",
+					"strict" : false
+				},
+				{
+					"name" : "S[7]",
+					"strict" : false
+				},
+				{
+					"name" : "S[8]",
+					"strict" : false
+				},
+				{
+					"name" : "S[9]",
+					"strict" : false
+				},
+				{
+					"name" : "S[10]",
+					"strict" : false
+				},
+				{
+					"name" : "S[11]",
+					"strict" : false
+				},
+				{
+					"name" : "S[12]",
+					"strict" : false
+				},
+				{
+					"name" : "S[13]",
+					"strict" : false
+				},
+				{
+					"name" : "S[14]",
+					"strict" : false
+				},
+				{
+					"name" : "S[15]",
+					"strict" : false
+				},
+				{
+					"name" : "S[16]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[0]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[1]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[2]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[3]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[4]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[5]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[6]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[7]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[8]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[9]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[10]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[11]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[12]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[13]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[14]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[15]",
+					"strict" : false
+				},
+				{
+					"name" : "Out[16]",
+					"strict" : false
+				},
+				{
 					"name" : "HEX0[0]",
 					"strict" : false
 				},
@@ -224,11 +360,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "Clk",
+					"name" : "Reset_Clear",
 					"strict" : false
 				},
 				{
-					"name" : "Reset_Clear",
+					"name" : "Clk",
 					"strict" : false
 				},
 				{

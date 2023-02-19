@@ -8,6 +8,7 @@
 module adder_toplevel  (input Clk, Reset_Clear, Run_Accumulate, 
 						input [9:0]			SW,
 						output logic [9:0]	LED,
+						output logic [16:0]	S, Out,
 						output logic [6:0]	HEX0, 
 											HEX1, 
 											HEX2, 
@@ -19,8 +20,8 @@ module adder_toplevel  (input Clk, Reset_Clear, Run_Accumulate,
 		// Declare temporary values used by other modules
 		logic Reset_h, Run_h;
 		logic Load;
-		logic [16:0] In, Out;
-		logic [16:0] S;
+		logic [16:0] In;
+		//logic [16:0] S;
 		logic [16:0] extended_SW;
 		
 		assign extended_SW = {6'b000000, SW};
@@ -44,11 +45,11 @@ module adder_toplevel  (input Clk, Reset_Clear, Run_Accumulate,
 
 		// Addition unit
 
-		//ripple_adder adder		(.A(extended_SW[15:0]), .B(Out[15:0]), .cin(1'b0), .cout(S[16]), .S(S[15:0]) );
+		ripple_adder adder		(.A(extended_SW[15:0]), .B(Out[15:0]), .cin(1'b0), .cout(S[16]), .S(S[15:0]) );
 		
 		//lookahead_adder adderla	(.A(extended_SW[15:0]), .B(Out[15:0]), .cin(1'b0), .cout(S[16]), .S(S[15:0]) );
 		
-		select_adder adders	(.A(extended_SW[15:0]), .B(Out[15:0]), .cin(1'b0), .cout(S[16]), .S(S[15:0]) );
+		//select_adder adders	(.A(extended_SW[15:0]), .B(Out[15:0]), .cin(1'b0), .cout(S[16]), .S(S[15:0]) );
 
 
 		// Hex units that display contents of SW and register R in hex
