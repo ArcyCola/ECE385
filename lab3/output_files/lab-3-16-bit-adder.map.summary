@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Sat Feb 18 23:36:15 2023
+Analysis & Synthesis Status : Successful - Sun Feb 19 01:25:20 2023
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : lab-3-16-bit-adder
 Top-level Entity Name : adder_toplevel
 Family : MAX 10
-Total logic elements : 95
-    Total combinational functions : 95
+Total logic elements : 104
+    Total combinational functions : 104
     Dedicated logic registers : 20
 Total registers : 20
 Total pins : 99

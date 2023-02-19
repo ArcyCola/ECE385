@@ -1,5 +1,5 @@
 Flow report for lab-3-16-bit-adder
-Sat Feb 18 23:36:47 2023
+Sun Feb 19 01:25:46 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,15 +40,15 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sat Feb 18 23:36:47 2023       ;
+; Flow Status                        ; Successful - Sun Feb 19 01:25:46 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; lab-3-16-bit-adder                          ;
 ; Top-level Entity Name              ; adder_toplevel                              ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 96 / 49,760 ( < 1 % )                       ;
-;     Total combinational functions  ; 96 / 49,760 ( < 1 % )                       ;
+; Total logic elements               ; 105 / 49,760 ( < 1 % )                      ;
+;     Total combinational functions  ; 105 / 49,760 ( < 1 % )                      ;
 ;     Dedicated logic registers      ; 20 / 49,760 ( < 1 % )                       ;
 ; Total registers                    ; 20                                          ;
 ; Total pins                         ; 99 / 360 ( 28 % )                           ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 02/18/2023 23:36:00 ;
+; Start date & time ; 02/19/2023 01:25:05 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; lab-3-16-bit-adder  ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------+----------------------------------------+--------------------+----------------+----------------+
 ; Assignment Name                      ; Value                                  ; Default Value      ; Entity Name    ; Section Id     ;
 +--------------------------------------+----------------------------------------+--------------------+----------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 220128052722595.167678495920772        ; --                 ; --             ; --             ;
+; COMPILER_SIGNATURE_ID                ; 220128052722595.167679150410032        ; --                 ; --             ; --             ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --                 ; --             ; testbench      ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; testbench                              ; --                 ; --             ; eda_simulation ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Systemverilog Hdl                      ; --                 ; --             ; eda_simulation ;
@@ -88,12 +88,14 @@ refer to the applicable agreement for further details.
 ; EDA_TEST_BENCH_NAME                  ; testbench                              ; --                 ; --             ; eda_simulation ;
 ; EDA_TEST_BENCH_RUN_SIM_FOR           ; 1000 ns                                ; --                 ; --             ; testbench      ;
 ; EDA_TIME_SCALE                       ; 1 ns                                   ; --                 ; --             ; eda_simulation ;
+; FLOW_ENABLE_POWER_ANALYZER           ; On                                     ; Off                ; --             ; --             ;
 ; MAX_CORE_JUNCTION_TEMP               ; 85                                     ; --                 ; --             ; --             ;
 ; MIN_CORE_JUNCTION_TEMP               ; 0                                      ; --                 ; --             ; --             ;
 ; PARTITION_COLOR                      ; -- (Not supported for targeted family) ; --                 ; adder_toplevel ; Top            ;
 ; PARTITION_FITTER_PRESERVATION_LEVEL  ; -- (Not supported for targeted family) ; --                 ; adder_toplevel ; Top            ;
 ; PARTITION_NETLIST_TYPE               ; -- (Not supported for targeted family) ; --                 ; adder_toplevel ; Top            ;
 ; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                    ; --                 ; --             ; --             ;
+; POWER_DEFAULT_INPUT_IO_TOGGLE_RATE   ; 12.5 %                                 ; 12.5%              ; --             ; --             ;
 ; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --                 ; --             ; --             ;
 ; PROJECT_OUTPUT_DIRECTORY             ; output_files                           ; --                 ; --             ; --             ;
 ; TOP_LEVEL_ENTITY                     ; adder_toplevel                         ; lab-3-16-bit-adder ; --             ; --             ;
@@ -105,12 +107,13 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:16     ; 1.0                     ; 4766 MB             ; 00:00:08                           ;
-; Fitter               ; 00:00:17     ; 1.0                     ; 5637 MB             ; 00:00:09                           ;
-; Assembler            ; 00:00:04     ; 1.0                     ; 4686 MB             ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:04     ; 1.1                     ; 4821 MB             ; 00:00:02                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4647 MB             ; 00:00:01                           ;
-; Total                ; 00:00:42     ; --                      ; --                  ; 00:00:23                           ;
+; Analysis & Synthesis ; 00:00:16     ; 1.0                     ; 4767 MB             ; 00:00:09                           ;
+; Fitter               ; 00:00:12     ; 1.0                     ; 5636 MB             ; 00:00:08                           ;
+; Assembler            ; 00:00:03     ; 1.0                     ; 4680 MB             ; 00:00:02                           ;
+; Power Analyzer       ; 00:00:02     ; 1.0                     ; 4859 MB             ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:03     ; 1.1                     ; 4822 MB             ; 00:00:02                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4645 MB             ; 00:00:01                           ;
+; Total                ; 00:00:37     ; --                      ; --                  ; 00:00:24                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -122,6 +125,7 @@ refer to the applicable agreement for further details.
 ; Analysis & Synthesis ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
 ; Fitter               ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
 ; Assembler            ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
+; Power Analyzer       ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
 ; Timing Analyzer      ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
 ; EDA Netlist Writer   ; Arcys-Surface-Laptop ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+----------------------+------------+------------+----------------+
@@ -133,6 +137,7 @@ refer to the applicable agreement for further details.
 quartus_map --read_settings_files=on --write_settings_files=off lab-3-16-bit-adder -c lab-3-16-bit-adder
 quartus_fit --read_settings_files=off --write_settings_files=off lab-3-16-bit-adder -c lab-3-16-bit-adder
 quartus_asm --read_settings_files=off --write_settings_files=off lab-3-16-bit-adder -c lab-3-16-bit-adder
+quartus_pow --read_settings_files=off --write_settings_files=off lab-3-16-bit-adder -c lab-3-16-bit-adder
 quartus_sta lab-3-16-bit-adder -c lab-3-16-bit-adder
 quartus_eda --read_settings_files=off --write_settings_files=off lab-3-16-bit-adder -c lab-3-16-bit-adder
 

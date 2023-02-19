@@ -1,5 +1,5 @@
 Analysis & Synthesis report for lab-3-16-bit-adder
-Sat Feb 18 23:36:15 2023
+Sun Feb 19 01:25:20 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -17,12 +17,18 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   9. Registers Removed During Synthesis
  10. General Register Statistics
  11. Multiplexer Restructuring Statistics (Restructuring Performed)
- 12. Port Connectivity Checks: "ripple_adder:adder"
- 13. Port Connectivity Checks: "mux2_1_17:m_mux"
- 14. Post-Synthesis Netlist Statistics for Top Partition
- 15. Elapsed Time Per Partition
- 16. Analysis & Synthesis Messages
- 17. Analysis & Synthesis Suppressed Messages
+ 12. Port Connectivity Checks: "select_adder:adders|adder4:FA15121"
+ 13. Port Connectivity Checks: "select_adder:adders|adder4:FA15120"
+ 14. Port Connectivity Checks: "select_adder:adders|adder4:FA1181"
+ 15. Port Connectivity Checks: "select_adder:adders|adder4:FA1180"
+ 16. Port Connectivity Checks: "select_adder:adders|adder4:FA741"
+ 17. Port Connectivity Checks: "select_adder:adders|adder4:FA740"
+ 18. Port Connectivity Checks: "select_adder:adders"
+ 19. Port Connectivity Checks: "mux2_1_17:m_mux"
+ 20. Post-Synthesis Netlist Statistics for Top Partition
+ 21. Elapsed Time Per Partition
+ 22. Analysis & Synthesis Messages
+ 23. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -48,13 +54,13 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Feb 18 23:36:15 2023       ;
+; Analysis & Synthesis Status        ; Successful - Sun Feb 19 01:25:20 2023       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; lab-3-16-bit-adder                          ;
 ; Top-level Entity Name              ; adder_toplevel                              ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 95                                          ;
-;     Total combinational functions  ; 95                                          ;
+; Total logic elements               ; 104                                         ;
+;     Total combinational functions  ; 104                                         ;
 ;     Dedicated logic registers      ; 20                                          ;
 ; Total registers                    ; 20                                          ;
 ; Total pins                         ; 99                                          ;
@@ -175,7 +181,7 @@ refer to the applicable agreement for further details.
 +----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                        ; Library ;
 +----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------+---------+
-; ripple_adder.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/ripple_adder.sv   ;         ;
+; select_adder.sv                  ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/select_adder.sv   ;         ;
 ; reg_17.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/reg_17.sv         ;         ;
 ; mux2_1_17.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/mux2_1_17.sv      ;         ;
 ; HexDriver.sv                     ; yes             ; User SystemVerilog HDL File  ; C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/HexDriver.sv      ;         ;
@@ -190,16 +196,16 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+-------------------+
 ; Resource                                    ; Usage             ;
 +---------------------------------------------+-------------------+
-; Estimated Total logic elements              ; 95                ;
+; Estimated Total logic elements              ; 104               ;
 ;                                             ;                   ;
-; Total combinational functions               ; 95                ;
+; Total combinational functions               ; 104               ;
 ; Logic element usage by number of LUT inputs ;                   ;
-;     -- 4 input functions                    ; 62                ;
-;     -- 3 input functions                    ; 17                ;
-;     -- <=2 input functions                  ; 16                ;
+;     -- 4 input functions                    ; 73                ;
+;     -- 3 input functions                    ; 16                ;
+;     -- <=2 input functions                  ; 15                ;
 ;                                             ;                   ;
 ; Logic elements by mode                      ;                   ;
-;     -- normal mode                          ; 95                ;
+;     -- normal mode                          ; 104               ;
 ;     -- arithmetic mode                      ; 0                 ;
 ;                                             ;                   ;
 ; Total registers                             ; 20                ;
@@ -212,43 +218,45 @@ refer to the applicable agreement for further details.
 ;                                             ;                   ;
 ; Maximum fan-out node                        ; Reset_Clear~input ;
 ; Maximum fan-out                             ; 21                ;
-; Total fan-out                               ; 569               ;
-; Average fan-out                             ; 1.82              ;
+; Total fan-out                               ; 608               ;
+; Average fan-out                             ; 1.89              ;
 +---------------------------------------------+-------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                  ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+----------------------------------------------------+----------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                ; Entity Name    ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+----------------------------------------------------+----------------+--------------+
-; |adder_toplevel            ; 95 (0)              ; 20 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 99   ; 0            ; 0          ; |adder_toplevel                                    ; adder_toplevel ; work         ;
-;    |HexDriver:AHex0|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:AHex0                    ; HexDriver      ; work         ;
-;    |HexDriver:AHex1|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:AHex1                    ; HexDriver      ; work         ;
-;    |HexDriver:BHex0|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:BHex0                    ; HexDriver      ; work         ;
-;    |HexDriver:BHex1|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:BHex1                    ; HexDriver      ; work         ;
-;    |HexDriver:BHex2|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:BHex2                    ; HexDriver      ; work         ;
-;    |HexDriver:BHex3|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:BHex3                    ; HexDriver      ; work         ;
-;    |control:run_once|      ; 3 (3)               ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|control:run_once                   ; control        ; work         ;
-;    |reg_17:reg_unit|       ; 18 (18)             ; 17 (17)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|reg_17:reg_unit                    ; reg_17         ; work         ;
-;    |ripple_adder:adder|    ; 32 (0)              ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder                 ; ripple_adder   ; work         ;
-;       |full_adder:FA0|     ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA0  ; full_adder     ; work         ;
-;       |full_adder:FA10|    ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA10 ; full_adder     ; work         ;
-;       |full_adder:FA11|    ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA11 ; full_adder     ; work         ;
-;       |full_adder:FA12|    ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA12 ; full_adder     ; work         ;
-;       |full_adder:FA13|    ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA13 ; full_adder     ; work         ;
-;       |full_adder:FA14|    ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA14 ; full_adder     ; work         ;
-;       |full_adder:FA15|    ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA15 ; full_adder     ; work         ;
-;       |full_adder:FA1|     ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA1  ; full_adder     ; work         ;
-;       |full_adder:FA2|     ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA2  ; full_adder     ; work         ;
-;       |full_adder:FA3|     ; 5 (5)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA3  ; full_adder     ; work         ;
-;       |full_adder:FA4|     ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA4  ; full_adder     ; work         ;
-;       |full_adder:FA5|     ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA5  ; full_adder     ; work         ;
-;       |full_adder:FA6|     ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA6  ; full_adder     ; work         ;
-;       |full_adder:FA7|     ; 6 (6)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA7  ; full_adder     ; work         ;
-;       |full_adder:FA8|     ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA8  ; full_adder     ; work         ;
-;       |full_adder:FA9|     ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|ripple_adder:adder|full_adder:FA9  ; full_adder     ; work         ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+----------------------------------------------------+----------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                 ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------------------------------------------------+----------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                               ; Entity Name    ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------------------------------------------------+----------------+--------------+
+; |adder_toplevel            ; 104 (0)             ; 20 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 99   ; 0            ; 0          ; |adder_toplevel                                                   ; adder_toplevel ; work         ;
+;    |HexDriver:AHex0|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:AHex0                                   ; HexDriver      ; work         ;
+;    |HexDriver:AHex1|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:AHex1                                   ; HexDriver      ; work         ;
+;    |HexDriver:BHex0|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:BHex0                                   ; HexDriver      ; work         ;
+;    |HexDriver:BHex1|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:BHex1                                   ; HexDriver      ; work         ;
+;    |HexDriver:BHex2|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:BHex2                                   ; HexDriver      ; work         ;
+;    |HexDriver:BHex3|       ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|HexDriver:BHex3                                   ; HexDriver      ; work         ;
+;    |control:run_once|      ; 3 (3)               ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|control:run_once                                  ; control        ; work         ;
+;    |reg_17:reg_unit|       ; 18 (18)             ; 17 (17)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|reg_17:reg_unit                                   ; reg_17         ; work         ;
+;    |select_adder:adders|   ; 41 (22)             ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders                               ; select_adder   ; work         ;
+;       |adder4:FA1180|      ; 1 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA1180                 ; adder4         ; work         ;
+;          |full_adder:FA1|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA1180|full_adder:FA1  ; full_adder     ; work         ;
+;       |adder4:FA1181|      ; 2 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA1181                 ; adder4         ; work         ;
+;          |full_adder:FA1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA1181|full_adder:FA1  ; full_adder     ; work         ;
+;       |adder4:FA15121|     ; 2 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA15121                ; adder4         ; work         ;
+;          |full_adder:FA2|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA15121|full_adder:FA2 ; full_adder     ; work         ;
+;       |adder4:FA30|        ; 7 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA30                   ; adder4         ; work         ;
+;          |full_adder:FA0|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA30|full_adder:FA0    ; full_adder     ; work         ;
+;          |full_adder:FA1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA30|full_adder:FA1    ; full_adder     ; work         ;
+;          |full_adder:FA2|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA30|full_adder:FA2    ; full_adder     ; work         ;
+;          |full_adder:FA3|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA30|full_adder:FA3    ; full_adder     ; work         ;
+;       |adder4:FA740|       ; 2 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA740                  ; adder4         ; work         ;
+;          |full_adder:FA1|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA740|full_adder:FA1   ; full_adder     ; work         ;
+;          |full_adder:FA2|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA740|full_adder:FA2   ; full_adder     ; work         ;
+;       |adder4:FA741|       ; 5 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA741                  ; adder4         ; work         ;
+;          |full_adder:FA1|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA741|full_adder:FA1   ; full_adder     ; work         ;
+;          |full_adder:FA2|  ; 2 (2)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA741|full_adder:FA2   ; full_adder     ; work         ;
+;          |full_adder:FA3|  ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |adder_toplevel|select_adder:adders|adder4:FA741|full_adder:FA3   ; full_adder     ; work         ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------------------------------------------------+----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -298,13 +306,73 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------+
 
 
-+------------------------------------------------+
-; Port Connectivity Checks: "ripple_adder:adder" ;
-+------+-------+----------+----------------------+
-; Port ; Type  ; Severity ; Details              ;
-+------+-------+----------+----------------------+
-; cin  ; Input ; Info     ; Stuck at GND         ;
-+------+-------+----------+----------------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "select_adder:adders|adder4:FA15121"                                                                                                                                                  ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port    ; Type  ; Severity ; Details                                                                                                                                                                            ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; cin     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; cin[-1] ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "select_adder:adders|adder4:FA15120"                                                                                                                                                  ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port    ; Type  ; Severity ; Details                                                                                                                                                                            ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; cin     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; cin[-1] ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "select_adder:adders|adder4:FA1181"                                                                                                                                                   ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port    ; Type  ; Severity ; Details                                                                                                                                                                            ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; cin     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; cin[-1] ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "select_adder:adders|adder4:FA1180"                                                                                                                                                   ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port    ; Type  ; Severity ; Details                                                                                                                                                                            ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; cin     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; cin[-1] ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "select_adder:adders|adder4:FA741"                                                                                                                                                    ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port    ; Type  ; Severity ; Details                                                                                                                                                                            ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; cin     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; cin[-1] ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "select_adder:adders|adder4:FA740"                                                                                                                                                    ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port    ; Type  ; Severity ; Details                                                                                                                                                                            ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; cin     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; cin[-1] ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
++---------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------+
+; Port Connectivity Checks: "select_adder:adders" ;
++------+-------+----------+-----------------------+
+; Port ; Type  ; Severity ; Details               ;
++------+-------+----------+-----------------------+
+; cin  ; Input ; Info     ; Stuck at GND          ;
++------+-------+----------+-----------------------+
 
 
 +------------------------------------------------+
@@ -325,16 +393,16 @@ Encoding Type:  One-Hot
 ; cycloneiii_ff         ; 20                          ;
 ;     CLR               ; 3                           ;
 ;     ENA               ; 17                          ;
-; cycloneiii_lcell_comb ; 102                         ;
-;     normal            ; 102                         ;
+; cycloneiii_lcell_comb ; 111                         ;
+;     normal            ; 111                         ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 6                           ;
-;         2 data inputs ; 16                          ;
-;         3 data inputs ; 17                          ;
-;         4 data inputs ; 62                          ;
+;         2 data inputs ; 15                          ;
+;         3 data inputs ; 16                          ;
+;         4 data inputs ; 73                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 10.00                       ;
-; Average LUT depth     ; 4.24                        ;
+; Max LUT depth         ; 6.00                        ;
+; Average LUT depth     ; 3.06                        ;
 +-----------------------+-----------------------------+
 
 
@@ -353,7 +421,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Feb 18 23:35:59 2023
+    Info: Processing started: Sun Feb 19 01:25:04 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off lab-3-16-bit-adder -c lab-3-16-bit-adder
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -386,9 +454,11 @@ Info (12127): Elaborating entity "adder_toplevel" for the top level hierarchy
 Info (12128): Elaborating entity "control" for hierarchy "control:run_once" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/adder_toplevel.sv Line: 38
 Info (12128): Elaborating entity "mux2_1_17" for hierarchy "mux2_1_17:m_mux" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/adder_toplevel.sv Line: 41
 Info (12128): Elaborating entity "reg_17" for hierarchy "reg_17:reg_unit" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/adder_toplevel.sv Line: 44
-Info (12128): Elaborating entity "ripple_adder" for hierarchy "ripple_adder:adder" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/adder_toplevel.sv Line: 48
-Info (12128): Elaborating entity "full_adder" for hierarchy "ripple_adder:adder|full_adder:FA0" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/ripple_adder.sv Line: 16
+Info (12128): Elaborating entity "select_adder" for hierarchy "select_adder:adders" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/adder_toplevel.sv Line: 52
+Info (12128): Elaborating entity "adder4" for hierarchy "select_adder:adders|adder4:FA30" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/select_adder.sv Line: 34
+Info (12128): Elaborating entity "full_adder" for hierarchy "select_adder:adders|adder4:FA30|full_adder:FA0" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/select_adder.sv Line: 11
 Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:AHex0" File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/adder_toplevel.sv Line: 58
+Warning (12241): 6 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "LED[2]" is stuck at GND File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/adder_toplevel.sv Line: 10
     Warning (13410): Pin "LED[3]" is stuck at GND File: C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/adder_toplevel.sv Line: 10
@@ -402,15 +472,15 @@ Info (17049): 1 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Users/arcy cruz/OneDrive/Documents/ECE385/lab3/output_files/lab-3-16-bit-adder.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 194 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 203 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 86 output pins
-    Info (21061): Implemented 95 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 10 warnings
-    Info: Peak virtual memory: 4766 megabytes
-    Info: Processing ended: Sat Feb 18 23:36:15 2023
+    Info (21061): Implemented 104 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 11 warnings
+    Info: Peak virtual memory: 4767 megabytes
+    Info: Processing ended: Sun Feb 19 01:25:20 2023
     Info: Elapsed time: 00:00:16
-    Info: Total CPU time (on all processors): 00:00:08
+    Info: Total CPU time (on all processors): 00:00:09
 
 
 +------------------------------------------+
