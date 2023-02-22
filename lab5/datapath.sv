@@ -1,17 +1,25 @@
-module datapath(input gatePC, gateMARMUX, gateALU, gateMDR, Clk, loadIR, LD_PC, MIO_EN, LD_MDR, LD_MAR, LD_IR
-                output logic [15:0] databus, IRout);        // IRout will go to hex displays for 5.1
+module datapath(input gatePC, gateMARMUX, gateALU, gateMDR, Clk, loadIR, LD_PC, MIO_EN, LD_MDR, LD_MAR, LD_IR,
+                output logic [15:0] IRout);        // IRout will go to hex displays for 5.1
+                //not confirmed if we need databus as an output, will confirm with CA later :D
 
-    assign logic [15:0] MDR, PC, MARMUX, ALU, databus; //to be assigned to databus output w mux
-    PCmod       pc(.PCadder(), ,Reset(), .inDP(), .PCMUXsel(00), .loadPC(LD_PC), .Clk(Clk), .PC(PC)); 
+    logic [15:0] MDR, PC, MARMUX, ALU, databus; //to be assigned to databus output w mux
+
+    PCmod       pc(.PCadder(), .Reset(), .inDP(), .PCMUXsel(00), .loadPC(LD_PC), .Clk(Clk), .PC(PC)); 
+
+
     //need to find shit for PCadder, Reset, inDP later, will do later
     MAR_MDR_mod mar_mdr(.Clk(Clk), .loadMAR(LD_MAR), .loadMDR(LD_MDR), .loadIR(LD_IR), 
                         .MIO_EN(MIO_EN), .databus(databus), .Data_to_CPU(Data_to_CPU), 
                         .MAR(MARMUX), .MDR(MDR)); 
 
-    assign logic [3:0] bus_select = {gateMARMUX, gatePC, gateALU, gateMDR}; // one hot encoder
+    logic [3:0] bus_select; //= {gateMARMUX, gatePC, gateALU, gateMDR}; // one hot encoder
 
     always_comb
     begin
+	 bus_select[3] = gateMARMUX;
+	 bus_select[2] = gatePC;
+	 bus_select[1] = gateALU;
+	 bus_select[0] = gateMDR;
         unique case(bus_select)
             4'b1000    : databus <= MARMUX;
             4'b0100    : databus <= PC;

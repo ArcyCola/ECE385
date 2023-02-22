@@ -57,7 +57,9 @@ module ISDU (   input logic         Clk,
 						PauseIR2, 
 						S_18, 
 						S_33_1, 
-						S_33_2, 
+						S_33_2,
+						S_33_3,
+						S_33_4, //remember to remove these during lab 5.2
 						S_35, 
 						S_32, 
 						S_01}   State, Next_state;   // Internal state logic

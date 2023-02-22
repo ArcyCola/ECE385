@@ -36,13 +36,22 @@ logic [3:0] hex_4[3:0];
 HexDriver hex_drivers[3:0] (hex_4, {HEX3, HEX2, HEX1, HEX0});
 // This works thanks to http://stackoverflow.com/questions/1378159/verilog-can-we-have-an-array-of-custom-modules
 
+datapath DP(.gatePC(GatePC), .gateMARMUX(GateMARMUX), .gateALU(GateALU), .gateMDR(GateMDR), .Clk(Clk), .loadIR(LD_IR),
+			.LD_PC, .MIO_EN, .LD_MDR, .LD_IR, //inputs
+			.IRout(IR)); //outputs, idk if we still need databus as output
 
-
+always_comb //idk if we can do this because these are already instantiated in mem2io soooo idk
+begin
+	hex_4[3] = IR[15:12];
+	hex_4[2] = IR[11:8];
+	hex_4[1] = IR[7:4];
+	hex_4[0] = IR[3:0];
+end
 
 // Internal connections
-logic LD_MAR, LD_MDR, LD_IR, LD_BEN, LD_CC, LD_REG, LD_PC, LD_LED;
-logic GatePC, GateMDR, GateALU, GateMARMUX;
-logic SR2MUX, ADDR1MUX, MARMUX;
+logic LD_MAR, LD_MDR, LD_IR, LD_BEN, LD_CC, LD_REG, LD_PC, LD_LED; //all load connections
+logic GatePC, GateMDR, GateALU, GateMARMUX; //to enable gates
+logic SR2MUX, ADDR1MUX, MARMUX; //idk what this is used for
 logic BEN, MIO_EN, DRMUX, SR1MUX;
 logic [1:0] PCMUX, ADDR2MUX, ALUK;
 logic [15:0] MDR_In;
@@ -55,7 +64,8 @@ logic [15:0] MAR, MDR, IR;
 assign ADDR = MAR; 
 assign MIO_EN = OE;
 // Connect everything to the data path (you have to figure out this part)
-datapath d0 (.*);
+
+//datapath d0 (.*); //this was from given code, maybe rename all i/o to names declared in this
 
 // Our SRAM and I/O controller (note, this plugs into MDR/MAR)
 
