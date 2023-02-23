@@ -1,26 +1,26 @@
-module datapath(input gatePC, gateMARMUX, gateALU, gateMDR, 
-            Clk, loadIR, LD_PC, MIO_EN, LD_MDR, LD_MAR, LD_IR, Reset,
+module datapath(input GatePC, GateMARMUX, GateALU, GateMDR, 
+            Clk, LD_PC, MIO_EN, LD_MDR, LD_MAR, LD_IR, Reset,
 					 input [15:0] MDR_In,
-                output logic [15:0] IRout, MDR, MAR);        // IRout will go to hex displays for 5.1
+                output logic [15:0] IR, MDR, MAR);        // IR will go to hex displays for 5.1
 
     logic [15:0] PC, MARMUX, ALU, databus; //to be assigned to databus output w mux
 
-    PCmod       pc(.PCadder(), .Reset(Reset), .inDP(), .PCMUXsel(2'b00), .loadPC(LD_PC), .Clk(Clk), .PC(PC), .databus(databus)); 
-
+    PCmod       pc(.PCadder(), .Reset(Reset), .inDP(), .PCMUX(2'b00), .LD_PC(LD_PC), .Clk(Clk), .PC(PC), .databus(databus)); 
+    //make sure to look at what PCMUX will need to have as an input
 
     //need to find shit for PCadder, Reset, inDP later, will do later
-    MAR_MDR_mod mar_mdr(.Clk(Clk), .loadMAR(LD_MAR), .loadMDR(LD_MDR), .loadIR(LD_IR), 
+    MAR_MDR_mod mar_mdr(.Clk(Clk), .LD_MAR(LD_MAR), .LD_MDR(LD_MDR), .LD_IR(LD_IR), 
                         .MIO_EN(MIO_EN), .databus(databus), .Data_to_CPU(MDR_In), 
                         .MAR(MAR), .MDR(MDR)); 
 
-    logic [3:0] bus_select; //= {gateMARMUX, gatePC, gateALU, gateMDR}; // one hot encoder
+    logic [3:0] bus_select; //= {GateMARMUX, GatePC, GateALU, GateMDR}; // one hot encoder
 
     always_comb
     begin
-	 bus_select[3] = gateMARMUX;
-	 bus_select[2] = gatePC;
-	 bus_select[1] = gateALU;
-	 bus_select[0] = gateMDR;
+	 bus_select[3] = GateMARMUX;
+	 bus_select[2] = GatePC;
+	 bus_select[1] = GateALU;
+	 bus_select[0] = GateMDR;
         unique case(bus_select)
             4'b1000    : databus <= MARMUX; //will be done in 5.2
             4'b0100    : databus <= PC;
@@ -31,23 +31,25 @@ module datapath(input gatePC, gateMARMUX, gateALU, gateMDR,
     end
     
     //IR register will be instatinated here because needs that 4:1 MUX output
-    reg_16 IRreg(.Clk(Clk), .Reset(Reset), .Load(loadIR), .D(databus), .Data_Out(IRout));    //reset???, uhh data_out should be displayed in reg
-    //assign logic [15:0] IRout; 
+    reg_16 IRreg(.Clk(Clk), .Reset(Reset), .Load(LD_IR), .D(databus), .Data_Out(IR));    //reset???, uhh data_out should be displayed in reg
+    //assign logic [15:0] IR; 
 
 endmodule
 
+
+//PC sub-module, handles PCreg and nearby logic
 module PCmod(input [15:0] PCadder, inDP, databus,
-             input [1:0] PCMUXsel, 
-             input loadPC, Clk, Reset,
+             input [1:0] PCMUX, 
+             input LD_PC, Clk, Reset,
              output logic [15:0] PC);
 
     logic [15:0] PC_next;
     //remember to connect reset to something, not implemented just yet
-    reg_16 PCreg(.Clk(Clk), .Reset(Reset), .Load(loadPC), .D(PC_next), .Data_Out(PC));   // RESET ??????
+    reg_16 PCreg(.Clk(Clk), .Reset(Reset), .Load(LD_PC), .D(PC_next), .Data_Out(PC));   // RESET ??????
 
     always_comb // PCMUX implementation, 3?:1 MUX that goes back into PCreg
     begin  
-        unique case (PCMUXsel)
+        unique case (PCMUX)
             2'b00  :   PC_next <= PC + 1; //not sure if either <= or =, check if we can do " + 1"
             2'b01  :   PC_next <= databus;//havent thought of what we what for the select choosing,
             //2'b10  : //either/or inDP or PCadder
@@ -57,14 +59,16 @@ module PCmod(input [15:0] PCadder, inDP, databus,
     end
 endmodule
 
-module MAR_MDR_mod(input Clk, loadMAR, loadMDR, loadIR, MIO_EN, Reset,
+
+//MAR_MDR submodule, handles data in and out for receiving data from PC
+module MAR_MDR_mod(input Clk, LD_MAR, LD_MDR, LD_IR, MIO_EN, Reset,
                  input [15:0] databus, 
                  input [15:0] Data_to_CPU, 
                  output [15:0] MAR, MDR);                
-    reg_16 MARreg(.Clk(Clk), .Reset(Reset), .Load(loadMAR), .D(databus), .Data_Out(MAR));    // RESET ??????
+    reg_16 MARreg(.Clk(Clk), .Reset(Reset), .Load(LD_MAR), .D(databus), .Data_Out(MAR));    // RESET ??????
 
     logic [15:0] MDR_next;
-    reg_16 MDRreg(.Clk(Clk), .Reset(Reset), .Load(loadMDR), .D(MDR_next), .Data_Out(MDR));   // RESET???????
+    reg_16 MDRreg(.Clk(Clk), .Reset(Reset), .Load(LD_MDR), .D(MDR_next), .Data_Out(MDR));   // RESET???????
     always_comb // MDRMUX implementation, 2:1 mux. output
     begin
         unique case (MIO_EN) //2:1 MUX connected to 
