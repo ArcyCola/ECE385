@@ -23,6 +23,7 @@ logic Reset_ah, Continue_ah, Run_ah;
 
 //assign Reset_ah = ~RESET_S;
 assign Reset_ah = ~RUN_S & ~CONTINUE_S;
+//assign Reset_ah = 0;
 assign Run_ah = ~RUN_S;
 assign Continue_ah = ~CONTINUE_S;
 

@@ -32,21 +32,21 @@ module slc3(
 // An array of 4-bit wires to connect the hex_drivers efficiently to wherever we want
 // For Lab 5.1, they will direclty be connected to the IR register through an always_comb circuit
 // For Lab 5.2, they will be patched into the MEM2IO module so that Memory-mapped IO can take place
+
 logic [3:0] hex_4[3:0]; 
-HexDriver hex_drivers[3:0] (hex_4, {HEX3, HEX2, HEX1, HEX0});
+// HexDriver hex_drivers[3:0] (hex_4, {HEX3, HEX2, HEX1, HEX0});
+
 // This works thanks to http://stackoverflow.com/questions/1378159/verilog-can-we-have-an-array-of-custom-modules
 
-datapath DP(.gatePC(GatePC), .gateMARMUX(GateMARMUX), .gateALU(GateALU), .gateMDR(GateMDR), .Clk(Clk), .loadIR(LD_IR),
-			.LD_PC, .MIO_EN, .LD_MDR, .LD_IR, //inputs
-			.IRout(IR)); //outputs, idk if we still need databus as output
 
-always_comb //idk if we can do this because these are already instantiated in mem2io soooo idk
-begin
-	hex_4[3] = IR[15:12];
-	hex_4[2] = IR[11:8];
-	hex_4[1] = IR[7:4];
-	hex_4[0] = IR[3:0];
-end
+
+//always_comb //idk if we can do this because these are already instantiated in mem2io soooo idk
+//begin
+//	hex_4[3] = IR[15:12];
+//	hex_4[2] = IR[11:8];
+//	hex_4[1] = IR[7:4];
+//	hex_4[0] = IR[3:0];
+//end
 
 // Internal connections
 logic LD_MAR, LD_MDR, LD_IR, LD_BEN, LD_CC, LD_REG, LD_PC, LD_LED; //all load connections
@@ -57,6 +57,10 @@ logic [1:0] PCMUX, ADDR2MUX, ALUK;
 logic [15:0] MDR_In;
 logic [15:0] MAR, MDR, IR;
 
+HexDriver hex3(.In0(IR[15:12]), .Out0(HEX3)); //HEX drivers for 5.1
+HexDriver hex2(.In0(IR[11:8]), .Out0(HEX2));
+HexDriver hex1(.In0(IR[7:4]), .Out0(HEX1));
+HexDriver hex0(.In0(IR[3:0]), .Out0(HEX0));
 
 // Connect MAR to ADDR, which is also connected as an input into MEM2IO
 //	MEM2IO will determine what gets put onto Data_CPU (which serves as a potential
@@ -66,6 +70,10 @@ assign MIO_EN = OE;
 // Connect everything to the data path (you have to figure out this part)
 
 //datapath d0 (.*); //this was from given code, maybe rename all i/o to names declared in this
+
+datapath DP(.Clk, .gatePC(GatePC), .gateMARMUX(GateMARMUX), .gateALU(GateALU), .gateMDR(GateMDR), .loadIR(LD_IR),
+			.LD_PC(LD_PC), .MIO_EN(MIO_EN), .LD_MDR(LD_MDR), .LD_IR(LD_IR), .LD_MAR(LD_MAR), .Reset, //inputs
+			.IRout(IR), .MDR_In(MDR_In)); //outputs, idk if we still need databus as output
 
 // Our SRAM and I/O controller (note, this plugs into MDR/MAR)
 
