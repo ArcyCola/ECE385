@@ -57,7 +57,7 @@ Reset_Load_Clear = 0;
    
 	
 // testing -7 * 59 = -413
-#200 Run = 1;
+#100 Run = 1;
 
 #2 Reset_Load_Clear = 0; 
 
@@ -76,7 +76,7 @@ Reset_Load_Clear = 0;
 
 // testing 7*59 = 413
 
-#200 Run = 1;
+#100 Run = 1;
 
 #2 Reset_Load_Clear = 0; 
 
@@ -95,7 +95,7 @@ Reset_Load_Clear = 0;
 
 // testing -7 * -59
 
-#200 Run = 1;
+#100 Run = 1;
 
 #2 Reset_Load_Clear = 0; 
 
@@ -113,7 +113,7 @@ Reset_Load_Clear = 0;
 
 
 //test H74 * 74
-#200 Run = 1;
+#100 Run = 1;
 
 #2 Reset_Load_Clear = 0; 
 
@@ -130,7 +130,7 @@ Reset_Load_Clear = 0;
 
 
 //test H8c*8c
-#200 Run = 1;
+#100 Run = 1;
 
 #2 Reset_Load_Clear = 0; 
 
@@ -147,7 +147,7 @@ Reset_Load_Clear = 0;
 
 // testing -7 * -59
 
-#200 Run = 1;
+#100 Run = 1;
 
 #2 Reset_Load_Clear = 0; 
 
@@ -162,5 +162,24 @@ Reset_Load_Clear = 0;
 #2 SW = 8'b01110100; 		// switches = -7
 
 #50 Run = 0;
+
+// testing -59 * 7
+#200 Run = 1;
+
+#2 Reset_Load_Clear = 0; 
+
+#2 Reset_Load_Clear = 1;
+ 
+#2 SW = 8'd7; 	// Switches = 7
+
+#2 Reset_Load_Clear = 0; 
+
+#10 Reset_Load_Clear = 1; 
+
+#10 SW = 8'b11000101;	// b = -59
+
+#10 Run = 0; 
+
+
 end
 endmodule
