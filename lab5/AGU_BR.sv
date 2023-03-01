@@ -30,19 +30,19 @@ assign AGU_OUT = ADDR1MUXout + ADDR2MUXout;
 endmodule
 
 //change states in BEN is 1 or 0
-module BR(  input   [15:0] IR, D, 
+module BR(  input   [15:0] IR, databus, //
             input   LD_BEN, LD_CC, Clk,
             output  BEN_Out);
 
 logic [2:0] nzpIn, nzpOut; 
-logic BEN_In, BEN_Out;
+logic BEN_In;
 
 always_comb 
 begin
-    if (D[15]) begin //negative
+    if (databus[15]) begin //negative
         nzp = 3'b100;
     end
-    else if (D == 16'b0) begin //zero
+    else if (databus == 16'b0) begin //zero
         nzp = 3'b010;
     end
     else begin //positive

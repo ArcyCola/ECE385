@@ -304,16 +304,29 @@ module ISDU (   input logic         Clk,
 					LD_MDR = 1'b1;
 				end
 			S_27 :
-				begin
+				begin //DR <- MDR, set CC
+					LD_CC = 1'b1; //for branch
+					LD_REG = 1'b1; //to load stuff into SR/DR
+					GateMDR = 1'b1;
+					DRMUX = 1'b0; 
 				end
 			
 			// STR
 			S_07 :
-				begin
+				begin //MAR <- B + off6
 					LD_MAR = 1'b1;
-				end
+					SR1MUX = 1'b1;
+					GateMARMUX = 1'b1;
+					ADDR1MUX = 1'b0;
+					ADDR2MUX = 2'b01;
+ 				end
 			S_23 :
-				begin
+				begin //MDR <- SR
+					LD_MDR = 1'b1;
+					SR1MUX = 1'b1;
+					MIO_EN = 1'b0;
+					GateMARMUX = 1'b1;
+					LD_REG = 1'b1;
 				end
 			S_16_1 :
 				begin
