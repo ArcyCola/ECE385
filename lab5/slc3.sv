@@ -34,7 +34,7 @@ module slc3(
 // For Lab 5.2, they will be patched into the MEM2IO module so that Memory-mapped IO can take place
 
 logic [3:0] hex_4[3:0]; 
-// HexDriver hex_drivers[3:0] (hex_4, {HEX3, HEX2, HEX1, HEX0});
+HexDriver hex_drivers[3:0] (hex_4, {HEX3, HEX2, HEX1, HEX0}); 	// uncommented for 5.2
 
 // This works thanks to http://stackoverflow.com/questions/1378159/verilog-can-we-have-an-array-of-custom-modules
 
@@ -57,10 +57,10 @@ logic [1:0] PCMUX, ADDR2MUX, ALUK;
 logic [15:0] MDR_In;
 logic [15:0] MAR, MDR, IR;
 
-HexDriver hex3(.In0(IR[15:12]), .Out0(HEX3)); //HEX drivers for 5.1
-HexDriver hex2(.In0(IR[11:8]), .Out0(HEX2));
-HexDriver hex1(.In0(IR[7:4]), .Out0(HEX1));
-HexDriver hex0(.In0(IR[3:0]), .Out0(HEX0));
+// HexDriver hex3(.In0(IR[15:12]), .Out0(HEX3)); //HEX drivers for 5.1
+// HexDriver hex2(.In0(IR[11:8]), .Out0(HEX2));
+// HexDriver hex1(.In0(IR[7:4]), .Out0(HEX1));
+// HexDriver hex0(.In0(IR[3:0]), .Out0(HEX0));	// commented out for 5.2
 
 // Connect MAR to ADDR, which is also connected as an input into MEM2IO
 //	MEM2IO will determine what gets put onto Data_CPU (which serves as a potential
