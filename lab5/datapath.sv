@@ -1,7 +1,7 @@
 module datapath(input GatePC, GateMARMUX, GateALU, GateMDR, 
             Clk, LD_PC, MIO_EN, LD_MDR, LD_MAR, LD_IR, Reset, LD_REG, SR1MUX,
             DRMUX, ADDR1MUX, LD_BEN, LD_CC, SR2MUX,
-                input [1:0] ADDR2MUX, PCMUX,
+                input [1:0] ADDR2MUX, PCMUX, ALUK,
 					 input [15:0] MDR_In,
                 output logic BEN,
                 output logic [15:0] IR, MDR, MAR);        // IR will go to hex displays for 5.1
@@ -41,7 +41,7 @@ module datapath(input GatePC, GateMARMUX, GateALU, GateMDR,
     register_file   reg_file_mod(.Clk, .D(databus), .IR, .Reset, .SR2(IR[2:0]), .LD_REG, .SR1MUX, .DRMUX, .SR1_OUT, .SR2_OUT);
     AGU             agu_mod     (.IR, .PC, .SR1_OUT, .ADDR2MUX, .ADDR1MUX, .AGU_OUT);
     BR              br_mod      (.IR, .databus, .LD_BEN, .Clk, .LD_CC, .BEN_Out(BEN), .Reset);
-    ALU             alu_mod     (.SR1_OUT, .SR2_OUT, .IR, .ALUK(IR[15:14]), .SR2MUX, .ALU_OUT(ALU));
+    ALU             alu_mod     (.SR1_OUT, .SR2_OUT, .IR, .ALUK, .SR2MUX, .ALU_OUT(ALU));
 
 endmodule
 

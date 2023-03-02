@@ -240,8 +240,14 @@ module ISDU (   input logic         Clk,
 					GateMDR = 1'b1;
 					LD_IR = 1'b1;
 				end
-			PauseIR1: ;
-			PauseIR2: ;
+			PauseIR1:
+				begin
+					LD_LED = 1'b1;
+				end
+			PauseIR2:
+				begin
+					LD_LED = 1'b1;
+				end
 			S_32 : 
 				LD_BEN = 1'b1;
 
@@ -368,9 +374,11 @@ module ISDU (   input logic         Clk,
 				begin //PC <- BaseR
 					LD_PC = 1'b1; 		//to load PC
 					SR1MUX = 1'b0; 		//choose IR[8:6]
-					ADDR1MUX = 1'b1; 	//choose SR1_OUT
-					ADDR2MUX = 1'b0; 	//choose adding 16'b0
-					PCMUX = 2'b10; 		//choosing AGU_OUT
+					//ADDR1MUX = 1'b1; 	//choose SR1_OUT
+					//ADDR2MUX = 1'b0; 	//choose adding 16'b0
+					PCMUX = 2'b01; 		//choosing AGU_OUT
+					GateALU = 1'b1;	
+					ALUK = 2'b11;		//passing baseR thru ALU				
 				end
 			
 			// BR

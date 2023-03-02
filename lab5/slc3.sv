@@ -96,6 +96,15 @@ ISDU state_controller(
    .Mem_OE(OE), .Mem_WE(WE)
 );
 
+always_comb
+begin
+	unique case(LD_LED)
+		1'b1	:	LED <= IR[9:0];
+		1'b0	:	LED <= 10'b0;
+		default	:	LED <= 10'b0;
+	endcase
+end
+
 // SRAM WE register
 //logic SRAM_WE_In, SRAM_WE;
 //// SRAM WE synchronizer

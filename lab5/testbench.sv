@@ -46,7 +46,7 @@ end
 // Everything happens sequentially inside an initial block
 // as in a software program
 initial begin: TEST_VECTORS
-SW = 16'h0003;
+SW = 16'h0006;
 Run = 0; //these are active low
 Continue = 0;
 
@@ -59,13 +59,13 @@ Continue = 0;
 
 #2 Run = 0;
 
+#2 Run = 1;
 	 
-//#5 SW = 16'h004;
+#60 SW = 16'h0420;
 
-#10 Run = 0;
+#20 Continue = 0;
 
-
-
+#5 Continue = 1;
 
 end
 endmodule
