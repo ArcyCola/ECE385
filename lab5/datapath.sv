@@ -1,12 +1,12 @@
 module datapath(input GatePC, GateMARMUX, GateALU, GateMDR, 
             Clk, LD_PC, MIO_EN, LD_MDR, LD_MAR, LD_IR, Reset, LD_REG, SR1MUX,
-            DRMUX, ADDR1MUX, LD_BEN, LD_CC, 
+            DRMUX, ADDR1MUX, LD_BEN, LD_CC, SR2MUX,
                 input [1:0] ADDR2MUX, PCMUX,
 					 input [15:0] MDR_In,
                 output logic BEN,
                 output logic [15:0] IR, MDR, MAR);        // IR will go to hex displays for 5.1
 
-    logic [15:0] PC, MARMUX, ALU, databus, AGU_OUT, SR1_OUT, SR2_OUT; //to be assigned to databus output w mux
+    logic [15:0] PC, ALU, databus, AGU_OUT, SR1_OUT, SR2_OUT; //to be assigned to databus output w mux
 
 
     PCmod       pc(.AGU_OUT, .Reset(Reset), .PCMUX, .LD_PC(LD_PC), .Clk(Clk), .PC(PC), .databus(databus)); 
@@ -26,7 +26,7 @@ module datapath(input GatePC, GateMARMUX, GateALU, GateMDR,
 	 bus_select[1] = GateALU;
 	 bus_select[0] = GateMDR;
         unique case(bus_select)
-            4'b1000    : databus <= MARMUX; //will be done in 5.2
+            4'b1000    : databus <= AGU_OUT; //will be done in 5.2
             4'b0100    : databus <= PC;
             4'b0010    : databus <= ALU;
             4'b0001    : databus <= MDR;
@@ -41,6 +41,7 @@ module datapath(input GatePC, GateMARMUX, GateALU, GateMDR,
     register_file   reg_file_mod(.Clk, .D(databus), .IR, .Reset, .SR2(IR[2:0]), .LD_REG, .SR1MUX, .DRMUX, .SR1_OUT, .SR2_OUT);
     AGU             agu_mod     (.IR, .PC, .SR1_OUT, .ADDR2MUX, .ADDR1MUX, .AGU_OUT);
     BR              br_mod      (.IR, .databus, .LD_BEN, .Clk, .LD_CC, .BEN_Out(BEN), .Reset);
+    ALU             alu_mod     (.SR1_OUT, .SR2_OUT, .IR, .ALUK(IR[15:14]), .SR2MUX, .ALU_OUT(ALU));
 
 endmodule
 

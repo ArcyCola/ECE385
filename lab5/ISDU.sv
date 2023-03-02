@@ -293,10 +293,12 @@ module ISDU (   input logic         Clk,
 			S_25_1 :	// MDR <- M[MAR]
 				begin
 					Mem_OE = 1'b1;
+					//LD_MDR = 1'b1;
 				end
 			S_25_2 :
 				begin
 					Mem_OE = 1'b1;
+					//LD_MDR = 1'b1;
 				end
 			S_25_3 :
 				begin
