@@ -139,7 +139,7 @@ module ISDU (   input logic         Clk,
 			S_33_4 : 
 				Next_state = S_35;
 			S_35 : 
-				Next_state = PauseIR1;
+				Next_state = S_32;
 			// PauseIR1 and PauseIR2 are only for Week 1 such that TAs can see 
 			// the values in IR.
 			PauseIR1 : 
@@ -213,7 +213,7 @@ module ISDU (   input logic         Clk,
 		
 		// Assign control signals based on current state
 		case (State)
-			Halted: ; //do we need this?
+			Halted: ; 
 			S_18 : 
 				begin 
 					GatePC = 1'b1; //implemented
@@ -268,7 +268,7 @@ module ISDU (   input logic         Clk,
 					GateALU = 1'b1;
 					LD_REG = 1'b1;
 					LD_CC = 1'b1;
-					Mem_WE = 1'b1;
+					//Mem_WE = 1'b1;
 				end
 				
 			// NOT
@@ -288,14 +288,15 @@ module ISDU (   input logic         Clk,
 					ADDR2MUX = 2'b01;	// selecting sign extending offset 6
 					ADDR1MUX = 1'b1;	// selecting SR1_OUT from register file
 					GateMARMUX = 1'b1;	// output goes onto databus
+					//Mem_OE = 1'b1;
 				end
 			S_25_1 :	// MDR <- M[MAR]
 				begin
-					//Mem_OE = 1'b1;
+					Mem_OE = 1'b1;
 				end
 			S_25_2 :
 				begin
-					//Mem_OE = 1'b1;
+					Mem_OE = 1'b1;
 				end
 			S_25_3 :
 				begin
@@ -334,14 +335,15 @@ module ISDU (   input logic         Clk,
 				end
 			S_16_1 :
 				begin
-					
+					Mem_WE = 1'b1;
 				end
 			S_16_2 :
 				begin
+					Mem_WE = 1'b1;
 				end
 			S_16_3 :		// M[MAR] <- MDR
 				begin
-					Mem_WE = 1'b1;	// writing to memory?
+					Mem_WE = 1'b0;	// writing to memory?
 				end
 
 			// JSR

@@ -27,7 +27,7 @@ module mux4_1
             2'b01   :   Out = In1;
             2'b10   :   Out = In2;
             2'b11   :   Out = In3;
-            default :   Out = 16'bX;
+            default :   Out = 16'b0;
         endcase
      end  
 endmodule

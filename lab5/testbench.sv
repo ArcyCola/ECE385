@@ -47,16 +47,22 @@ end
 // as in a software program
 initial begin: TEST_VECTORS
 SW = 16'h0003;
-Run = 1; //these are active low
-Continue = 1;
+Run = 0; //these are active low
+Continue = 0;
 
 
 
-#5 Run = 0;
-   Continue = 0;
+#2 Run = 1;
+	Continue = 1;
 
-#10 Run = 1;
-	 Continue = 1;
+#2 Run = 1;
+
+#2 Run = 0;
+
+	 
+//#5 SW = 16'h004;
+
+#10 Run = 0;
 
 
 

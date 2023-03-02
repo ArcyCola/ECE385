@@ -34,7 +34,7 @@ begin
                 3'b101  : LoadEn = 8'b00100000;
                 3'b110  : LoadEn = 8'b01000000;
                 3'b111  : LoadEn = 8'b10000000;
-                default : LoadEn = 8'bX;
+                default : LoadEn = 8'b0;
             endcase
         end
     else //this should work, will check later with the TA
@@ -57,7 +57,7 @@ begin
         3'b101  : SR1_OUT <= R5;
         3'b110  : SR1_OUT <= R6;
         3'b111  : SR1_OUT <= R7;
-        default : SR1_OUT <= 16'bX;
+        default : SR1_OUT <= 16'b0;
     endcase
     unique case(SR2)
         3'b000  : SR2_OUT <= R0;
@@ -68,7 +68,7 @@ begin
         3'b101  : SR2_OUT <= R5;
         3'b110  : SR2_OUT <= R6;
         3'b111  : SR2_OUT <= R7;
-        default : SR2_OUT <= 16'bX;
+        default : SR2_OUT <= 16'b0;
     endcase
 end
 endmodule
