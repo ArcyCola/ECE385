@@ -48,11 +48,11 @@ module ISDU (   input logic         Clk,
 				output logic [1:0]  ADDR2MUX,
 									ALUK,
 				  
-				output logic        Mem_OE, // read enable
+				output logic        Mem_OE, // read enable basically MIO.EN
 									Mem_WE	// write enable
 				);
 
-	enum logic [3:0] {  Halted, 
+	enum logic [7:0] {  Halted, 
 						PauseIR1, 
 						PauseIR2, 
 						S_18, 
@@ -71,14 +71,13 @@ module ISDU (   input logic         Clk,
 						S_25_3,
 						S_27,
 						S_07,
-						S_32,
 						S_16_1,
 						S_16_2,
 						S_16_3,
-						S_01,
 						S_22,
 						S_12,
-						S_4,
+						S_04,
+						S_23,
 						S_00, //idk what else to call it
 						S_21}   State, Next_state;   // Internal state logic
 		
@@ -185,20 +184,20 @@ module ISDU (   input logic         Clk,
 			S_25_1 : Next_state = S_25_2;
 			S_25_2 : Next_state = S_25_3;
 			S_25_3 : Next_state = S_27; //(MDR <- M[MAR]) to (DR <- MDR, set CC)
-			S_27   : Next_state = S_18 //(DR <- MDR, set CC) to PC
+			S_27   : Next_state = S_18; //(DR <- MDR, set CC) to PC
 
 			//STR
 			S_07   : Next_state = S_23;
 			S_23   : Next_state = S_16_1;
 			S_16_1 : Next_state = S_16_2; //wait states
 			S_16_2 : Next_state = S_16_3;
-			S_16_3 : Next_state = s_18;
+			S_16_3 : Next_state = S_18;
 
 			//BR
 			S_00 : //state case 0 ohhhhh
 				case (BEN)
-					1'b0 : Next_state = S_18;
-					1'b1 : Next_state = S_22;
+					1'b0 : Next_state <= S_18;
+					1'b1 : Next_state <= S_22;
 				endcase
 			S_22 : Next_state = S_18;
 
@@ -247,7 +246,7 @@ module ISDU (   input logic         Clk,
 				LD_BEN = 1'b1;
 
 			// ADD	
-			S_01 : 		
+			S_01 : 		// DR <- SR1 + OP2, set CC
 				begin 
 					SR2MUX = IR_5;		// SR2MUX is 1 bit select input for the SR2_MUX we implemented
 					ALUK = 2'b00;		// select for ALU, ALUK = 00 means ADD
@@ -262,18 +261,18 @@ module ISDU (   input logic         Clk,
 			// You need to finish the rest of states.....
 			
 			// AND
-			S_05 :		
+			S_05 :		// DR <- SR1 & OP2, set CC
 				begin
 					SR2MUX = IR_5;
 					ALUK = 2'b01;
 					GateALU = 1'b1;
 					LD_REG = 1'b1;
 					LD_CC = 1'b1;
-					Mem_We = 1'b1;
+					Mem_WE = 1'b1;
 				end
 				
 			// NOT
-			S_09 :		
+			S_09 :		// DR <- NOT(SR), set CC
 				begin
 					LD_REG = 1'b1;
 					GateALU = 1'b1;
@@ -282,77 +281,103 @@ module ISDU (   input logic         Clk,
 				end
 				
 			// LDR
-			S_06 :
+			S_06 :		// MAR <- B + off6
 				begin //honestly dont know what im doing
 					LD_MAR = 1'b1;
-					GateALU = 1'b1;
-					ALUK = 2'b00;
-					SR1MUX = 1'b0;
-					SR2MUX = 1'b1;
+					SR1MUX = 1'b0;		// selecting IR[8:6] which specifies base register
+					ADDR2MUX = 2'b01;	// selecting sign extending offset 6
+					ADDR1MUX = 1'b1;	// selecting SR1_OUT from register file
+					GateMARMUX = 1'b1;	// output goes onto databus
 				end
-			S_25_1 :
+			S_25_1 :	// MDR <- M[MAR]
 				begin
-					Mem_OE = 1'b1;
+					//Mem_OE = 1'b1;
 				end
 			S_25_2 :
 				begin
-					Mem_OE = 1'b1;
+					//Mem_OE = 1'b1;
 				end
 			S_25_3 :
 				begin
 					Mem_OE = 1'b1;
 					LD_MDR = 1'b1;
+					// this isnt finished idk how to do this
 				end
-			S_27 :
-				begin //DR <- MDR, set CC
+			S_27 :		//DR <- MDR, set CC
+				begin 
 					LD_CC = 1'b1; //for branch
 					LD_REG = 1'b1; //to load stuff into SR/DR
-					GateMDR = 1'b1;
+					GateMDR = 1'b1;			// MDR goes on databus'b1;
 					DRMUX = 1'b0; 
 				end
 			
 			// STR
-			S_07 :
-				begin //MAR <- B + off6
-					LD_MAR = 1'b1;
-					SR1MUX = 1'b1;
+			S_07 :		//MAR <- B + off6
+				begin 
+					LD_MAR = 1'b1;		// load MAR
+					SR1MUX = 1'b0;		// selecting IR[8:6] which specifies base register
 					GateMARMUX = 1'b1;
-					ADDR1MUX = 1'b0;
+					ADDR1MUX = 1'b1;	// selecting SR1_OUT from register file
 					ADDR2MUX = 2'b01;
  				end
-			S_23 :
-				begin //MDR <- SR
-					LD_MDR = 1'b1;
-					SR1MUX = 1'b1;
-					MIO_EN = 1'b0;
-					GateMARMUX = 1'b1;
-					LD_REG = 1'b1;
+			S_23 :		//MDR <- SR
+				begin 
+					// this goes thru AGU but idk if im supposed to go thru ALU instead
+					LD_MDR = 1'b1;		// loading MDR
+					SR1MUX = 1'b1;		// selecting IR[11:9] which specifies the select register
+					//MIO_EN = 1'b0;		// ummm this is wrong there is no MIO_EN signal in this module
+					ADDR1MUX = 1'b1;	// select SR1_OUT (select register)
+					ADDR2MUX = 2'b00;	// select 0
+					GateMARMUX = 1'b1;	// SR goes onto databus
+					// LD_REG = 1'b1;	// think this is wrong bc not loading register, loading MDR
+					Mem_OE = 1'b0; 	//MIO.EN = 0, selecting databus_cpu
 				end
 			S_16_1 :
 				begin
+					
 				end
 			S_16_2 :
 				begin
 				end
-			S_16_3 :
+			S_16_3 :		// M[MAR] <- MDR
 				begin
+					Mem_WE = 1'b1;	// writing to memory?
 				end
 
 			// JSR
 			S_04 :
-				begin
+				begin //R7 <- PC
+					LD_REG = 1'b1; 		//to load PC to R7
+					DRMUX = 1'b1; 		//to choose R7
+					GatePC = 1'b1;		// PC onto databus'b1;
 				end
 			S_21 :
-				begin
+				begin //PC <- PC + off11
+					ADDR1MUX = 1'b0; 	//choosing PC
+					ADDR2MUX = 2'b11; 	//chosing PC offset11
+					PCMUX = 2'b10; 	//setting mux to AGU_OUT
+					LD_PC = 1'b1;
 				end
 
 			// JMP
 			S_12 :
-				begin
+				begin //PC <- BaseR
+					LD_PC = 1'b1; 		//to load PC
+					SR1MUX = 1'b0; 		//choose IR[8:6]
+					ADDR1MUX = 1'b1; 	//choose SR1_OUT
+					ADDR2MUX = 1'b0; 	//choose adding 16'b0
+					PCMUX = 2'b10; 		//choosing AGU_OUT
 				end
 			
 			// BR
-			S_00 :
+			S_00 : ; //check BEN
+			S_22 : 
+				begin //PC <- PC + off9
+					LD_PC = 1'b1; //to load PC
+					ADDR2MUX = 2'b10; //choosing off9
+					ADDR1MUX = 1'b0;  //choosing PC
+					PCMUX = 2'b10; //choosing AGU_OUT
+				end
 
 			
 			default : ;

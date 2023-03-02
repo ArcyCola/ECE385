@@ -1,4 +1,4 @@
-module reg_16 ( input				 Clk, Reset, Load, DR, SR1, LD_REG
+module reg_16 ( input				 Clk, Reset, Load, DR, SR1, LD_REG,
 				input					[15:0] D, IR,
 
 				output logic 			[15:0] Data_Out);
@@ -39,10 +39,10 @@ module reg_1 ( 	input		Clk, Reset, Load, //for BEN enable
 		begin
 				// Setting the output Q[7..0] of the register to zeros as Reset is pressed
 				if(Reset) //notice that this is a synchronous reset
-					Data <= 1'b0;
+					Data_Out <= 1'b0;
 				// Loading D into register when load button is pressed (will eiher be switches or result of sum)
 				else if(Load)
-					Data <= D;
+					Data_Out <= D;
 				
 	
 		end

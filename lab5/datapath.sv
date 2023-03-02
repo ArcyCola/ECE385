@@ -1,12 +1,16 @@
 module datapath(input GatePC, GateMARMUX, GateALU, GateMDR, 
-            Clk, LD_PC, MIO_EN, LD_MDR, LD_MAR, LD_IR, Reset,
+            Clk, LD_PC, MIO_EN, LD_MDR, LD_MAR, LD_IR, Reset, LD_REG, SR1MUX,
+            DRMUX, ADDR1MUX, LD_BEN, LD_CC, 
+                input [1:0] ADDR2MUX, PCMUX,
 					 input [15:0] MDR_In,
+                output logic BEN,
                 output logic [15:0] IR, MDR, MAR);        // IR will go to hex displays for 5.1
 
-    logic [15:0] PC, MARMUX, ALU, databus; //to be assigned to databus output w mux
+    logic [15:0] PC, MARMUX, ALU, databus, AGU_OUT, SR1_OUT, SR2_OUT; //to be assigned to databus output w mux
 
-    PCmod       pc(.PCadder(), .Reset(Reset), .inDP(), .PCMUX(2'b00), .LD_PC(LD_PC), .Clk(Clk), .PC(PC), .databus(databus)); 
-    //make sure to look at what PCMUX will need to have as an input
+
+    PCmod       pc(.AGU_OUT, .Reset(Reset), .PCMUX, .LD_PC(LD_PC), .Clk(Clk), .PC(PC), .databus(databus)); 
+
 
     //need to find shit for PCadder, Reset, inDP later, will do later
     MAR_MDR_mod mar_mdr(.Clk(Clk), .LD_MAR(LD_MAR), .LD_MDR(LD_MDR), .LD_IR(LD_IR), 
@@ -31,14 +35,18 @@ module datapath(input GatePC, GateMARMUX, GateALU, GateMDR,
     end
     
     //IR register will be instatinated here because needs that 4:1 MUX output
-    reg_16 IRreg(.Clk(Clk), .Reset(Reset), .Load(LD_IR), .D(databus), .Data_Out(IR));    //reset???, uhh data_out should be displayed in reg
+    reg_16          IRreg(.Clk(Clk), .Reset(Reset), .Load(LD_IR), .D(databus), .Data_Out(IR));    //reset???, uhh data_out should be displayed in reg
+    
     //assign logic [15:0] IR; 
+    register_file   reg_file_mod(.Clk, .D(databus), .IR, .Reset, .SR2(IR[2:0]), .LD_REG, .SR1MUX, .DRMUX, .SR1_OUT, .SR2_OUT);
+    AGU             agu_mod     (.IR, .PC, .SR1_OUT, .ADDR2MUX, .ADDR1MUX, .AGU_OUT);
+    BR              br_mod      (.IR, .databus, .LD_BEN, .Clk, .LD_CC, .BEN_Out(BEN), .Reset);
 
 endmodule
 
 
 //PC sub-module, handles PCreg and nearby logic
-module PCmod(input [15:0] PCadder, inDP, databus,
+module PCmod(input [15:0] AGU_OUT, databus,
              input [1:0] PCMUX, 
              input LD_PC, Clk, Reset,
              output logic [15:0] PC);
@@ -52,8 +60,7 @@ module PCmod(input [15:0] PCadder, inDP, databus,
         unique case (PCMUX)
             2'b00  :   PC_next <= PC + 1; //not sure if either <= or =, check if we can do " + 1"
             2'b01  :   PC_next <= databus;//havent thought of what we what for the select choosing,
-            //2'b10  : //either/or inDP or PCadder
-            //2'b11  : //which one wont be implemented
+            2'b10  :   PC_next <= AGU_OUT;
             default  : PC_next <= 16'bX; //dont know what to do just yet
         endcase
     end

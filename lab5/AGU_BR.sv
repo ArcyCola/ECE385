@@ -31,10 +31,10 @@ endmodule
 
 //change states in BEN is 1 or 0
 module BR(  input   [15:0] IR, databus, //
-            input   LD_BEN, LD_CC, Clk,
+            input   LD_BEN, LD_CC, Clk, Reset,
             output  BEN_Out);
 
-logic [2:0] nzpIn, nzpOut; 
+logic [2:0] nzp, nzpOut; 
 logic BEN_In;
 
 always_comb 
@@ -50,13 +50,13 @@ begin
     end
 end
     //idk what to put reset yet
-reg_3 NZP(.Clk, .Reset(), .Load(LD_CC), .D(nzp), .DataOut(nzpOut));
+reg_3 NZP(.Clk, .Reset, .Load(LD_CC), .D(nzp), .Data_Out(nzpOut));
  
 //logic for S_32
 //BEN <- (IR[11] & N + IR[10] & Z + IR[9] & P)
 assign BEN_In = (IR[11] & nzp[2]) + (IR[10] & nzp[1]) + (IR[9] & nzp[0]);
 
-reg_1 BEN_reg(.Clk .Reset(), .Load(LD_BEN), .D(BEN_In) .DataOut(BEN_Out)); 
+reg_1 BEN_reg(.Clk, .Reset, .Load(LD_BEN), .D(BEN_In), .Data_Out(BEN_Out)); 
 //havent put logic for BEN, its the logic in state 32.
 
 endmodule

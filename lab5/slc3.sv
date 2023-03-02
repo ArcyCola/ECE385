@@ -55,7 +55,7 @@ logic SR2MUX, ADDR1MUX, MARMUX; //idk what this is used for
 logic BEN, MIO_EN, DRMUX, SR1MUX;
 logic [1:0] PCMUX, ADDR2MUX, ALUK;
 logic [15:0] MDR_In;
-logic [15:0] MAR, MDR, IR;
+logic [15:0] MAR, MDR, IR, databus;
 
 // HexDriver hex3(.In0(IR[15:12]), .Out0(HEX3)); //HEX drivers for 5.1
 // HexDriver hex2(.In0(IR[11:8]), .Out0(HEX2));
@@ -71,9 +71,14 @@ assign MIO_EN = OE;
 
 datapath datapath0 (.*); 
 
+
 //datapath datapath0(.Clk, .GatePC(GatePC), .GateMARMUX(GateMARMUX), .GateALU(GateALU), .GateMDR(GateMDR), 
 //			.LD_PC(LD_PC), .MIO_EN(MIO_EN), .LD_MDR(LD_MDR), .LD_IR(LD_IR), .LD_MAR(LD_MAR), .Reset, //inputs
 //			.IR(IR), .MDR_In(MDR_In), .MAR(MAR), .MDR(MDR)); //outputs, idk if we still need databus as output
+
+
+
+
 
 // Our SRAM and I/O controller (note, this plugs into MDR/MAR)
 

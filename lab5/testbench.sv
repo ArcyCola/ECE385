@@ -46,44 +46,17 @@ end
 // Everything happens sequentially inside an initial block
 // as in a software program
 initial begin: TEST_VECTORS
-SW = 10'b0;
-Run = 0; //these are active low
-Continue = 0;
+SW = 16'h0003;
+Run = 1; //these are active low
+Continue = 1;
 
-#5 Run = 1;
-  Continue = 1;
 
-#10 Run = 0;
+
+#5 Run = 0;
+   Continue = 0;
 
 #10 Run = 1;
-
-#25 Continue = 0;
-
-#25 Continue = 1;
-
-#10 Continue = 0; 
-
-#25 Continue = 1; 
-
-#10 Continue = 0; 
-
-#25 Continue = 1;
-
-#10 Continue = 0; 
-
-#25 Continue = 1;
-
-#10 Continue = 0; 
-
-#25 Continue = 1;
-
-#10 Continue = 0; 
-
-#25 Continue = 1;
-
-#10 Continue = 0; 
-
-#25 Continue = 1;
+	 Continue = 1;
 
 
 
