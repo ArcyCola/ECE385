@@ -204,8 +204,8 @@ task memory_contents(output logic[15:0] mem_array[0:size-1]);
 	mem_array[ 159 ] =    opCLR(R3)                ;       // R3 = 0  (R3 will be displayed to hex displays)
 	mem_array[ 160 ] =    opJSR(0)				   ;       // R7 <- PC = 161 (161 because PC <- PC+1 after fetch)
 	// INIT:      (PC = 161)
-	mem_array[ 161 ] =	 opLDR(R1, R7, 12)         ;       // R1 <- x3
-	mem_array[ 162 ] =    opLDR(R2, R7, 13)        ;       // R2 <- d3
+	mem_array[ 161 ] =	 opLDR(R1, R7, 12)         ;       // R1 <- h3
+	mem_array[ 162 ] =    opLDR(R2, R7, 13)        ;       // R2 <- d3 
 	// 1ST LOOP:  (PC = 163)
 	mem_array[ 163 ] =    opDEC(R1)                ;       // Decrement first loop counter
 	mem_array[ 164 ] =    opBR(z, 1)               ;       // (Go to 2ND LOOP) - R1 =  0, go to second loop

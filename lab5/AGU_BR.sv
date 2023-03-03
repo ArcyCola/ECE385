@@ -54,7 +54,7 @@ reg_3 NZP(.Clk, .Reset, .Load(LD_CC), .D(nzp), .Data_Out(nzpOut));
  
 //logic for S_32
 //BEN <- (IR[11] & N + IR[10] & Z + IR[9] & P)
-assign BEN_In = (IR[11] & nzp[2]) + (IR[10] & nzp[1]) + (IR[9] & nzp[0]);
+assign BEN_In = (IR[11] & nzpOut[2]) + (IR[10] & nzpOut[1]) + (IR[9] & nzpOut[0]);
 
 reg_1 BEN_reg(.Clk, .Reset, .Load(LD_BEN), .D(BEN_In), .Data_Out(BEN_Out)); 
 //havent put logic for BEN, its the logic in state 32.

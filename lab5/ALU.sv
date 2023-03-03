@@ -29,7 +29,7 @@ begin
     unique case(ALUK)
         2'b00   : ALU_OUT = SR1_OUT + SR2MUX_OUT;
         2'b01   : ALU_OUT = SR1_OUT & SR2MUX_OUT;
-        2'b10   : ALU_OUT = !SR1_OUT;
+        2'b10   : ALU_OUT = ~SR1_OUT;
         2'b11   : ALU_OUT = SR1_OUT;
     endcase
 end

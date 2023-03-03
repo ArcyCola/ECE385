@@ -205,7 +205,8 @@ module ISDU (   input logic         Clk,
 			S_12 : Next_state = S_18;
 
 			//JSR
-			S_04 : Next_state = S_18;
+			S_04 : Next_state = S_21;
+			S_21 : Next_state = S_18;
 			
 			default :   Next_state = S_18; //dont know if this is accurate or not
 

@@ -46,11 +46,28 @@ end
 // Everything happens sequentially inside an initial block
 // as in a software program
 initial begin: TEST_VECTORS
-SW = 16'h0006;
+//SW = 16'h009C;
 Run = 0; //these are active low
 Continue = 0;
 
+// TEST 4 - COUNTER
 
+/*
+#2 SW = 16'h009C;
+
+#2 Run = 1;
+	Continue = 1;
+
+#2 Run = 1;
+
+#2 Run = 0;
+
+*/
+
+//TEST 5 - XOR
+
+/*
+#2 SW = 16'h0014;
 
 #2 Run = 1;
 	Continue = 1;
@@ -60,12 +77,58 @@ Continue = 0;
 #2 Run = 0;
 
 #2 Run = 1;
-	 
-#60 SW = 16'h0420;
 
-#20 Continue = 0;
+#60 SW = 16'hFFFF;
+
+#10 Continue = 0;
 
 #5 Continue = 1;
 
+#10 Continue = 0;
+
+#5 Continue = 1;
+
+#80 SW = 16'h0001;
+
+#10 Continue = 0;
+
+#5 Continue = 1;
+
+*/
+//TEST 5 - Multiplication (Lab 4 in software)
+
+/*
+#2 SW = 16'h0031;
+
+#2 Run = 1;
+	Continue = 1;
+
+#2 Run = 1;
+
+#2 Run = 0;
+
+#2 Run = 1;
+*/
+
+//TEST 7 - SORT
+
+#2 SW = 16'h005A;
+
+#2 Run = 1;
+	Continue = 1;
+
+#2 Run = 1;
+
+#2 Run = 0;
+
+#2 Run = 1;
+
+#150 Continue = 1;
+
+#2 SW = 16'h0003;
+
+#2 Continue = 0;
+
+#2 Continue = 1;
 end
 endmodule
