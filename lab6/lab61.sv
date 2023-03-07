@@ -10,6 +10,7 @@
 
 module lab61(  	 	  input	        MAX10_CLK1_50, 
 					  input  [1:0]  KEY,
+					  input  [7:0]  SW,
 					  output [7:0]  LEDR,
 					  output [12:0] DRAM_ADDR,
 					  output [1:0]  DRAM_BA,
@@ -40,7 +41,9 @@ module lab61(  	 	  input	        MAX10_CLK1_50,
 											.sdram_wire_dq(DRAM_DQ),                             //.dq
 											.sdram_wire_dqm({DRAM_UDQM,DRAM_LDQM}),              //.dqm
 											.sdram_wire_ras_n(DRAM_RAS_N),                       //.ras_n
-											.sdram_wire_we_n(DRAM_WE_N)                          //.we_n
+											.sdram_wire_we_n(DRAM_WE_N),                          //.we_n,
+											.accumulate_wire_export(KEY[1]), //added accumulate and switches
+											.sw_wire_export(SW)
 											 );
 											 
 				//Instantiate additional FPGA fabric modules as needed		  

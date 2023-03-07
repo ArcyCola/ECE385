@@ -12,7 +12,9 @@ module lab61_soc (
 	sdram_wire_dq,
 	sdram_wire_dqm,
 	sdram_wire_ras_n,
-	sdram_wire_we_n);	
+	sdram_wire_we_n,
+	sw_wire_export,
+	accumulate_wire_export);	
 
 	input		clk_clk;
 	output	[7:0]	led_wire_export;
@@ -27,4 +29,6 @@ module lab61_soc (
 	output	[1:0]	sdram_wire_dqm;
 	output		sdram_wire_ras_n;
 	output		sdram_wire_we_n;
+	input	[7:0]	sw_wire_export;
+	input		accumulate_wire_export;
 endmodule
