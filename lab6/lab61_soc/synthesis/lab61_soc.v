@@ -72,8 +72,11 @@ module lab61_soc (
 	wire  [15:0] mm_interconnect_0_sdram_s1_writedata;                       // mm_interconnect_0:sdram_s1_writedata -> sdram:az_data
 	wire  [31:0] mm_interconnect_0_switches_s1_readdata;                     // switches:readdata -> mm_interconnect_0:switches_s1_readdata
 	wire   [1:0] mm_interconnect_0_switches_s1_address;                      // mm_interconnect_0:switches_s1_address -> switches:address
+	wire         mm_interconnect_0_accumulate_s1_chipselect;                 // mm_interconnect_0:accumulate_s1_chipselect -> accumulate:chipselect
 	wire  [31:0] mm_interconnect_0_accumulate_s1_readdata;                   // accumulate:readdata -> mm_interconnect_0:accumulate_s1_readdata
 	wire   [1:0] mm_interconnect_0_accumulate_s1_address;                    // mm_interconnect_0:accumulate_s1_address -> accumulate:address
+	wire         mm_interconnect_0_accumulate_s1_write;                      // mm_interconnect_0:accumulate_s1_write -> accumulate:write_n
+	wire  [31:0] mm_interconnect_0_accumulate_s1_writedata;                  // mm_interconnect_0:accumulate_s1_writedata -> accumulate:writedata
 	wire  [31:0] nios2_gen2_0_irq_irq;                                       // irq_mapper:sender_irq -> nios2_gen2_0:irq
 	wire         rst_controller_reset_out_reset;                             // rst_controller:reset_out -> [accumulate:reset_n, irq_mapper:reset, led:reset_n, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, nios2_gen2_0:reset_n, onchip_memory2_0:reset, rst_translator:in_reset, sdram_pll:reset, switches:reset_n, sysid_qsys_0:reset_n]
 	wire         rst_controller_reset_out_reset_req;                         // rst_controller:reset_req -> [nios2_gen2_0:reset_req, onchip_memory2_0:reset_req, rst_translator:reset_req_in]
@@ -81,11 +84,14 @@ module lab61_soc (
 	wire         rst_controller_001_reset_out_reset;                         // rst_controller_001:reset_out -> [mm_interconnect_0:sdram_reset_reset_bridge_in_reset_reset, sdram:reset_n]
 
 	lab61_soc_accumulate accumulate (
-		.clk      (clk_clk),                                  //                 clk.clk
-		.reset_n  (~rst_controller_reset_out_reset),          //               reset.reset_n
-		.address  (mm_interconnect_0_accumulate_s1_address),  //                  s1.address
-		.readdata (mm_interconnect_0_accumulate_s1_readdata), //                    .readdata
-		.in_port  (accumulate_wire_export)                    // external_connection.export
+		.clk        (clk_clk),                                    //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),            //               reset.reset_n
+		.address    (mm_interconnect_0_accumulate_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_accumulate_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_accumulate_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_accumulate_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_accumulate_s1_readdata),   //                    .readdata
+		.in_port    (accumulate_wire_export)                      // external_connection.export
 	);
 
 	lab61_soc_led led (
@@ -225,7 +231,10 @@ module lab61_soc (
 		.nios2_gen2_0_instruction_master_read           (nios2_gen2_0_instruction_master_read),                       //                                         .read
 		.nios2_gen2_0_instruction_master_readdata       (nios2_gen2_0_instruction_master_readdata),                   //                                         .readdata
 		.accumulate_s1_address                          (mm_interconnect_0_accumulate_s1_address),                    //                            accumulate_s1.address
+		.accumulate_s1_write                            (mm_interconnect_0_accumulate_s1_write),                      //                                         .write
 		.accumulate_s1_readdata                         (mm_interconnect_0_accumulate_s1_readdata),                   //                                         .readdata
+		.accumulate_s1_writedata                        (mm_interconnect_0_accumulate_s1_writedata),                  //                                         .writedata
+		.accumulate_s1_chipselect                       (mm_interconnect_0_accumulate_s1_chipselect),                 //                                         .chipselect
 		.led_s1_address                                 (mm_interconnect_0_led_s1_address),                           //                                   led_s1.address
 		.led_s1_write                                   (mm_interconnect_0_led_s1_write),                             //                                         .write
 		.led_s1_readdata                                (mm_interconnect_0_led_s1_readdata),                          //                                         .readdata

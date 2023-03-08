@@ -2,7 +2,7 @@ set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_TOOL_NAM
 set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "lab61_soc" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../lab61_soc.sopcinfo"]
-set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name SLD_INFO "QSYS_NAME lab61_soc HAS_SOPCINFO 1 GENERATION_ID 1678261029"
+set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name SLD_INFO "QSYS_NAME lab61_soc HAS_SOPCINFO 1 GENERATION_ID 1678311507"
 set_global_assignment -library "lab61_soc" -name MISC_FILE [file join $::quartus(qip_path) "../lab61_soc.cmp"]
 set_global_assignment -library "lab61_soc" -name SLD_FILE [file join $::quartus(qip_path) "lab61_soc.regmap"]
 set_global_assignment -library "lab61_soc" -name SLD_FILE [file join $::quartus(qip_path) "lab61_soc.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONEN
 set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTY3ODI2MTAyOQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTY3ODMxMTUwNw==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::TUFYIDEw::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::MTBNNTBEQUY0ODRDN0c=::QXV0byBERVZJQ0U="
 set_global_assignment -entity "lab61_soc" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Nw==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -416,7 +416,7 @@ set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_DESCRIPTION "Um91dGVzIGNvbW1hbmQgcGFja2V0cyBmcm9tIHRoZSBtYXN0ZXIgdG8gdGhlIHNsYXZlIGFuZCByZXNwb25zZSBwYWNrZXRzIGZyb20gdGhlIHNsYXZlIHRvIHRoZSBtYXN0ZXIu"
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "REVTVElOQVRJT05fSUQ=::Myw0LDEsNywwLDYsMiw1::RGVzdGluYXRpb24gSUQ="
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "Q0hBTk5FTF9JRA==::MDAwMDEwMDAsMDAwMDAxMDAsMDAwMTAwMDAsMDAwMDAwMDEsMTAwMDAwMDAsMDEwMDAwMDAsMDAwMDAwMTAsMDAxMDAwMDA=::QmluYXJ5IENoYW5uZWwgU3RyaW5n"
-set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "VFlQRV9PRl9UUkFOU0FDVElPTg==::Ym90aCxib3RoLGJvdGgscmVhZCxyZWFkLHJlYWQsYm90aCxib3Ro::VHlwZSBvZiBUcmFuc2FjdGlvbg=="
+set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "VFlQRV9PRl9UUkFOU0FDVElPTg==::Ym90aCxib3RoLGJvdGgscmVhZCxib3RoLHJlYWQsYm90aCxib3Ro::VHlwZSBvZiBUcmFuc2FjdGlvbg=="
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "U1RBUlRfQUREUkVTUw==::MHgwLDB4MzAsMHg0MCwweDU4LDB4NjAsMHg3MCwweDEwMDAsMHg4MDAwMDAw::U3RhcnQgYWRkcmVzc2VzIChpbmNsdXNpdmUp"
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "RU5EX0FERFJFU1M=::MHgxMCwweDQwLDB4NTAsMHg2MCwweDcwLDB4ODAsMHgxODAwLDB4YzAwMDAwMA==::RW5kIGFkZHJlc3NlcyAoZXhjbHVzaXZlKQ=="
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "Tk9OX1NFQ1VSRURfVEFH::MSwxLDEsMSwxLDEsMSwx::Tm9uLXNlY3VyZWQgdGFncw=="
@@ -432,7 +432,7 @@ set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "UEtUX1RSQU5TX1JFQUQ=::Njc=::UGFja2V0IHJlYWQgdHJhbnNhY3Rpb24gZmllbGQgaW5kZXg="
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "U1RfREFUQV9X::MTA0::U3RyZWFtaW5nIGRhdGEgd2lkdGg="
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "U1RfQ0hBTk5FTF9X::OA==::U3RyZWFtaW5nIGNoYW5uZWwgd2lkdGg="
-set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "U0xBVkVTX0lORk8=::MzowMDAwMTAwMDoweDA6MHgxMDpib3RoOjE6MDowOjEsNDowMDAwMDEwMDoweDMwOjB4NDA6Ym90aDoxOjA6MDoxLDE6MDAwMTAwMDA6MHg0MDoweDUwOmJvdGg6MTowOjA6MSw3OjAwMDAwMDAxOjB4NTg6MHg2MDpyZWFkOjE6MDowOjEsMDoxMDAwMDAwMDoweDYwOjB4NzA6cmVhZDoxOjA6MDoxLDY6MDEwMDAwMDA6MHg3MDoweDgwOnJlYWQ6MTowOjA6MSwyOjAwMDAwMDEwOjB4MTAwMDoweDE4MDA6Ym90aDoxOjA6MDoxLDU6MDAxMDAwMDA6MHg4MDAwMDAwOjB4YzAwMDAwMDpib3RoOjE6MDowOjE=::U0xBVkVTX0lORk8="
+set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "U0xBVkVTX0lORk8=::MzowMDAwMTAwMDoweDA6MHgxMDpib3RoOjE6MDowOjEsNDowMDAwMDEwMDoweDMwOjB4NDA6Ym90aDoxOjA6MDoxLDE6MDAwMTAwMDA6MHg0MDoweDUwOmJvdGg6MTowOjA6MSw3OjAwMDAwMDAxOjB4NTg6MHg2MDpyZWFkOjE6MDowOjEsMDoxMDAwMDAwMDoweDYwOjB4NzA6Ym90aDoxOjA6MDoxLDY6MDEwMDAwMDA6MHg3MDoweDgwOnJlYWQ6MTowOjA6MSwyOjAwMDAwMDEwOjB4MTAwMDoweDE4MDA6Ym90aDoxOjA6MDoxLDU6MDAxMDAwMDA6MHg4MDAwMDAwOjB4YzAwMDAwMDpib3RoOjE6MDowOjE=::U0xBVkVTX0lORk8="
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "REVDT0RFUl9UWVBF::MA==::RGVjb2RlciB0eXBl"
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "REVGQVVMVF9DSEFOTkVM::NQ==::RGVmYXVsdCBjaGFubmVs"
 set_global_assignment -entity "lab61_soc_mm_interconnect_0_router" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "REVGQVVMVF9XUl9DSEFOTkVM::LTE=::RGVmYXVsdCB3ciBjaGFubmVs"
@@ -1201,8 +1201,10 @@ set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name 
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_AUTHOR "SW50ZWwgQ29ycG9yYXRpb24="
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_VERSION "MTguMQ=="
-set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "Y2FwdHVyZUVkZ2U=::ZmFsc2U=::U3luY2hyb25vdXNseSBjYXB0dXJl"
+set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "Yml0Q2xlYXJpbmdFZGdlQ2FwUmVn::ZmFsc2U=::RW5hYmxlIGJpdC1jbGVhcmluZyBmb3IgZWRnZSBjYXB0dXJlIHJlZ2lzdGVy"
+set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "Y2FwdHVyZUVkZ2U=::dHJ1ZQ==::U3luY2hyb25vdXNseSBjYXB0dXJl"
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGlyZWN0aW9u::SW5wdXQ=::RGlyZWN0aW9u"
+set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZWRnZVR5cGU=::QU5Z::RWRnZSBUeXBl"
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "Z2VuZXJhdGVJUlE=::ZmFsc2U=::R2VuZXJhdGUgSVJR"
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "c2ltRG9UZXN0QmVuY2hXaXJpbmc=::ZmFsc2U=::SGFyZHdpcmUgUElPIGlucHV0cyBpbiB0ZXN0IGJlbmNo"
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "d2lkdGg=::MQ==::V2lkdGggKDEtMzIgYml0cyk="
@@ -1211,8 +1213,8 @@ set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name 
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9oYXNfb3V0::ZmFsc2U=::ZGVyaXZlZF9oYXNfb3V0"
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9oYXNfaW4=::dHJ1ZQ==::ZGVyaXZlZF9oYXNfaW4="
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9kb190ZXN0X2JlbmNoX3dpcmluZw==::ZmFsc2U=::ZGVyaXZlZF9kb190ZXN0X2JlbmNoX3dpcmluZw=="
-set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9jYXB0dXJl::ZmFsc2U=::ZGVyaXZlZF9jYXB0dXJl"
-set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9lZGdlX3R5cGU=::Tk9ORQ==::ZGVyaXZlZF9lZGdlX3R5cGU="
+set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9jYXB0dXJl::dHJ1ZQ==::ZGVyaXZlZF9jYXB0dXJl"
+set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9lZGdlX3R5cGU=::QU5Z::ZGVyaXZlZF9lZGdlX3R5cGU="
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9pcnFfdHlwZQ==::Tk9ORQ==::ZGVyaXZlZF9pcnFfdHlwZQ=="
 set_global_assignment -entity "lab61_soc_accumulate" -library "lab61_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9oYXNfaXJx::ZmFsc2U=::ZGVyaXZlZF9oYXNfaXJx"
 

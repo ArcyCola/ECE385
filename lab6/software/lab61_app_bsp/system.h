@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'lab61_soc'
  * SOPC Builder design path: ../../lab61_soc.sopcinfo
  *
- * Generated: Wed Mar 08 01:42:42 CST 2023
+ * Generated: Wed Mar 08 15:42:46 CST 2023
  */
 
 /*
@@ -178,11 +178,11 @@
 #define ACCUMULATE_BASE 0x60
 #define ACCUMULATE_BIT_CLEARING_EDGE_REGISTER 0
 #define ACCUMULATE_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define ACCUMULATE_CAPTURE 0
+#define ACCUMULATE_CAPTURE 1
 #define ACCUMULATE_DATA_WIDTH 1
 #define ACCUMULATE_DO_TEST_BENCH_WIRING 0
 #define ACCUMULATE_DRIVEN_SIM_VALUE 0
-#define ACCUMULATE_EDGE_TYPE "NONE"
+#define ACCUMULATE_EDGE_TYPE "ANY"
 #define ACCUMULATE_FREQ 50000000
 #define ACCUMULATE_HAS_IN 1
 #define ACCUMULATE_HAS_OUT 0
@@ -356,7 +356,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1678261029
+#define SYSID_QSYS_0_TIMESTAMP 1678311507
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 #endif /* __SYSTEM_H_ */

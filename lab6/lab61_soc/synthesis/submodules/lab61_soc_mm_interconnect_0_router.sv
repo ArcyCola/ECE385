@@ -225,7 +225,7 @@ module lab61_soc_mm_interconnect_0_router
     end
 
     // ( 0x60 .. 0x70 )
-    if ( {address[RG:PAD4],{PAD4{1'b0}}} == 28'h60  && read_transaction  ) begin
+    if ( {address[RG:PAD4],{PAD4{1'b0}}} == 28'h60   ) begin
             src_channel = 8'b10000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
     end
