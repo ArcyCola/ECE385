@@ -32,11 +32,12 @@ int main()
 				if (count >= 255) {
 					count -= 255;
 				}
+
 				break;
 			}
-
+			*LED_PIO = count;
 		}
-		*LED_PIO = count;
+
  	}
  	return 1;
 }

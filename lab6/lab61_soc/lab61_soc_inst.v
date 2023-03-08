@@ -1,4 +1,5 @@
 	lab61_soc u0 (
+		.accumulate_wire_export (<connected-to-accumulate_wire_export>), // accumulate_wire.export
 		.clk_clk                (<connected-to-clk_clk>),                //             clk.clk
 		.led_wire_export        (<connected-to-led_wire_export>),        //        led_wire.export
 		.reset_reset_n          (<connected-to-reset_reset_n>),          //           reset.reset_n
@@ -12,7 +13,6 @@
 		.sdram_wire_dqm         (<connected-to-sdram_wire_dqm>),         //                .dqm
 		.sdram_wire_ras_n       (<connected-to-sdram_wire_ras_n>),       //                .ras_n
 		.sdram_wire_we_n        (<connected-to-sdram_wire_we_n>),        //                .we_n
-		.sw_wire_export         (<connected-to-sw_wire_export>),         //         sw_wire.export
-		.accumulate_wire_export (<connected-to-accumulate_wire_export>)  // accumulate_wire.export
+		.sw_wire_export         (<connected-to-sw_wire_export>)          //         sw_wire.export
 	);
 
