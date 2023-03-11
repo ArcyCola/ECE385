@@ -1,4 +1,4 @@
-17:13:37 **** Incremental Build of configuration Nios II for project lab61_app ****
+12:04:33 **** Incremental Build of configuration Nios II for project lab61_app ****
 make all 
 Info: Building ../lab61_app_bsp/
 C:/intelFPGA_lite/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../lab61_app_bsp/
@@ -14,5 +14,5 @@ Info: Creating lab61_app.objdump
 nios2-elf-objdump --disassemble --syms --all-header --source lab61_app.elf >lab61_app.objdump
 [lab61_app build complete]
 
-17:13:40 Build Finished (took 3s.388ms)
+12:04:36 Build Finished (took 3s.187ms)
 

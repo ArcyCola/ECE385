@@ -33,7 +33,7 @@ int main()
 			}
 			count += *SW_PIO;
 			if (count > 255) {
-				count -= 256;
+				count -= 255;
 			}
 		}
 		*LED_PIO = count;

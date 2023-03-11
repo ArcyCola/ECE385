@@ -291,7 +291,7 @@ int main()
  8000078:	00801804 	movi	r2,96
  800007c:	e0bfff15 	stw	r2,-4(fp)
 
-	//int i = 0;
+
 	int count = 0;
  8000080:	e03ffc15 	stw	zero,-16(fp)
  	*LED_PIO = 0; //clear all LEDs
@@ -316,13 +316,13 @@ int main()
  80000b0:	e0bffc17 	ldw	r2,-16(fp)
  80000b4:	1885883a 	add	r2,r3,r2
  80000b8:	e0bffc15 	stw	r2,-16(fp)
-			if (count >= 255) {
+			if (count > 255) {
  80000bc:	e0bffc17 	ldw	r2,-16(fp)
- 80000c0:	10803fd0 	cmplti	r2,r2,255
+ 80000c0:	10804010 	cmplti	r2,r2,256
  80000c4:	1000031e 	bne	r2,zero,80000d4 <main+0x78>
-				count -= 255;
+				count -= 256;
  80000c8:	e0bffc17 	ldw	r2,-16(fp)
- 80000cc:	10bfc044 	addi	r2,r2,-255
+ 80000cc:	10bfc004 	addi	r2,r2,-256
  80000d0:	e0bffc15 	stw	r2,-16(fp)
 			}
 		}
