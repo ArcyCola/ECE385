@@ -50,6 +50,91 @@ initial begin: TEST_VECTORS
 Run = 0; //these are active low
 Continue = 0;
 
+// Basic I/O Test 1
+
+// set switches to start of program (x0003)
+// press run
+// hex displays should display value of switches
+
+/*
+#2 SW = 16'h0003;	// set switches to x0003 (start of program)
+
+#2 Run = 1;
+	Continue = 1;
+
+#2 Run = 1;
+
+#2 Run = 0;
+
+#2 Run = 1;	// hex displays should eventually display 0003
+
+#200 SW = 16'h0001;	// set switches to x0001, hex displays should display 0001
+*/
+
+// Basic I/O Test 2
+
+// set switches to start of program (x0006)
+// press run
+// program pauses and asks for input (led should display x01)
+// load switches to diff value
+// press continue
+// hex displays should display value from switches only after continue was pressed
+// for 2nd and subsequent pauses leds display x02
+/*
+#2 SW = 16'h0006;	// set switches to x0006 (start of program)
+
+#2 Run = 1;
+	Continue = 1;	// "clear"
+
+#2 Run = 1;	
+
+#2 Run = 0;	// starts program
+
+#2 Run = 1;
+
+#100 Continue = 0;	// hex displays should eventually display 0006
+
+#2 Continue = 1;
+
+#100 SW = 16'h0001;	// set switches to x0001
+
+#2 Continue = 0;
+
+#2 Continue = 1;		// hex displays should eventually display 0001
+*/
+
+// Test 3 - Self-Modifying Code Test
+/*
+
+#2 SW = 16'h000b;	// set switches to x000b (start of program)
+
+#2 Run = 1;
+	Continue = 1;	// "clear"
+
+#2 Run = 1;	
+
+#2 Run = 0;	// starts program, led = x01
+
+#2 Run = 1;
+
+#100 Continue = 0;	// hex displays should eventually display 000b, led = x02
+
+#2 Continue = 1;
+
+#125 Continue = 0;
+
+#2 Continue = 1;		// led is incremented
+
+#125 Continue = 0;
+
+#2 Continue = 1;
+
+#125 Continue = 0;
+
+#2 Continue = 1;
+*/
+
+
 // TEST 4 - COUNTER
 
 /*
@@ -62,42 +147,44 @@ Continue = 0;
 
 #2 Run = 0;
 
+#2 Run = 1;
 */
+
 
 //TEST 5 - XOR
 
 /*
-#2 SW = 16'h0014;
+#2 SW = 16'h0014;	// program start addresss
 
 #2 Run = 1;
-	Continue = 1;
-
-#2 Run = 1;
-
-#2 Run = 0;
+	Continue = 1;	// clear
 
 #2 Run = 1;
 
-#60 SW = 16'hFFFF;
+#2 Run = 0;	// run is pressed
 
-#10 Continue = 0;
+#2 Run = 1;
 
-#5 Continue = 1;
+#100 SW = 16'hFFFF;	// input 1 = x3fff bc switches is only 10 bits
 
-#10 Continue = 0;
-
-#5 Continue = 1;
-
-#80 SW = 16'h0001;
-
-#10 Continue = 0;
+#10 Continue = 0;		// continue is pressed
 
 #5 Continue = 1;
 
+//#10 Continue = 0;		// continue is pressed again
+//
+//#5 Continue = 1;
+
+#100 SW = 16'h0001;	// input 2 = x0001
+
+#10 Continue = 0;		// continue is pressed
+
+#5 Continue = 1;		// result should be x03fe
 */
+
 //TEST 5 - Multiplication (Lab 4 in software)
 
-/*
+
 #2 SW = 16'h0031;
 
 #2 Run = 1;
@@ -108,10 +195,10 @@ Continue = 0;
 #2 Run = 0;
 
 #2 Run = 1;
-*/
+
 
 //TEST 7 - SORT
-
+/*
 #2 SW = 16'h005A;
 
 #2 Run = 1;
@@ -130,5 +217,7 @@ Continue = 0;
 #2 Continue = 0;
 
 #2 Continue = 1;
+*/
 end
+
 endmodule
