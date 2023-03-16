@@ -185,16 +185,32 @@ Continue = 0;
 //TEST 5 - Multiplication (Lab 4 in software)
 
 
-#2 SW = 16'h0031;
+#2 SW = 16'h0031;	// start address
 
 #2 Run = 1;
 	Continue = 1;
 
 #2 Run = 1;
 
-#2 Run = 0;
+#2 Run = 0;		// press run
 
-#2 Run = 1;
+#2 Run = 1;		// led = x01
+
+#200 SW = 16'h0003;		// input 1 = 3
+
+#10 Continue = 0;
+
+#5 Continue = 1;
+
+#100 SW = 16'h0002;
+
+#10 Continue = 0;
+
+#5 Continue = 1;
+
+#100 Continue = 0;
+
+#2 Continue = 1;
 
 
 //TEST 7 - SORT
