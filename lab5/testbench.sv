@@ -222,7 +222,77 @@ Continue = 0;
 
 #2 Run = 1;
 
-#200 SW = 16'h0002;
+#200 SW = 15'h0003;
+
+#2 Continue = 0;		// index 0
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 1
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 2
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 3
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 4
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 5
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 6
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 7
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 8
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index 9
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index A
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index B
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index C
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index D
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index E
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	// index F
+
+#2 Continue = 1;
+
+#3000 Continue = 0;	
+
+#2 Continue = 1;
+
+#500 SW = 16'h0002;
 
 #2 Continue = 0;
 
