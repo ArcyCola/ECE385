@@ -3,12 +3,13 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="47" />
+   <connections preferredWidth="175" />
    <irq preferredWidth="34" />
    <name preferredWidth="212" />
    <inputclock preferredWidth="187" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project" />
+ <library
+   expandedCategories="Library/Interface Protocols,Project,Library/Interface Protocols/Serial,Library" />
  <window width="2174" height="1268" x="30" y="75" />
 </preferences>
