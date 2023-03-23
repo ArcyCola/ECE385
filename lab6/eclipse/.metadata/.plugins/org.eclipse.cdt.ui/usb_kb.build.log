@@ -1,26 +1,9 @@
-22:35:15 **** Incremental Build of configuration Nios II for project usb_kb ****
+00:01:07 **** Incremental Build of configuration Nios II for project usb_kb ****
 make all 
 Info: Building ../usb_kb_bsp/
 C:/intelFPGA_lite/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../usb_kb_bsp/
 [BSP build complete]
-Info: Compiling usb_kb/MAX3421E.c to obj/default/usb_kb/MAX3421E.o
-nios2-elf-gcc -xc -MP -MMD -c -I../usb_kb_bsp//HAL/inc -I../usb_kb_bsp/ -I../usb_kb_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/usb_kb/MAX3421E.o usb_kb/MAX3421E.c
-usb_kb/MAX3421E.c: In function 'SPI_wr':
-usb_kb/MAX3421E.c:28:2: warning: 'return' with no value, in function returning non-void
-  return;
-  ^
-usb_kb/MAX3421E.c: In function 'MaxGpxHandler':
-usb_kb/MAX3421E.c:243:7: warning: variable 'GPINIRQ' set but not used [-Wunused-but-set-variable]
-  BYTE GPINIRQ;
-       ^
-Info: Linking usb_kb.elf
-nios2-elf-g++  -T'../usb_kb_bsp//linker.x' -msys-crt0='../usb_kb_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../usb_kb_bsp/   -Wl,-Map=usb_kb.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx -mgpopt=global  -o usb_kb.elf obj/default/main.o obj/default/usb_kb/HID.o obj/default/usb_kb/MAX3421E.o obj/default/usb_kb/transfer.o -lm -msys-lib=m
-nios2-elf-insert usb_kb.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --id 0 --sidp 0x58 --timestamp 1679541905 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name lab62_soc --quartus_project_dir "C:/ECE385/lab6" --jdi ../..//output_files/lab-6-SOC-w-NOIS-II.jdi --sopcinfo C:/ECE385/lab6/software/usb_kb_bsp/../../lab62_soc.sopcinfo
-Info: (usb_kb.elf) 82 KBytes program size (code + initialized data).
-Info:              65446 KBytes free for stack + heap.
-Info: Creating usb_kb.objdump
-nios2-elf-objdump --disassemble --syms --all-header --source usb_kb.elf >usb_kb.objdump
 [usb_kb build complete]
 
-22:35:19 Build Finished (took 3s.477ms)
+00:01:08 Build Finished (took 1s.125ms)
 
