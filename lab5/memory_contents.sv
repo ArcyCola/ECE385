@@ -109,7 +109,7 @@ task memory_contents(output logic[15:0] mem_array[0:size-1]);
    mem_array[  67 ] =    opADD(R1, R1, R1)        ;       // shift operand 1 for mask comparisons
    mem_array[  68 ] =    opADDi(R7, R4, -8)       ;       // test for last iteration
    mem_array[  69 ] =    opBR(n, -12)             ;       // branch back to LOOP DEST if iteration < 7
-   mem_array[  70 ] =    opSTR(R5, R0, outHEX)    ;       // Output result
+   mem_array[  70 ] =    opSTR(R5, R0, outHEX)    ;       // Output result                 PC = 47
    mem_array[  71 ] =    opPSE(12'h403)           ;       // Checkpoint 3 - read output
    mem_array[  72 ] =    opBR(nzp, -21)           ;       // loop back to start
    mem_array[  73 ] =    16'h0080                 ;       // bit test mask
@@ -159,7 +159,7 @@ task memory_contents(output logic[15:0] mem_array[0:size-1]);
    mem_array[ 116 ] =    opADDi(R3, R1, -16)      ;       // test for counter == 16
    mem_array[ 117 ] =    opBR(n, -8)              ;       // less than 16, repeat
    mem_array[ 118 ] =    opRET()                   ;       // ENTRY FUNCTION RETURN
-   mem_array[ 119 ] =    opADDi(R1, R0, -16)      ;       // i = -16; SORT FUNCTION
+   mem_array[ 119 ] =    opADDi(R1, R0, -16)      ;       // i = -16;                       SORT FUNCTION
    mem_array[ 120 ] =    opADDi(R2, R0, 1)        ;       // j = 1; OUTER LOOP DEST
    mem_array[ 121 ] =    opADD(R3, R6, R2)        ;       // generate pointer to data; INNER LOOP DEST
    mem_array[ 122 ] =    opLDR(R4, R3, -1)        ;       // R4 = data[j-1]
