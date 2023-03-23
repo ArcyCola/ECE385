@@ -54,14 +54,14 @@ module  ball ( input Reset, frame_clk,
 				 else if ( (Ball_X_Pos - Ball_Size) <= Ball_X_Min )  // Ball is at the Left edge, BOUNCE!
 					  Ball_X_Motion <= Ball_X_Step;
 					  
-				 else 
+				 else begin
 					  Ball_Y_Motion <= Ball_Y_Motion;  // Ball is somewhere in the middle, don't bounce, just keep moving
-					  
+						end
 				 
 				 case (keycode)
-					8'h04 : begin
-
-								Ball_X_Motion <= -1;//A
+					8'h04 : begin //A
+							
+								Ball_X_Motion <= -1;
 								Ball_Y_Motion<= 0;
 							  end
 					        
