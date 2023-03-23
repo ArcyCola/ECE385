@@ -21,7 +21,6 @@
 			spi0_MOSI                      : out   std_logic;                                        -- MOSI
 			spi0_SCLK                      : out   std_logic;                                        -- SCLK
 			spi0_SS_n                      : out   std_logic;                                        -- SS_n
-			timer_irq                      : out   std_logic;                                        -- irq
 			usb_gpx_export                 : in    std_logic                     := 'X';             -- export
 			usb_irq_export                 : in    std_logic                     := 'X';             -- export
 			usb_rst_export                 : out   std_logic                                         -- export

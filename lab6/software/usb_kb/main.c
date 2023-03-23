@@ -127,7 +127,7 @@ void printSignedHex1(signed char value) {
 
 void setKeycode(WORD keycode)
 {
-	IOWR_ALTERA_AVALON_PIO_DATA(0x8002000, keycode);
+	IOWR_ALTERA_AVALON_PIO_DATA(0x0000120, keycode);
 }
 int main() {
 	BYTE rcode;

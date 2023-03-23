@@ -9,7 +9,6 @@
    <inputclock preferredWidth="187" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Library/Interface Protocols,Project,Library/Interface Protocols/Serial,Library" />
+ <library expandedCategories="Library,Project" />
  <window width="2174" height="1268" x="30" y="75" />
 </preferences>

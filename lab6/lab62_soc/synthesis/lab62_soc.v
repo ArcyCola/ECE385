@@ -25,7 +25,6 @@ module lab62_soc (
 		output wire        spi0_MOSI,                      //                        .MOSI
 		output wire        spi0_SCLK,                      //                        .SCLK
 		output wire        spi0_SS_n,                      //                        .SS_n
-		output wire        timer_irq,                      //                   timer.irq
 		input  wire        usb_gpx_export,                 //                 usb_gpx.export
 		input  wire        usb_irq_export,                 //                 usb_irq.export
 		output wire        usb_rst_export                  //                 usb_rst.export
@@ -126,6 +125,7 @@ module lab62_soc (
 	wire  [15:0] mm_interconnect_0_spi_0_spi_control_port_writedata;          // mm_interconnect_0:spi_0_spi_control_port_writedata -> spi_0:data_from_cpu
 	wire         irq_mapper_receiver0_irq;                                    // jtag_uart_0:av_irq -> irq_mapper:receiver0_irq
 	wire         irq_mapper_receiver1_irq;                                    // spi_0:irq -> irq_mapper:receiver1_irq
+	wire         irq_mapper_receiver2_irq;                                    // timer_0:irq -> irq_mapper:receiver2_irq
 	wire  [31:0] nios2_gen2_0_irq_irq;                                        // irq_mapper:sender_irq -> nios2_gen2_0:irq
 	wire         rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [accumulate:reset_n, hex_digits_pio:reset_n, irq_mapper:reset, jtag_uart_0:rst_n, key:reset_n, keycode:reset_n, leds_pio:reset_n, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, nios2_gen2_0:reset_n, onchip_memory2_0:reset, rst_translator:in_reset, sdram_pll:reset, spi_0:reset_n, sysid_qsys_0:reset_n, timer_0:reset_n, usb_gpx:reset_n, usb_irq:reset_n, usb_rst:reset_n]
 	wire         rst_controller_reset_out_reset_req;                          // rst_controller:reset_req -> [nios2_gen2_0:reset_req, onchip_memory2_0:reset_req, rst_translator:reset_req_in]
@@ -321,7 +321,7 @@ module lab62_soc (
 		.readdata   (mm_interconnect_0_timer_0_s1_readdata),   //      .readdata
 		.chipselect (mm_interconnect_0_timer_0_s1_chipselect), //      .chipselect
 		.write_n    (~mm_interconnect_0_timer_0_s1_write),     //      .write_n
-		.irq        (timer_irq)                                //   irq.irq
+		.irq        (irq_mapper_receiver2_irq)                 //   irq.irq
 	);
 
 	lab62_soc_usb_gpx usb_gpx (
@@ -455,6 +455,7 @@ module lab62_soc (
 		.reset         (rst_controller_reset_out_reset), // clk_reset.reset
 		.receiver0_irq (irq_mapper_receiver0_irq),       // receiver0.irq
 		.receiver1_irq (irq_mapper_receiver1_irq),       // receiver1.irq
+		.receiver2_irq (irq_mapper_receiver2_irq),       // receiver2.irq
 		.sender_irq    (nios2_gen2_0_irq_irq)            //    sender.irq
 	);
 
