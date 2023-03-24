@@ -56,7 +56,7 @@ module  ball ( input Reset, frame_clk,
 					  
 				 else begin
 					  Ball_Y_Motion <= Ball_Y_Motion;  // Ball is somewhere in the middle, don't bounce, just keep moving
-						end
+						
 				 
 				 case (keycode)
 					8'h04 : begin //A
@@ -84,7 +84,7 @@ module  ball ( input Reset, frame_clk,
 							 end	  
 					default: ;
 			   endcase
-				 
+				end 
 				 Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);  // Update ball position
 				 Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);
 			
