@@ -47,15 +47,64 @@ module vga_text_avl_interface (
 	output logic hs, vs						// VGA HS/VS
 );
 
+//this is the unpacked thing of registers
 logic [31:0] LOCAL_REG       [`NUM_REGS]; // Registers
+//LOCAL_REG[2][4:0] 
+//unpacked dimension first
+//perspective of hardware, packed is always 31 down to 0
+//to split up by bytes
+//                   LOCALREG[3:0][7:0]
+//         choosing which addr^     ^choosing bits of data in register/"ram"
+
+
+
 //put other local variables here
+logic [9:0] DrawX, DrawY; 
 
 
 //Declare submodules..e.g. VGA controller, ROMS, etc
-	
+
+VGA_controller VGA0(.clk(CLK), .Reset(RESET), .hs, .vs, .pixel_clk(), .blank(), .sync(), .DrawX, .DrawY);
+
+font_rom font_rom0();
    
 // Read and write from AVL interface to register block, note that READ waitstate = 1, so this should be in always_ff
 always_ff @(posedge CLK) begin
+	// if (AVL_WRITE == 1'b0) begin //idk if we can assume write, read will be always low
+	// 	unique case(AVL_BYTE_EN)
+	// 		4'b1111 : LOCALREG[AVL_ADDR] <= AVL_WRITEDATA
+	// 		4'b1100 : 
+	// 		4'b0011 : 
+	// 		4'b1000 : 
+	// 		4'b0100 : 
+	// 		4'b0010 : 
+	// 		4'b0001 : 
+	// 	endcase
+	// end
+
+	//LOCAL_REG[1:0], modulus 
+	//to write, need to use CS, ADDR, BYTE_EN, WRITE, WRITEDATA, CLK, RESET
+
+	//WRITE
+	if (AVL_WRITE && AVL_CS) begin
+		if (AVL_BYTE_EN[0]) begin
+			LOCAL_REG[AVL_ADDR][7:0] <= AVL_WRITEDATA[7:0];
+		end
+		if (AVL_BYTE_EN[1]) begin
+			LOCAL_REG[AVL_ADDR][15:8] <= AVL_WRITEDATA[15:8];
+		end
+		if (AVL_BYTE_EN[2]) begin
+			LOCAL_REG[AVL_ADDR][23:16] <= AVL_WRITEDATA[23:16];
+		end
+		if (AVL_BYTE_EN[3]) begin
+			LOCAL_REG[AVL_ADDR][31:24] <= AVL_WRITEDATA[31:24];
+		end
+	end
+
+	//READ
+	if (AVL_READ && AVL_CS) begin
+		AVL_READDATA[31:0] <= LOCAL_REG[AVL_ADDR][31:0];
+	end
 
 end
 
