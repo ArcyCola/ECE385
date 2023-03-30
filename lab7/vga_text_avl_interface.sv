@@ -70,7 +70,7 @@ logic [7:0] codeAddr, data;
 logic blank, pixel_clk;
 //Declare submodules..e.g. VGA controller, ROMS, etc
 
-vga_controller VGA0(.Clk(CLK), .Reset(RESET), .hs, .vs, .pixel_clk, .blank(blank), .sync(), .DrawX, .DrawY);
+vga_controller VGA0(.Clk(CLK), .Reset(RESET), .hs, .vs, .pixel_clk, .blank(blank), .sync(), .DrawX(DrawX), .DrawY(DrawY));
 
 font_rom font_rom0(.addr(addr), .data(data));
    
@@ -125,25 +125,25 @@ begin
 	// finding the character address, find x and y addresses first
 	// charX = drawX / 8	(8 is width of glyph)
 	// charY = drawY / 16	(16 is height of glyph)
-	charX = drawX[9:3]; // divding by 8, because theres 640 / 80 = 8 (this is shifting right 3 times)
-	charY = drawY[9:4]; // divding by 16 cuz 480 / 30 = 16 (this is shifting right 4 times)
+	charX = DrawX[9:3]; // divding by 8, because theres 640 / 80 = 8 (this is shifting right 3 times)
+	charY = DrawY[9:4]; // divding by 16 cuz 480 / 30 = 16 (this is shifting right 4 times)
 	
-	charAddr = charY * (2'd80) + charX; // 80 is # of columns in a row/line
+	charAddr = charY * (80) + charX; // 80 is # of columns in a row/line
 
 	// finding the register where character is contained at
 	// 1 register = 4 glyphs
-	regNum = charAddr / (1'd4);		// divide by 4 bc 4 glyphs in 1 register
+	regNum = charAddr / (4);		// divide by 4 bc 4 glyphs in 1 register
 	// finding glyph we are at inside the register
-	codeX = charAddr % (1'd4);		// 1 register = [code0][code1][code2][code3]
+	codeX = charAddr % (4);		// 1 register = [code0][code1][code2][code3]
 	
 	// finding "adder" input for font_rom.sv
 	unique case(codeX) 
-		2'b00 : codeAddr = LOCAL_REG[regNum][31:24];
-		2'b01 : codeAddr = LOCAL_REG[regNum][23:16];
-		2'b10 : codeAddr = LOCAL_REG[regNum][15:8];
-		2'b11 : codeAddr = LOCAL_REG[regNum][7:0];
+		2'b00 : codeAddr = LOCAL_REG[regNum][7:0];
+		2'b01 : codeAddr = LOCAL_REG[regNum][15:8];
+		2'b10 : codeAddr = LOCAL_REG[regNum][23:16];
+		2'b11 : codeAddr = LOCAL_REG[regNum][31:24];
 	endcase
-	addr = {codeAddr, drawY % 16};
+	addr = {codeAddr[6:0], DrawY[3:0]};
 
 	// check blank (active low)
 	// if blank = 0 show black
@@ -159,22 +159,22 @@ end
 
 always_ff @(posedge pixel_clk) begin
 	if(blank) begin	// blank = 1 show color
-		if (codeAddr[7] ^ data[drawX%8]) begin
-				red = LOCAL_REG[CTRL_REG][24:21];	// foreground red
-				blue = LOCAL_REG[CTRL_REG][16:13];	// foreground blue
-				green = LOCAL_REG[CTRL_REG][20:17];	// foreground green
+		if (codeAddr[7] ^ data[7-DrawX[2:0]]) begin // 7 - DrawX to get opposite side
+				red <= LOCAL_REG[600][24:21];	// foreground red
+				blue <= LOCAL_REG[600][16:13];	// foreground blue
+				green <= LOCAL_REG[600][20:17];	// foreground green
 			
 		end
 		else begin	// data[7] = 0 default
-				red =  LOCAL_REG[CTRL_REG][12:9];
-				green = LOCAL_REG[CTRL_REG][8:5];
-				blue = LOCAL_REG[CTRL_REG][4:1];
+				red <=  LOCAL_REG[600][12:9];
+				green <= LOCAL_REG[600][8:5];
+				blue <= LOCAL_REG[600][4:1];
 		end
 	end
 	else begin	// blank = 0 show black
-		red = 4'b0000;
-		green = 4'b0000;
-		blue = 4'b0000;
+		red <= 4'b0000;
+		green <= 4'b0000;
+		blue <= 4'b0000;
 	end
 // 	VRAM Format:
 //  X->
