@@ -1,9 +1,9 @@
 	lab7_soc u0 (
-		.accumulate_wire_export         (<connected-to-accumulate_wire_export>),         //         accumulate_wire.export
 		.clk_clk                        (<connected-to-clk_clk>),                        //                     clk.clk
 		.hex_digits_export              (<connected-to-hex_digits_export>),              //              hex_digits.export
 		.key_external_connection_export (<connected-to-key_external_connection_export>), // key_external_connection.export
 		.keycode_export                 (<connected-to-keycode_export>),                 //                 keycode.export
+		.leds_export                    (<connected-to-leds_export>),                    //                    leds.export
 		.reset_reset_n                  (<connected-to-reset_reset_n>),                  //                   reset.reset_n
 		.sdram_clk_clk                  (<connected-to-sdram_clk_clk>),                  //               sdram_clk.clk
 		.sdram_wire_addr                (<connected-to-sdram_wire_addr>),                //              sdram_wire.addr
@@ -22,10 +22,11 @@
 		.usb_gpx_export                 (<connected-to-usb_gpx_export>),                 //                 usb_gpx.export
 		.usb_irq_export                 (<connected-to-usb_irq_export>),                 //                 usb_irq.export
 		.usb_rst_export                 (<connected-to-usb_rst_export>),                 //                 usb_rst.export
-		.vga_port_new_signal            (<connected-to-vga_port_new_signal>),            //                vga_port.new_signal
-		.vga_port_new_signal_1          (<connected-to-vga_port_new_signal_1>),          //                        .new_signal_1
-		.vga_port_new_signal_2          (<connected-to-vga_port_new_signal_2>),          //                        .new_signal_2
-		.vga_port_new_signal_3          (<connected-to-vga_port_new_signal_3>),          //                        .new_signal_3
-		.vga_port_new_signal_4          (<connected-to-vga_port_new_signal_4>)           //                        .new_signal_4
+		.vga_port_blue                  (<connected-to-vga_port_blue>),                  //                vga_port.blue
+		.vga_port_green                 (<connected-to-vga_port_green>),                 //                        .green
+		.vga_port_red                   (<connected-to-vga_port_red>),                   //                        .red
+		.vga_port_hs                    (<connected-to-vga_port_hs>),                    //                        .hs
+		.vga_port_vs                    (<connected-to-vga_port_vs>),                    //                        .vs
+		.accumulate_wire_export         (<connected-to-accumulate_wire_export>)          //         accumulate_wire.export
 	);
 

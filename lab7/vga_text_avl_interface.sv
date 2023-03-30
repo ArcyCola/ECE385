@@ -64,9 +64,9 @@ logic [9:0] DrawX, DrawY;
 
 //Declare submodules..e.g. VGA controller, ROMS, etc
 
-VGA_controller VGA0(.clk(CLK), .Reset(RESET), .hs, .vs, .pixel_clk(), .blank(), .sync(), .DrawX, .DrawY);
+vga_controller VGA0(.Clk(CLK), .Reset(RESET), .hs, .vs, .pixel_clk(), .blank(), .sync(), .DrawX, .DrawY);
 
-font_rom font_rom0();
+//font_rom font_rom0();
    
 // Read and write from AVL interface to register block, note that READ waitstate = 1, so this should be in always_ff
 always_ff @(posedge CLK) begin
@@ -111,5 +111,8 @@ end
 
 //handle drawing (may either be combinational or sequential - or both).
 		
+always_comb begin 
+
+end
 
 endmodule

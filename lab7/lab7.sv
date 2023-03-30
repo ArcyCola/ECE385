@@ -128,7 +128,7 @@ module lab7 (
 		.key_external_connection_export    (KEY),    		   //key_external_connection.export
 
 		//SDRAM
-		.clk_sdram_clk(DRAM_CLK),            				   //clk_sdram.clk
+		.sdram_clk_clk(DRAM_CLK),            				   //clk_sdram.clk
 	   .sdram_wire_addr(DRAM_ADDR),               			   //sdram_wire.addr
 		.sdram_wire_ba(DRAM_BA),                			   //.ba
 		.sdram_wire_cas_n(DRAM_CAS_N),              		   //.cas_n
