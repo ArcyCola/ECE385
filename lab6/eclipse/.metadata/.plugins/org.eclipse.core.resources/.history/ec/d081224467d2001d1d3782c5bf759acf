@@ -6,9 +6,6 @@ int main()
 {
 
 	volatile unsigned int *LED_PIO = (unsigned int*)0x40; //make a pointer to access the PIO block
-	volatile unsigned int *SW_PIO = (unsigned int*)0x70;
-	volatile unsigned int *KEY1_PIO = (unsigned int*)0x60;
-
 
 //	int i = 0;
 //	*LED_PIO = 0; //clear all LEDs
@@ -22,7 +19,8 @@ int main()
 //	return 1; //never gets here
 
 
-
+	volatile unsigned int *SW_PIO = (unsigned int*)0x70;
+	volatile unsigned int *KEY1_PIO = (unsigned int*)0x60;
 
 
 	int count = 0;
