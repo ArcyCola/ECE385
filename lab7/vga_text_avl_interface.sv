@@ -63,9 +63,9 @@ logic [6:0] charX;			// x coord of the glyph
 logic [5:0] charY;			// y coord of the glyph
 logic [11:0] charAddr;
 logic [9:0] regNum;
-logic [1:0 ]codeX;
+logic codeX;
 logic [10:0] addr;
-logic [7:0] codeAddr; //, data;
+logic [15:0] codeAddr; //, data;
 logic [7:0] charData;
 logic [31:0] vramData;
 logic blank, pixel_clk, AVL_READ_CS, ALV_WRITE_CS;
@@ -75,7 +75,7 @@ logic blank, pixel_clk, AVL_READ_CS, ALV_WRITE_CS;
 vram ram(.address_a(AVL_ADDR), .address_b(regNum), .byteena_a(AVL_BYTE_EN), .clock(CLK), .data_a(AVL_WRITEDATA), .data_b(), .rden_a(AVL_READ & AVL_CS), .rden_b(1), .wren_a(AVL_WRITE & AVL_CS & !AVL_ADDR[11]), .wren_b(0), .q_a(AVL_READDATA), .q_b(vramData));
 
 //16 registers of 16 bits, so that it is easier to find colors, no need for even/odd
-logic [15:0] palette[16]; //palette register
+logic [31:0] palette[8]; //palette registers
 //Declare submodules..e.g. VGA controller, ROMS, etc
 
 vga_controller VGA0(.Clk(CLK), .Reset(RESET), .hs, .vs, .pixel_clk, .blank(blank), .sync(), .DrawX(DrawX), .DrawY(DrawY));
@@ -141,22 +141,22 @@ begin
 
 	// finding the register where character is contained at
 	// 1 register = 4 glyphs
-	regNum = charAddr / (4);		// divide by 2 bc 2 glyphs in 1 register
+	regNum = charAddr / (2);		// divide by 2 bc 2 glyphs in 1 register
 	// finding glyph we are at inside the register
-	codeX = charAddr % (4);		
+	codeX = charAddr % (2);		
 	
 	// finding "adder" input for font_rom.sv
 	//
 	unique case(codeX) 
-		2'b00 : codeAddr = vramData[7:0];
-		2'b01 : codeAddr = vramData[15:8];
-		2'b10 : codeAddr = vramData[23:16];
-		2'b11 : codeAddr = vramData[31:24];
+		2'b0 : codeAddr = vramData[15:0];
+		2'b1 : codeAddr = vramData[31:16];
+		// 2'b10 : codeAddr = vramData[23:16];
+		// 2'b11 : codeAddr = vramData[31:24];
 	endcase
 	//MSbyte, character, LSbyte, color
 	//charData = codeAddr[15:8];
 	//
-	addr = {codeAddr[6:0], DrawY[3:0]};
+	addr = {codeAddr[14:8], DrawY[3:0]};	// addr is input to font_rom
 
 	// check blank (active low)
 	// if blank = 0 show black
@@ -173,7 +173,7 @@ end
 always_ff @(posedge pixel_clk) begin
 //this code, change it so that it calls the 
 	if(blank) begin	// blank = 1 show color
-		if (codeAddr[7] ^ charData[7-DrawX[2:0]]) begin // 7 - DrawX to get opposite side
+		if (codeAddr[15] ^ charData[7-DrawX[2:0]]) begin // 7 - DrawX to get opposite side
 				red <= 4'b1100;	// foreground 14
 				green <= 4'b1100;	// foreground green
 				blue <= 4'b1111;	// foreground blue
