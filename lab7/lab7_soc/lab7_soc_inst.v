@@ -1,4 +1,5 @@
 	lab7_soc u0 (
+		.accumulate_wire_export         (<connected-to-accumulate_wire_export>),         //         accumulate_wire.export
 		.clk_clk                        (<connected-to-clk_clk>),                        //                     clk.clk
 		.hex_digits_export              (<connected-to-hex_digits_export>),              //              hex_digits.export
 		.key_external_connection_export (<connected-to-key_external_connection_export>), // key_external_connection.export
@@ -26,7 +27,6 @@
 		.vga_port_green                 (<connected-to-vga_port_green>),                 //                        .green
 		.vga_port_red                   (<connected-to-vga_port_red>),                   //                        .red
 		.vga_port_hs                    (<connected-to-vga_port_hs>),                    //                        .hs
-		.vga_port_vs                    (<connected-to-vga_port_vs>),                    //                        .vs
-		.accumulate_wire_export         (<connected-to-accumulate_wire_export>)          //         accumulate_wire.export
+		.vga_port_vs                    (<connected-to-vga_port_vs>)                     //                        .vs
 	);
 

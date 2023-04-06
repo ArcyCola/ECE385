@@ -38,7 +38,7 @@ module vga_text_avl_interface (
 	input  logic AVL_WRITE,					// Avalon-MM Write
 	input  logic AVL_CS,					// Avalon-MM Chip Select
 	input  logic [3:0] AVL_BYTE_EN,			// Avalon-MM Byte Enable
-	input  logic [9:0] AVL_ADDR,			// Avalon-MM Address
+	input  logic [11:0] AVL_ADDR,			// Avalon-MM Address
 	input  logic [31:0] AVL_WRITEDATA,		// Avalon-MM Write Data
 	output logic [31:0] AVL_READDATA,		// Avalon-MM Read Data
 	
@@ -48,15 +48,14 @@ module vga_text_avl_interface (
 );
 
 //this is the unpacked thing of registers
-logic [31:0] LOCAL_REG       [`NUM_REGS]; // Registers
+//logic [31:0] LOCAL_REG       [`NUM_REGS]; // Registers
 //LOCAL_REG[2][4:0] 
+
 //unpacked dimension first
 //perspective of hardware, packed is always 31 down to 0
 //to split up by bytes
 //                   LOCALREG[3:0][7:0]
 //         choosing which addr^     ^choosing bits of data in register/"ram"
-
-
 
 //put other local variables here
 logic [9:0] DrawX, DrawY; 	// position of electron beam on screen
@@ -64,53 +63,63 @@ logic [6:0] charX;			// x coord of the glyph
 logic [5:0] charY;			// y coord of the glyph
 logic [11:0] charAddr;
 logic [9:0] regNum;
-logic [1:0] codeX;
+logic [1:0 ]codeX;
 logic [10:0] addr;
-logic [7:0] codeAddr, data;
-logic blank, pixel_clk;
+logic [7:0] codeAddr; //, data;
+logic [7:0] charData;
+logic [31:0] vramData;
+logic blank, pixel_clk, AVL_READ_CS, ALV_WRITE_CS;
+
+//ram instiation for 7.2
+
+vram ram(.address_a(AVL_ADDR), .address_b(regNum), .byteena_a(AVL_BYTE_EN), .clock(CLK), .data_a(AVL_WRITEDATA), .data_b(), .rden_a(AVL_READ & AVL_CS), .rden_b(1), .wren_a(AVL_WRITE & AVL_CS & !AVL_ADDR[11]), .wren_b(0), .q_a(AVL_READDATA), .q_b(vramData));
+
+//16 registers of 16 bits, so that it is easier to find colors, no need for even/odd
+logic [15:0] palette[16]; //palette register
 //Declare submodules..e.g. VGA controller, ROMS, etc
 
 vga_controller VGA0(.Clk(CLK), .Reset(RESET), .hs, .vs, .pixel_clk, .blank(blank), .sync(), .DrawX(DrawX), .DrawY(DrawY));
 
-font_rom font_rom0(.addr(addr), .data(data));
+font_rom font_rom0(.addr(addr), .data(charData));
    
 // Read and write from AVL interface to register block, note that READ waitstate = 1, so this should be in always_ff
+
 always_ff @(posedge CLK) begin
-	// if (AVL_WRITE == 1'b0) begin //idk if we can assume write, read will be always low
-	// 	unique case(AVL_BYTE_EN)
-	// 		4'b1111 : LOCALREG[AVL_ADDR] <= AVL_WRITEDATA
-	// 		4'b1100 : 
-	// 		4'b0011 : 
-	// 		4'b1000 : 
-	// 		4'b0100 : 
-	// 		4'b0010 : 
-	// 		4'b0001 : 
-	// 	endcase
+
+	//READ AND WRITE, (7.2)
+	// if (AVL_CS) begin
+	// 	AVL_READ_CS <= AVL_READ;
+	// 	AVL_WRITE_CS <= AVL_WRITE & !AVL_ADDR[11];
+	// end
+	// else begin
+	// 	AVL_READ_CS <= 1'b0;
+	// 	AVL_WRITE_CS <= 1'b0;
+	// end	
+
+
+	//WRITE (7.1)
+
+	// if (AVL_WRITE && AVL_CS) begin
+	// 	if (AVL_BYTE_EN[0]) begin
+	// 		LOCAL_REG[AVL_ADDR][7:0] <= AVL_WRITEDATA[7:0];
+	// 	end
+	// 	if (AVL_BYTE_EN[1]) begin
+	// 		LOCAL_REG[AVL_ADDR][15:8] <= AVL_WRITEDATA[15:8];
+	// 	end
+	// 	if (AVL_BYTE_EN[2]) begin
+	// 		LOCAL_REG[AVL_ADDR][23:16] <= AVL_WRITEDATA[23:16];
+	// 	end
+	// 	if (AVL_BYTE_EN[3]) begin
+	// 		LOCAL_REG[AVL_ADDR][31:24] <= AVL_WRITEDATA[31:24];
+	// 	end
 	// end
 
-	//LOCAL_REG[1:0], modulus 
-	//to write, need to use CS, ADDR, BYTE_EN, WRITE, WRITEDATA, CLK, RESET
+	//READ (7.1)
+	// if (AVL_READ && AVL_CS) begin
+	// 	AVL_READDATA[31:0] <= LOCAL_REG[AVL_ADDR][31:0];
+	// end
 
-	//WRITE
-	if (AVL_WRITE && AVL_CS) begin
-		if (AVL_BYTE_EN[0]) begin
-			LOCAL_REG[AVL_ADDR][7:0] <= AVL_WRITEDATA[7:0];
-		end
-		if (AVL_BYTE_EN[1]) begin
-			LOCAL_REG[AVL_ADDR][15:8] <= AVL_WRITEDATA[15:8];
-		end
-		if (AVL_BYTE_EN[2]) begin
-			LOCAL_REG[AVL_ADDR][23:16] <= AVL_WRITEDATA[23:16];
-		end
-		if (AVL_BYTE_EN[3]) begin
-			LOCAL_REG[AVL_ADDR][31:24] <= AVL_WRITEDATA[31:24];
-		end
-	end
-
-	//READ
-	if (AVL_READ && AVL_CS) begin
-		AVL_READDATA[31:0] <= LOCAL_REG[AVL_ADDR][31:0];
-	end
+	
 
 end
 
@@ -132,17 +141,21 @@ begin
 
 	// finding the register where character is contained at
 	// 1 register = 4 glyphs
-	regNum = charAddr / (4);		// divide by 4 bc 4 glyphs in 1 register
+	regNum = charAddr / (4);		// divide by 2 bc 2 glyphs in 1 register
 	// finding glyph we are at inside the register
-	codeX = charAddr % (4);		// 1 register = [code0][code1][code2][code3]
+	codeX = charAddr % (4);		
 	
 	// finding "adder" input for font_rom.sv
+	//
 	unique case(codeX) 
-		2'b00 : codeAddr = LOCAL_REG[regNum][7:0];
-		2'b01 : codeAddr = LOCAL_REG[regNum][15:8];
-		2'b10 : codeAddr = LOCAL_REG[regNum][23:16];
-		2'b11 : codeAddr = LOCAL_REG[regNum][31:24];
+		2'b00 : codeAddr = vramData[7:0];
+		2'b01 : codeAddr = vramData[15:8];
+		2'b10 : codeAddr = vramData[23:16];
+		2'b11 : codeAddr = vramData[31:24];
 	endcase
+	//MSbyte, character, LSbyte, color
+	//charData = codeAddr[15:8];
+	//
 	addr = {codeAddr[6:0], DrawY[3:0]};
 
 	// check blank (active low)
@@ -158,17 +171,17 @@ begin
 end
 
 always_ff @(posedge pixel_clk) begin
+//this code, change it so that it calls the 
 	if(blank) begin	// blank = 1 show color
-		if (codeAddr[7] ^ data[7-DrawX[2:0]]) begin // 7 - DrawX to get opposite side
-				red <= LOCAL_REG[600][24:21];	// foreground red
-				blue <= LOCAL_REG[600][16:13];	// foreground blue
-				green <= LOCAL_REG[600][20:17];	// foreground green
-			
+		if (codeAddr[7] ^ charData[7-DrawX[2:0]]) begin // 7 - DrawX to get opposite side
+				red <= 4'b1100;	// foreground 14
+				green <= 4'b1100;	// foreground green
+				blue <= 4'b1111;	// foreground blue
 		end
 		else begin	// data[7] = 0 default
-				red <=  LOCAL_REG[600][12:9];
-				green <= LOCAL_REG[600][8:5];
-				blue <= LOCAL_REG[600][4:1];
+				red <=  4'b0010;
+				green <= 4'b0010;
+				blue <= 4'b0010;
 		end
 	end
 	else begin	// blank = 0 show black

@@ -1,5 +1,6 @@
 
 module lab7_soc (
+	accumulate_wire_export,
 	clk_clk,
 	hex_digits_export,
 	key_external_connection_export,
@@ -27,9 +28,9 @@ module lab7_soc (
 	vga_port_green,
 	vga_port_red,
 	vga_port_hs,
-	vga_port_vs,
-	accumulate_wire_export);	
+	vga_port_vs);	
 
+	input		accumulate_wire_export;
 	input		clk_clk;
 	output	[15:0]	hex_digits_export;
 	input	[1:0]	key_external_connection_export;
@@ -58,5 +59,4 @@ module lab7_soc (
 	output	[3:0]	vga_port_red;
 	output		vga_port_hs;
 	output		vga_port_vs;
-	input		accumulate_wire_export;
 endmodule

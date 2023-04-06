@@ -1,5 +1,6 @@
 	component lab7_soc is
 		port (
+			accumulate_wire_export         : in    std_logic                     := 'X';             -- export
 			clk_clk                        : in    std_logic                     := 'X';             -- clk
 			hex_digits_export              : out   std_logic_vector(15 downto 0);                    -- export
 			key_external_connection_export : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
@@ -27,13 +28,13 @@
 			vga_port_green                 : out   std_logic_vector(3 downto 0);                     -- green
 			vga_port_red                   : out   std_logic_vector(3 downto 0);                     -- red
 			vga_port_hs                    : out   std_logic;                                        -- hs
-			vga_port_vs                    : out   std_logic;                                        -- vs
-			accumulate_wire_export         : in    std_logic                     := 'X'              -- export
+			vga_port_vs                    : out   std_logic                                         -- vs
 		);
 	end component lab7_soc;
 
 	u0 : component lab7_soc
 		port map (
+			accumulate_wire_export         => CONNECTED_TO_accumulate_wire_export,         --         accumulate_wire.export
 			clk_clk                        => CONNECTED_TO_clk_clk,                        --                     clk.clk
 			hex_digits_export              => CONNECTED_TO_hex_digits_export,              --              hex_digits.export
 			key_external_connection_export => CONNECTED_TO_key_external_connection_export, -- key_external_connection.export
@@ -61,7 +62,6 @@
 			vga_port_green                 => CONNECTED_TO_vga_port_green,                 --                        .green
 			vga_port_red                   => CONNECTED_TO_vga_port_red,                   --                        .red
 			vga_port_hs                    => CONNECTED_TO_vga_port_hs,                    --                        .hs
-			vga_port_vs                    => CONNECTED_TO_vga_port_vs,                    --                        .vs
-			accumulate_wire_export         => CONNECTED_TO_accumulate_wire_export          --         accumulate_wire.export
+			vga_port_vs                    => CONNECTED_TO_vga_port_vs                     --                        .vs
 		);
 

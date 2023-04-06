@@ -163,5 +163,7 @@ module lab7 (
 		.vga_port_vs (VGA_VS)
 		
 	 );
+	 
+
 
 endmodule
