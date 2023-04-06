@@ -154,7 +154,7 @@ begin
 		// 2'b11 : codeAddr = vramData[31:24];
 	endcase
 	//MSbyte, character, LSbyte, color
-	//charData = codeAddr[15:8];
+	charData = codeAddr[15:8];
 	//
 	addr = {codeAddr[14:8], DrawY[3:0]};	// addr is input to font_rom
 
