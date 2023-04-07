@@ -21,7 +21,7 @@
 struct TEXT_VGA_STRUCT {
 	alt_u8 VRAM [ROWS*COLUMNS*2]; //Week 2 - extended VRAM 0x0 -> 0x12BF byte addr
 	//modify this by adding const bytes to skip to palette, or manually compute palette
-	alt_u8 RESERVED1 [3382];	// 0x12C0 -> 0x1FFF byte address
+	const alt_u8 RESERVED1 [3392];	// 0x12C0 -> 0x1FFF byte address
 	alt_u32 PALETTE [8];		// 0x2000 -> 0x201F byte address || 
 	alt_u8 RESERVED2 [8160];	// 0x2020 -> 0x3FFF
 };

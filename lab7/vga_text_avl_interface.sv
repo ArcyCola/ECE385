@@ -22,8 +22,8 @@ BKG_R/G/B = Background color, flipped with foreground when IVn bit is set
 FGD_R/G/B = Foreground color, flipped with background when Inv bit is set
 
 ************************************************************************/
-`define NUM_REGS 601 //80*30 characters / 4 characters per register
-`define CTRL_REG 600 //index of control register
+//`define NUM_REGS 601 //80*30 characters / 4 characters per register
+//`define CTRL_REG 600 //index of control register
 
 module vga_text_avl_interface (
 	// Avalon Clock Input, note this clock is also used for VGA, so this must be 50Mhz
@@ -73,7 +73,10 @@ logic blank, pixel_clk;
 
 //ram instiation for 7.2
 
-vram ram(.address_a(AVL_ADDR), .address_b(regNum), .byteena_a(AVL_BYTE_EN), .clock(CLK), .data_a(AVL_WRITEDATA), .data_b(), .rden_a(AVL_READ & AVL_CS & !AVL_ADDR[11]), .rden_b(1), .wren_a(AVL_WRITE & AVL_CS & !AVL_ADDR[11]), .wren_b(0), .q_a(avl_read_data_vram), .q_b(vramData));
+vram ram(.address_a(AVL_ADDR), .address_b(regNum), .byteena_a(AVL_BYTE_EN), .clock(CLK), 
+	.data_a(AVL_WRITEDATA), .data_b(), .rden_a(AVL_READ & AVL_CS & ~AVL_ADDR[11]), 
+	.rden_b(1), .wren_a(AVL_WRITE & AVL_CS & ~AVL_ADDR[11]), .wren_b(0), .q_a(avl_read_data_vram), 
+	.q_b(vramData));
 
 //16 registers of 16 bits, so that it is easier to find colors, no need for even/odd
 logic [31:0] palette[8]; //palette registers
@@ -176,8 +179,8 @@ begin
 	// finding "adder" input for font_rom.sv
 	//
 	unique case(codeX) 
-		2'b0 : codeAddr = vramData[15:0];
-		2'b1 : codeAddr = vramData[31:16];
+		1'b0 : codeAddr = vramData[15:0];
+		1'b1 : codeAddr = vramData[31:16];
 		// 2'b10 : codeAddr = vramData[23:16];
 		// 2'b11 : codeAddr = vramData[31:24];
 	endcase
@@ -186,6 +189,8 @@ begin
 	//
 	addr = {codeAddr[14:8], DrawY[3:0]};	// addr is input to font_rom
 
+
+	
 	// check blank (active low)
 	// if blank = 0 show black
 	// if blank = 1 show color and....
@@ -202,23 +207,56 @@ always_ff @(posedge pixel_clk) begin
 //this code, change it so that it calls the 
 	if(blank) begin	// blank = 1 show color
 		if (codeAddr[15] ^ charData[7-DrawX[2:0]]) begin // 7 - DrawX to get opposite side
-				red <= 4'b1111;	// foreground 14
-				green <= 4'b0000;	// foreground green
-				blue <= 4'b0000;	// foreground blue
-				// red <= palette[codeAddr[7:4]]
-				// green <=
-				// blue <=
+				// 7.1 stuff
+				// red <= 4'b1111;	// foreground red
+				// green <= 4'b0000;	// foreground green
+				// blue <= 4'b0000;	// foreground blue
+
+				// 7.2:
+				if(codeAddr[7:4] % 2 == 0) begin	// if FGD_IDX is even
+//					red <= palette[(codeAddr[7:4]/2)][12:9];
+//					green <= palette[(codeAddr[7:4]/2)][8:5];
+//					blue <= palette[(codeAddr[7:4]/2)][4:1];
+
+
+					red <= palette[(codeAddr[7:4]/2)][12:9];
+					green <= palette[(codeAddr[7:4]/2)][8:5];
+					blue <= palette[(codeAddr[7:4]/2)][4:1];
+				end
+				else begin						// FGD_IDX is odd
+//					red <= palette[(codeAddr[7:4]/2)][24:21];
+//					green <= palette[(codeAddr[7:4]/2)][20:17];
+//					blue <= palette[(codeAddr[7:4]/2)][16:13];
+					red <= palette[(codeAddr[7:4]/2)][24:21];
+					green <= palette[(codeAddr[7:4]/2)][20:17];
+					blue <= palette[(codeAddr[7:4]/2)][16:13];
+				end
+				// check if codeAddr[7:4] is even (mod2)
+				// if even 
+				// red = palette[(codeAddr[7:4]/2)][12:9]
+				// if odd
+				// red = palette[(codeAddr[7:4]/2)][24:21]
 		end
 		else begin	// data[7] = 0 default
-				red <=  4'b0101;
-				green <= 4'b1111;
-				blue <= 4'b1111;
+				// red <=  4'b0101;
+				// green <= 4'b1111;
+				// blue <= 4'b1111;
+				if (codeAddr[0] == 0) begin
+					red <= palette[(codeAddr[3:0]/2)][12:9];
+					green <= palette[(codeAddr[3:0]/2)][8:5];
+					blue <= palette[(codeAddr[3:0]/2)][4:1];
+				end
+				else begin
+					red <= palette[(codeAddr[3:0]/2)][24:21];
+					green <= palette[(codeAddr[3:0]/2)][20:17];
+					blue <= palette[(codeAddr[3:0]/2)][16:13];
+				end
 		end
 	end
 	else begin	// blank = 0 show black
-		red <= 4'b0101;
-		green <= 4'b0101;
-		blue <= 4'b0101;
+		red <= 4'b0000;
+		green <= 4'b0000;
+		blue <= 4'b0000;
 	end
 // 	VRAM Format:
 //  X->

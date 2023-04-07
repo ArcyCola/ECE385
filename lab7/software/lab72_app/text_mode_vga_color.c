@@ -41,26 +41,36 @@ void setColorPalette (alt_u8 color, alt_u8 red, alt_u8 green, alt_u8 blue)
 {
 	//fill in this function to set the color palette starting at offset 0x0000 2000 (from base)
 	alt_u32 currData = vga_ctrl->PALETTE[color/2];
-	alt_u8 mask = 0x0f;	// to keep ls 4bits of rgb, clears ms 4bits of rgb
-	alt_u8 newRed = mask & red;
-	alt_u8 newGreen = (mask & green) << 4;// green 0000
-	alt_u8 newBlue = mask & blue;
-	alt_u16 myCol = newRed << 8; // shift left by 8: 0000 red 0000 0000
-	myCol = myCol | newGreen | newBlue; // combo of rgb is in bottom 12 bits of 16 : 0000 red green blue
-	
-	alt_u32 lowerMask = 0xFFFFE000; //for when writing to lower bits
+	alt_u32 mask = 0x0f;	// to keep ls 4bits of rgb, clears ms 4bits of rgb
+	alt_u32 newRed = red;
+	alt_u32 newGreen = green ;// green 0000
+	alt_u32 newBlue = blue;
+//	alt_u32 myCol = newRed << 8; // shift left by 8: 0000 0000 0000 0000 0000 red 0000 0000
+//	myCol = myCol | newGreen | newBlue; // combo of rgb is in bottom 12 bits of 16 : 0000 0000 0000 0000 0000 red green blue
+
+	alt_u32 lowerMask = 0xFFFFE000;//for when writing to lower bits
 	alt_u32 upperMask = 0x00001FFF; //for writing to upper bits
 	if(color % 2 == 0) {	//even color
-		currData = currData & lowerMask;
-		currData = currData | (myCol << 1); 
-		vga_ctrl -> PALETTE[color/2] = currData; 
+//		currData = currData;	// keep top bits
+		currData&=lowerMask;
+		currData |= ((newRed << 9) | (newGreen << 5) | (newBlue << 1) | currData);
+		//currData = //currData | (myCol << 1);
+
+		vga_ctrl -> PALETTE[color/2]= currData;
+//		printf("%x\n", vga_ctrl->PALETTE[color/2]);
 	}
 	else {				//odd color
-		currData = currData & upperMask;
-		currData = currData | (myCol << 13); 
+		currData&=upperMask;
+		currData |= ((newRed << 21) | (newGreen << 17) | (newBlue << 13) | currData);
+//		currData = currData & upperMask;	// keep bottom bits
+//		currData = currData | (myCol << 13);
+
 		vga_ctrl -> PALETTE[color/2] = currData;
+		printf("%x\n", vga_ctrl->PALETTE[color/2]);
 	}
-	
+	printf("first %x\n", vga_ctrl->PALETTE[0]);
+
+
 }
 
 
@@ -89,5 +99,7 @@ void textVGAColorScreenSaver()
 		y = rand() % 30;
 		textVGADrawColorText (color_string, x, y, bg, fg);
 		usleep (100000);
+		printf("first %x\n", vga_ctrl->PALETTE[0]);
+
 	}
 }

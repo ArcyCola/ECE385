@@ -1,4 +1,4 @@
-20:35:05 **** Incremental Build of configuration Nios II for project lab7_app_bsp ****
+23:18:50 **** Incremental Build of configuration Nios II for project lab7_app_bsp ****
 make all 
 Makefile not up to date.
 ../../lab7_soc.sopcinfo has been modified since the BSP was generated.
@@ -14,5 +14,5 @@ To generate from the command line:
 
 make: *** [public.mk] Error 1
 
-20:35:07 Build Finished (took 1s.12ms)
+23:18:51 Build Finished (took 912ms)
 
