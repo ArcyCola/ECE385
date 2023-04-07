@@ -62,17 +62,18 @@ logic [9:0] DrawX, DrawY; 	// position of electron beam on screen
 logic [6:0] charX;			// x coord of the glyph
 logic [5:0] charY;			// y coord of the glyph
 logic [11:0] charAddr;
-logic [9:0] regNum;
+logic [11:0] regNum;
 logic codeX;
 logic [10:0] addr;
 logic [15:0] codeAddr; //, data;
 logic [7:0] charData;
 logic [31:0] vramData;
-logic blank, pixel_clk, AVL_READ_CS, ALV_WRITE_CS;
+logic [31:0] avl_read_data_vram;
+logic blank, pixel_clk;
 
 //ram instiation for 7.2
 
-vram ram(.address_a(AVL_ADDR), .address_b(regNum), .byteena_a(AVL_BYTE_EN), .clock(CLK), .data_a(AVL_WRITEDATA), .data_b(), .rden_a(AVL_READ & AVL_CS), .rden_b(1), .wren_a(AVL_WRITE & AVL_CS & !AVL_ADDR[11]), .wren_b(0), .q_a(AVL_READDATA), .q_b(vramData));
+vram ram(.address_a(AVL_ADDR), .address_b(regNum), .byteena_a(AVL_BYTE_EN), .clock(CLK), .data_a(AVL_WRITEDATA), .data_b(), .rden_a(AVL_READ & AVL_CS & !AVL_ADDR[11]), .rden_b(1), .wren_a(AVL_WRITE & AVL_CS & !AVL_ADDR[11]), .wren_b(0), .q_a(avl_read_data_vram), .q_b(vramData));
 
 //16 registers of 16 bits, so that it is easier to find colors, no need for even/odd
 logic [31:0] palette[8]; //palette registers
@@ -84,7 +85,26 @@ font_rom font_rom0(.addr(addr), .data(charData));
    
 // Read and write from AVL interface to register block, note that READ waitstate = 1, so this should be in always_ff
 
+// assign AVL_READDATA = avl_read_data_vram;
+
 always_ff @(posedge CLK) begin
+
+	//writing to palette
+
+	if (AVL_CS & AVL_ADDR[11] & AVL_WRITE) begin
+		palette[AVL_ADDR[2:0]] <= AVL_WRITEDATA;
+	end
+	
+
+//	
+		
+
+	//reading from palette
+//	if (AVL_CS & AVL_ADDR[11] & AVL_READ) begin
+//		AVL_READDATA <= palette[AVL_ADDR[2:0]];
+//	end
+//	
+
 
 	//READ AND WRITE, (7.2)
 	// if (AVL_CS) begin
@@ -128,6 +148,14 @@ end
 		
 always_comb 
 begin 
+
+	//
+	if (AVL_CS & AVL_ADDR[11] & AVL_READ) begin
+			AVL_READDATA = palette[AVL_ADDR[2:0]];
+		end
+	else begin
+		AVL_READDATA = avl_read_data_vram;
+	end
 	// 640 x 480 pixels = 80 columns x 30 rows
 	// 0 -> 2400 character addresses
 
@@ -154,7 +182,7 @@ begin
 		// 2'b11 : codeAddr = vramData[31:24];
 	endcase
 	//MSbyte, character, LSbyte, color
-	charData = codeAddr[15:8];
+	//charData = codeAddr[15:8];
 	//
 	addr = {codeAddr[14:8], DrawY[3:0]};	// addr is input to font_rom
 
@@ -174,20 +202,23 @@ always_ff @(posedge pixel_clk) begin
 //this code, change it so that it calls the 
 	if(blank) begin	// blank = 1 show color
 		if (codeAddr[15] ^ charData[7-DrawX[2:0]]) begin // 7 - DrawX to get opposite side
-				red <= 4'b1100;	// foreground 14
-				green <= 4'b1100;	// foreground green
-				blue <= 4'b1111;	// foreground blue
+				red <= 4'b1111;	// foreground 14
+				green <= 4'b0000;	// foreground green
+				blue <= 4'b0000;	// foreground blue
+				// red <= palette[codeAddr[7:4]]
+				// green <=
+				// blue <=
 		end
 		else begin	// data[7] = 0 default
-				red <=  4'b0010;
-				green <= 4'b0010;
-				blue <= 4'b0010;
+				red <=  4'b0101;
+				green <= 4'b1111;
+				blue <= 4'b1111;
 		end
 	end
 	else begin	// blank = 0 show black
-		red <= 4'b0000;
-		green <= 4'b0000;
-		blue <= 4'b0000;
+		red <= 4'b0101;
+		green <= 4'b0101;
+		blue <= 4'b0101;
 	end
 // 	VRAM Format:
 //  X->

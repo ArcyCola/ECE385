@@ -142,8 +142,9 @@ ACDS_VERSION := 18.1
 ELF := lab7_app.elf
 
 # Paths to C, C++, and assembly source files.
+C_SRCS += palette_test.c
+C_SRCS += text_mode_vga_color.c
 C_SRCS += main.c
-C_SRCS += text_mode_vga.c
 CXX_SRCS :=
 ASM_SRCS :=
 
