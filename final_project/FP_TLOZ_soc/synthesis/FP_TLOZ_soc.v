@@ -8,7 +8,7 @@ module FP_TLOZ_soc (
 		input  wire        clk_clk,                        //                     clk.clk
 		output wire [15:0] hex_digits_export,              //              hex_digits.export
 		input  wire [1:0]  key_external_connection_export, // key_external_connection.export
-		output wire [7:0]  keycode_export,                 //                 keycode.export
+		output wire [15:0] keycode_export,                 //                 keycode.export
 		output wire [13:0] leds_export,                    //                    leds.export
 		input  wire        reset_reset_n,                  //                   reset.reset_n
 		output wire        sdram_clk_clk,                  //               sdram_clk.clk
@@ -175,7 +175,7 @@ module FP_TLOZ_soc (
 		.in_port  (key_external_connection_export)     // external_connection.export
 	);
 
-	FP_TLOZ_soc_keycode keycode (
+	FP_TLOZ_soc_hex_digits_pio keycode (
 		.clk        (clk_clk),                                 //                 clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),         //               reset.reset_n
 		.address    (mm_interconnect_0_keycode_s1_address),    //                  s1.address

@@ -2,7 +2,7 @@ set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_TOOL
 set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "FP_TLOZ_soc" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../FP_TLOZ_soc.sopcinfo"]
-set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name SLD_INFO "QSYS_NAME FP_TLOZ_soc HAS_SOPCINFO 1 GENERATION_ID 1681330155"
+set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name SLD_INFO "QSYS_NAME FP_TLOZ_soc HAS_SOPCINFO 1 GENERATION_ID 1681883906"
 set_global_assignment -library "FP_TLOZ_soc" -name MISC_FILE [file join $::quartus(qip_path) "../FP_TLOZ_soc.cmp"]
 set_global_assignment -library "FP_TLOZ_soc" -name SLD_FILE [file join $::quartus(qip_path) "FP_TLOZ_soc.regmap"]
 set_global_assignment -library "FP_TLOZ_soc" -name SLD_FILE [file join $::quartus(qip_path) "FP_TLOZ_soc.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMP
 set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTY4MTMzMDE1NQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTY4MTg4MzkwNg==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::TUFYIDEw::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::MTBNNTBEQUY0ODRDN0c=::QXV0byBERVZJQ0U="
 set_global_assignment -entity "FP_TLOZ_soc" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Nw==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -1259,25 +1259,6 @@ set_global_assignment -entity "FP_TLOZ_soc_leds_pio" -library "FP_TLOZ_soc" -nam
 set_global_assignment -entity "FP_TLOZ_soc_leds_pio" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9lZGdlX3R5cGU=::Tk9ORQ==::ZGVyaXZlZF9lZGdlX3R5cGU="
 set_global_assignment -entity "FP_TLOZ_soc_leds_pio" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9pcnFfdHlwZQ==::Tk9ORQ==::ZGVyaXZlZF9pcnFfdHlwZQ=="
 set_global_assignment -entity "FP_TLOZ_soc_leds_pio" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9oYXNfaXJx::ZmFsc2U=::ZGVyaXZlZF9oYXNfaXJx"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_NAME "RlBfVExPWl9zb2Nfa2V5Y29kZQ=="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_DISPLAY_NAME "UElPIChQYXJhbGxlbCBJL08pIEludGVsIEZQR0EgSVA="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_INTERNAL "Off"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_AUTHOR "SW50ZWwgQ29ycG9yYXRpb24="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_VERSION "MTguMQ=="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "Yml0TW9kaWZ5aW5nT3V0UmVn::ZmFsc2U=::RW5hYmxlIGluZGl2aWR1YWwgYml0IHNldHRpbmcvY2xlYXJpbmc="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGlyZWN0aW9u::T3V0cHV0::RGlyZWN0aW9u"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "cmVzZXRWYWx1ZQ==::MA==::T3V0cHV0IFBvcnQgUmVzZXQgVmFsdWU="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "d2lkdGg=::OA==::V2lkdGggKDEtMzIgYml0cyk="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "Y2xvY2tSYXRl::NTAwMDAwMDA=::Y2xvY2tSYXRl"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9oYXNfdHJp::ZmFsc2U=::ZGVyaXZlZF9oYXNfdHJp"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9oYXNfb3V0::dHJ1ZQ==::ZGVyaXZlZF9oYXNfb3V0"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9oYXNfaW4=::ZmFsc2U=::ZGVyaXZlZF9oYXNfaW4="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9kb190ZXN0X2JlbmNoX3dpcmluZw==::ZmFsc2U=::ZGVyaXZlZF9kb190ZXN0X2JlbmNoX3dpcmluZw=="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9jYXB0dXJl::ZmFsc2U=::ZGVyaXZlZF9jYXB0dXJl"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9lZGdlX3R5cGU=::Tk9ORQ==::ZGVyaXZlZF9lZGdlX3R5cGU="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9pcnFfdHlwZQ==::Tk9ORQ==::ZGVyaXZlZF9pcnFfdHlwZQ=="
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_COMPONENT_PARAMETER "ZGVyaXZlZF9oYXNfaXJx::ZmFsc2U=::ZGVyaXZlZF9oYXNfaXJx"
 set_global_assignment -entity "FP_TLOZ_soc_key" -library "FP_TLOZ_soc" -name IP_COMPONENT_NAME "RlBfVExPWl9zb2Nfa2V5"
 set_global_assignment -entity "FP_TLOZ_soc_key" -library "FP_TLOZ_soc" -name IP_COMPONENT_DISPLAY_NAME "UElPIChQYXJhbGxlbCBJL08pIEludGVsIEZQR0EgSVA="
 set_global_assignment -entity "FP_TLOZ_soc_key" -library "FP_TLOZ_soc" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
@@ -1420,7 +1401,6 @@ set_global_assignment -library "FP_TLOZ_soc" -name SOURCE_FILE [file join $::qua
 set_global_assignment -library "FP_TLOZ_soc" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/FP_TLOZ_soc_nios2_gen2_0_cpu_rf_ram_b.mif"]
 set_global_assignment -library "FP_TLOZ_soc" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/FP_TLOZ_soc_nios2_gen2_0_cpu_test_bench.v"]
 set_global_assignment -library "FP_TLOZ_soc" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/FP_TLOZ_soc_leds_pio.v"]
-set_global_assignment -library "FP_TLOZ_soc" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/FP_TLOZ_soc_keycode.v"]
 set_global_assignment -library "FP_TLOZ_soc" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/FP_TLOZ_soc_key.v"]
 set_global_assignment -library "FP_TLOZ_soc" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/FP_TLOZ_soc_jtag_uart_0.v"]
 set_global_assignment -library "FP_TLOZ_soc" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/FP_TLOZ_soc_hex_digits_pio.v"]
@@ -1525,9 +1505,6 @@ set_global_assignment -entity "FP_TLOZ_soc_nios2_gen2_0_cpu" -library "FP_TLOZ_s
 set_global_assignment -entity "FP_TLOZ_soc_leds_pio" -library "FP_TLOZ_soc" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "FP_TLOZ_soc_leds_pio" -library "FP_TLOZ_soc" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "FP_TLOZ_soc_leds_pio" -library "FP_TLOZ_soc" -name IP_TOOL_ENV "Qsys"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_TOOL_NAME "altera_avalon_pio"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_TOOL_VERSION "18.1"
-set_global_assignment -entity "FP_TLOZ_soc_keycode" -library "FP_TLOZ_soc" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "FP_TLOZ_soc_key" -library "FP_TLOZ_soc" -name IP_TOOL_NAME "altera_avalon_pio"
 set_global_assignment -entity "FP_TLOZ_soc_key" -library "FP_TLOZ_soc" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "FP_TLOZ_soc_key" -library "FP_TLOZ_soc" -name IP_TOOL_ENV "Qsys"

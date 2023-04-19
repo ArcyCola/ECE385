@@ -101,7 +101,7 @@ ACDS_VERSION := 18.1
 # BUILD_NUMBER: 625
 
 SETTINGS_FILE := settings.bsp
-SOPC_FILE := ../../lab62_soc.sopcinfo
+SOPC_FILE := ../../FP_TLOZ_soc.sopcinfo
 
 #-------------------------------------------------------------------------------
 #                             TOOL & COMMAND DEFINITIONS

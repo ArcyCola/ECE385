@@ -86,7 +86,7 @@ ACDS_VERSION := 18.1
 
 # Qsys--generated SOPCINFO file. Required for resolving node instance ID's with 
 # design component names. 
-SOPCINFO_FILE := $(ABS_BSP_ROOT_DIR)/../../lab62_soc.sopcinfo
+SOPCINFO_FILE := $(ABS_BSP_ROOT_DIR)/../../FP_TLOZ_soc.sopcinfo
 
 # Big-Endian operation. 
 # setting BIG_ENDIAN is false
@@ -139,8 +139,8 @@ QSYS := 1
 ELF_PATCH_FLAG += --qsys true
 
 # Design Name 
-# setting SOPC_NAME is lab62_soc
-SOPC_NAME := lab62_soc
+# setting SOPC_NAME is FP_TLOZ_soc
+SOPC_NAME := FP_TLOZ_soc
 
 # SopcBuilder Simulation Enabled 
 # setting SOPC_SIMULATION_ENABLED is false
@@ -157,9 +157,9 @@ SOPC_SYSID_FLAG += --sidp=0x58
 ELF_PATCH_FLAG  += --sidp 0x58
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1679541905
-SOPC_SYSID_FLAG += --timestamp=1679541905
-ELF_PATCH_FLAG  += --timestamp 1679541905
+# setting SOPC_TIMESTAMP is 1681884403
+SOPC_SYSID_FLAG += --timestamp=1681884403
+ELF_PATCH_FLAG  += --timestamp 1681884403
 
 # Enable JTAG UART driver to recover when host is inactive causing buffer to 
 # full without returning error. Printf will not fail with this recovery. none 

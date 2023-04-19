@@ -6,7 +6,7 @@
 //-------------------------------------------------------------------------
 
 
-module theLEgendofZuofu (
+module theLegendofZuofu (
 
       ///////// Clocks /////////
       input     MAX10_CLK1_50, 
@@ -120,7 +120,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	assign VGA_G = Green[7:4];
 	
 	
-	lab62_soc u0 (
+	FP_TLOZ_soc u0 (
 		.clk_clk                           (MAX10_CLK1_50),  //clk.clk
 		.reset_reset_n                     (1'b1),           //reset.reset_n
 		.altpll_0_locked_conduit_export    (),               //altpll_0_locked_conduit.export
@@ -160,7 +160,6 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 
 
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
-
 
 
 ball ball0(.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));

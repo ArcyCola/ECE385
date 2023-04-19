@@ -171,7 +171,7 @@ NIOS2_ELF_FORMAT ?= elf32-littlenios2
 #-------------------------------------
 
 # Memory: onchip_memory2_0
-MEM_0 := lab62_soc_onchip_memory2_0
+MEM_0 := FP_TLOZ_soc_onchip_memory2_0
 $(MEM_0)_NAME := onchip_memory2_0
 $(MEM_0)_MEM_INIT_FILE_PARAM_NAME := INIT_FILE
 HEX_FILES += $(MEM_INIT_DIR)/$(MEM_0).hex

@@ -1,9 +1,9 @@
 # memory.gdb - GDB memory region definitions
 #
-# Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'lab62_soc'
-# SOPC Builder design path: ../../lab62_soc.sopcinfo
+# Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'FP_TLOZ_soc'
+# SOPC Builder design path: ../../FP_TLOZ_soc.sopcinfo
 #
-# Generated: Wed Mar 22 21:38:12 CDT 2023
+# Generated: Wed Apr 12 17:34:07 CDT 2023
 
 # DO NOT MODIFY THIS FILE
 #
