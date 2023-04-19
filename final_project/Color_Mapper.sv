@@ -14,6 +14,7 @@
 
 
 module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
+								input blank,
                        output logic [7:0]  Red, Green, Blue );
     
     logic ball_on;
@@ -46,24 +47,32 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
        
     always_comb
     begin:RGB_Display
-        if ((ball_on == 1'b1)) 
-        begin 
-            Red <= 8'hff;
-            Green <= 8'h55;
-            Blue <= 8'h00;
-        end
-        else if (((79) <= DrawX <= (599)) && ((79) <= DrawY <= (399)))
-        begin 
-            Red <= 8'h00; 
-            Green <= 8'h00;
-            Blue <= 8'h7f - DrawX[9:3];
-        end 
-        else 
-        begin
-            Red <= 8'h00; 
-            Green <= 8'h00;
-            Blue <= 8'h00;
-        end     
+		if (blank) begin
+			  if ((ball_on == 1'b1)) 
+			  begin 
+					Red = 8'hff;
+					Green = 8'h55;
+					Blue = 8'h00;
+			  end
+			  else 
+			  begin 
+					Red = 8'h00; 
+					Green = 8'h00;
+					Blue = 8'h7f - DrawX[9:3];
+			  end
+//              if ( ((10'h4f) <= DrawX <= (10'h22f)) | ((10'h4f) <= DrawY <= (10'h18f)) ) begin
+//                    Red = 8'h00; 
+//						Green = 8'h00;
+//						Blue = 8'h00;
+//              end
+		 end
+		 else
+		 begin
+			Red = 8'h00; 
+			Green = 8'h00;
+			Blue = 8'h00;
+		 end
+			
     end 
     
 endmodule

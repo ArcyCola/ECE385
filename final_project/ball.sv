@@ -21,9 +21,9 @@ module  ball ( input Reset, frame_clk,
 	 
     parameter [9:0] Ball_X_Center=320;  // Center position on the X axis
     parameter [9:0] Ball_Y_Center=240;  // Center position on the Y axis
-    parameter [9:0] Ball_X_Min=79;       // Leftmost point on the X axis
+    parameter [9:0] Ball_X_Min=80;       // Leftmost point on the X axis
     parameter [9:0] Ball_X_Max=559;     // Rightmost point on the X axis
-    parameter [9:0] Ball_Y_Min=79;       // Topmost point on the Y axis
+    parameter [9:0] Ball_Y_Min=80;       // Topmost point on the Y axis
     parameter [9:0] Ball_Y_Max=399;     // Bottommost point on the Y axis
     parameter [9:0] Ball_X_Step=1;      // Step size on the X axis
     parameter [9:0] Ball_Y_Step=1;      // Step size on the Y axis
@@ -57,74 +57,143 @@ module  ball ( input Reset, frame_clk,
 				 else begin
 					  Ball_Y_Motion <= Ball_Y_Motion;  // Ball is somewhere in the middle, don't bounce, just keep moving
 						
-				 
-				 case (keycode[7:0])
-					8'h04 : begin //A
-							
+				 case(keycode)
+					// two key press
+					16'h041A : begin	// A and W
+							Ball_Y_Motion <= -1; //W
+							Ball_X_Motion <= -1; // A
+							 end
+					16'h1A04 : begin	// W and A
+							Ball_Y_Motion <= -1; // W
+							Ball_X_Motion <= -1; // A
+							 end
+					16'h071A : begin // D and W
+					        Ball_X_Motion <= 1;//D
+							Ball_Y_Motion <= -1; // W
+							  end		 
+					16'h1A07 : begin // W and S
+					        Ball_X_Motion <= 1;//D
+							Ball_Y_Motion <= -1; // W
+							  end
+					16'h1607 : begin // S and D
+					        Ball_X_Motion <= 1;
+							Ball_Y_Motion <= 1;
+							  end
+					16'h0716 : begin // D and S
+					        Ball_X_Motion <= 1;
+							Ball_Y_Motion <= 1;
+							  end
+					16'h1604 : begin //S and A
+								Ball_X_Motion <= -1;
+								Ball_Y_Motion<= 1;
+							  end
+					16'h0416 : begin //A and S
+								Ball_X_Motion <= -1;
+								Ball_Y_Motion<= 1;
+							  end
+				 	// one key press
+				 	16'h0004 : begin //A
 								Ball_X_Motion <= -1;
 								//Ball_Y_Motion<= 0;
 							  end
-					        
-					8'h07 : begin
-								
-					        Ball_X_Motion <= 1;//D
+					16'h0400 : begin //A
+								Ball_X_Motion <= -1;
+								//Ball_Y_Motion<= 0;
+							  end
+					16'h0007 : begin // D
+					        Ball_X_Motion <= 1;
 							  //Ball_Y_Motion <= 0;
 							  end
-
-							  
-					8'h16 : begin
-
-					        Ball_Y_Motion <= 1;//S
+					16'h0700 : begin // D
+					        Ball_X_Motion <= 1;
+							  //Ball_Y_Motion <= 0;
+							  end
+					16'h0016 : begin //S
+					        Ball_Y_Motion <= 1;
 							  //Ball_X_Motion <= 0;
 							 end
-							  
-					8'h1A : begin
-					        Ball_Y_Motion <= -1;//W
+					16'h1600 : begin //S
+					        Ball_Y_Motion <= 1;
 							  //Ball_X_Motion <= 0;
-							 end	  
-					default: ;
-					endcase
+							 end
+					16'h001A : begin //W
+					        Ball_Y_Motion <= -1;
+							  //Ball_X_Motion <= 0;
+							 end
+					16'h1A00 : begin //W
+					        Ball_Y_Motion <= -1;
+							  //Ball_X_Motion <= 0;
+							 end
+
+            		default: ;
+				 endcase
+// 				 case (keycode[7:0])
+// 					8'h04 : begin //A
+							
+// 								Ball_X_Motion <= -1;
+// 								//Ball_Y_Motion<= 0;
+// 							  end
+					        
+// 					8'h07 : begin
+								
+// 					        Ball_X_Motion <= 1;//D
+// 							  //Ball_Y_Motion <= 0;
+// 							  end
+
+							  
+// 					8'h16 : begin
+
+// 					        Ball_Y_Motion <= 1;//S
+// 							  //Ball_X_Motion <= 0;
+// 							 end
+							  
+// 					8'h1A : begin
+// 					        Ball_Y_Motion <= -1;//W
+// 							  //Ball_X_Motion <= 0;
+// 							 end	  
+// 					default: ;
+// 					endcase
 					
-					case (keycode[15:8])
-					8'h04 : begin //A
+// 					case (keycode[15:8])
+// 					8'h04 : begin //A
 							
-								Ball_X_Motion <= -1;
-								//Ball_Y_Motion<= 0;
-							  end
+// 								Ball_X_Motion <= -1;
+// 								//Ball_Y_Motion<= 0;
+// 							  end
 					        
-					8'h07 : begin
+// 					8'h07 : begin
 								
-					        Ball_X_Motion <= 1;//D
-							  //Ball_Y_Motion <= 0;
-							  end
+// 					        Ball_X_Motion <= 1;//D
+// 							  //Ball_Y_Motion <= 0;
+// 							  end
 
 							  
-					8'h16 : begin
+// 					8'h16 : begin
 
-					        Ball_Y_Motion <= 1;//S
-							  //Ball_X_Motion <= 0;
-							 end
+// 					        Ball_Y_Motion <= 1;//S
+// 							  //Ball_X_Motion <= 0;
+// 							 end
 							  
-					8'h1A : begin
-					        Ball_Y_Motion <= -1;//W
-							  //Ball_X_Motion <= 0;
-							 end	  
-					default: ;
+// 					8'h1A : begin
+// 					        Ball_Y_Motion <= -1;//W
+// 							  //Ball_X_Motion <= 0;
+// 							 end	  
+// 					default: ;
 
-//				if (keycode == 8'h04) begin //A
-//						Ball_X_Motion <= -1;
-//				end
-//				if (keycode == 8'h07) begin //D
-//						Ball_X_Motion <= 1;
-//				end
-//				if (keycode == 8'h16) begin //S
-//						Ball_Y_Motion <= 1;
-//				end
-//				if (keycode == 8'h1A) begin //W
-//						Ball_Y_Motion <= -1;
-//				end
+// //				if (keycode == 8'h04) begin //A
+// //						Ball_X_Motion <= -1;
+// //				end
+// //				if (keycode == 8'h07) begin //D
+// //						Ball_X_Motion <= 1;
+// //				end
+// //				if (keycode == 8'h16) begin //S
+// //						Ball_Y_Motion <= 1;
+// //				end
+// //				if (keycode == 8'h1A) begin //W
+// //						Ball_Y_Motion <= -1;
+// //				end
 				
-			   endcase
+// 			   endcase
 				if (!keycode) begin
 					Ball_X_Motion <= 0;
 					Ball_Y_Motion <= 0;

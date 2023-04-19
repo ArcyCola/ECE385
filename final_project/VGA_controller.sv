@@ -62,34 +62,36 @@ module  vga_controller ( input        Clk,       // 50 MHz clock
 	begin: counter_proc
 		  if ( Reset ) 
 			begin 
+                // horizontl and vertical counters start at (0,0)
 				 hc <= 10'b0000000000;
 				 vc <= 10'b0000000000;
 			end
 				
 		  else 
-			 if ( hc == hpixels )  //If hc has reached the end of pixel count
+			 if ( hc == hpixels )  //If hc has reached the end of pixel count (very right of screen)
 			  begin 
-					hc <= 10'b0000000000;
-					if ( vc == vlines )   //if vc has reached end of line count
-						 vc <= 10'b0000000000;
+					hc <= 10'b0000000000;   // go back to left side
+					if ( vc == vlines )   //if vc has reached end of line count (bottom of screen)
+						 vc <= 10'b0000000000;  // go back to top
 					else 
 						 vc <= (vc + 1);
 			  end
 			 else 
 				  hc <= (hc + 1);  //no statement about vc, implied vc <= vc;
 	 end 
-   
+     
+    // position of electron beam
     assign DrawX = hc;
     assign DrawY = vc;
    
 	 //horizontal sync pulse is 96 pixels long at pixels 656-752
     //(signal is registered to ensure clean output waveform)
     always_ff @ (posedge Reset or posedge clkdiv )
-    begin : hsync_proc
+    begin : hsync_proc 
         if ( Reset ) 
             hs <= 1'b0;
         else  
-            if ((((hc + 1) >= 10'b1010010000) & ((hc + 1) < 10'b1011110000))) 
+            if ((((hc + 1) >= 10'b1010010000) & ((hc + 1) < 10'b1011110000))) // 656<=(hc+1)<752
                 hs <= 1'b0;
             else 
 				    hs <= 1'b1;
@@ -112,10 +114,18 @@ module  vga_controller ( input        Clk,       // 50 MHz clock
     //(This signal is registered within the DAC chip, so we can leave it as pure combinational logic here)    
     always_comb
     begin 
-        if ( (hc >= 10'b1010000000) | (vc >= 10'b0111100000) ) 
-            display = 1'b0;
+        // if ( ((10'h4f) <= hc <= (10'h22f)) | ((10'h4f) <= vc <= (10'h18f)) ) 
+        //     display = 1'b1;
+        // else 
+        //     display = 1'b0;
+
+        // screen 480 x 320
+        // screen off if hc < 80 OR hc >=480+80
+        // screen off if vc < 80 OR vc >= 320+80
+        if ( (hc >= 10'b1000110000) | (hc < 10'b0001010000)| (vc >= 10'b0110010000) | (vc < 10'b0001010000)) 
+            display = 1'b0; // display off
         else 
-            display = 1'b1;
+            display = 1'b1; // display on
     end 
    
     assign blank = display;

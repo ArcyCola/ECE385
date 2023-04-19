@@ -165,7 +165,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 ball ball0(.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(keycode), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
 
 color_mapper color(.BallX(ballxsig), .BallY(ballysig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig),
-					.Red(Red), .Blue(Blue), .Green(Green));
+					.Red(Red), .Blue(Blue), .Green(Green), .blank(blank));
 
 vga_controller VGA(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .hs(VGA_HS), .vs(VGA_VS), 
 .pixel_clk(VGA_Clk), 
