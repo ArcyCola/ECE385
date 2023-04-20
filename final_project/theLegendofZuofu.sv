@@ -70,7 +70,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	logic [1:0] hundreds;
 	logic [9:0] drawxsig, drawysig, ballxsig, ballysig, ballsizesig;
 	logic [7:0] Red, Blue, Green;
-	logic [7:0] keycode;
+	logic [15:0] keycode;
 
 //=======================================================
 //  Structural coding

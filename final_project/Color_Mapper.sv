@@ -67,7 +67,9 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
        
 
     always_comb begin
-			GBADraw2X = DrawX - 80;
+			// GBADraw2X = [0, 480]
+			// GBADraw2Y = [0, 320]
+ 			GBADraw2X = DrawX - 80;
 			GBADraw2Y = DrawY - 80;
         //negedge_vga_clk = ~vga_clk;
 		
@@ -79,7 +81,16 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
         //rom_address = ((GBADraw2X * 240) / 480) + (((GBADraw2Y * 160) / 320) * 240);
         // ---------------------------------------------
         // for the pokemon firered map 2x/northwquaddraft 
-        rom_address = GBADraw2X + (GBADraw2Y * 480);
+		  // Drawing full map on it
+        //rom_address = GBADraw2X + (GBADraw2Y * 480);
+		  
+		  //---------------------------
+		  // res; 480 x 320, want to see top right 240x160 part
+		  rom_address = (GBADraw2X / 2) + ((GBADraw2Y/2) * 480);
+		  
+		  //---------------------------
+		  // res; 960 x 640, want to see top right 240x160 part
+		  //rom_address = (GBADraw2X / 4) + ((GBADraw2Y/4) * 960);
     end
 
     
@@ -132,13 +143,28 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 // 	.blue  (palette_blue)
 // );
 
-northquaddraft_rom northquaddraft_rom (
+
+
+//fpmapdraft2_rom northquaddraft_rom (
+//	.clock   (negedge_vga_clk),
+//	.address (rom_address),
+//	.q       (rom_q)
+//);
+//
+//fpmapdraft2_palette northquaddraft_palette (
+//	.index (rom_q),
+//	.red   (palette_red),
+//	.green (palette_green),
+//	.blue  (palette_blue)
+//);
+
+map480pt2_rom map480_rom (
 	.clock   (negedge_vga_clk),
 	.address (rom_address),
 	.q       (rom_q)
 );
 
-northquaddraft_palette northquaddraft_palette (
+map480pt2_palette map480_palette (
 	.index (rom_q),
 	.red   (palette_red),
 	.green (palette_green),

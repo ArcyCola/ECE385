@@ -437,6 +437,12 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name QIP_FILE map480pt2/map480pt2.qip
+set_global_assignment -name QIP_FILE map480/map480.qip
+set_global_assignment -name SYSTEMVERILOG_FILE fpmapdraft2/fpmapdraft2_rom.sv
+set_global_assignment -name SYSTEMVERILOG_FILE fpmapdraft2/fpmapdraft2_palette.sv
+set_global_assignment -name SYSTEMVERILOG_FILE fpmapdraft2/fpmapdraft2_example.sv
+set_global_assignment -name QIP_FILE fpmapdraft2/fpmapdraft2.qip
 set_global_assignment -name SYSTEMVERILOG_FILE northquaddraft/northquaddraft_rom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE northquaddraft/northquaddraft_palette.sv
 set_global_assignment -name SYSTEMVERILOG_FILE northquaddraft/northquaddraft_example.sv
