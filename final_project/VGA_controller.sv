@@ -122,10 +122,15 @@ module  vga_controller ( input        Clk,       // 50 MHz clock
         // screen 480 x 320
         // screen off if hc < 80 OR hc >=480+80
         // screen off if vc < 80 OR vc >= 320+80
-        if ( (hc >= 10'b1000110000) | (hc < 10'b0001010000)| (vc >= 10'b0110010000) | (vc < 10'b0001010000)) 
-            display = 1'b0; // display off
+        // if ( (hc >= 10'b1000110000) | (hc < 10'b0001010000)| (vc >= 10'b0110010000) | (vc < 10'b0001010000)) 
+        //     display = 1'b0; // display off
+        // else 
+        //     display = 1'b1; // display on
+        
+        if ( (hc >= 10'b1010000000) | (vc >= 10'b0111100000) ) 
+            display = 1'b0;
         else 
-            display = 1'b1; // display on
+            display = 1'b1;
     end 
    
     assign blank = display;
