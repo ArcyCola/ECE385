@@ -39,7 +39,7 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 	// ------------------------------------------------
     // adding stuff for background fjdguidgnfdm
 
-    logic [15:0] rom_address;
+    logic [17:0] rom_address;
     logic [3:0] rom_q;
 
     logic [3:0] palette_red, palette_green, palette_blue;
@@ -76,10 +76,10 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 //rom = (GBADraw2x* ImageXDim ) / ScreenWidth + ((GBADraw2Y* ImageYDim) / ScreenHeight) * ScreenWidth
 
         // for the pokemon firered map 1x 
-        rom_address = ((GBADraw2X * 240) / 480) + (((GBADraw2Y * 160) / 320) * 240);
+        //rom_address = ((GBADraw2X * 240) / 480) + (((GBADraw2Y * 160) / 320) * 240);
         // ---------------------------------------------
-        // for the pokemon firered map 2x 
-        //rom_address = (GBADraw2X / 480) + (GBADraw2Y * 480);
+        // for the pokemon firered map 2x/northwquaddraft 
+        rom_address = GBADraw2X + (GBADraw2Y * 480);
     end
 
     
@@ -119,13 +119,26 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 			
     end 
     
-pokemonfireredmap_rom pokemonfireredmap_rom (
+// pokemonfireredmap_rom pokemonfireredmap_rom (
+// 	.clock   (negedge_vga_clk),
+// 	.address (rom_address),
+// 	.q       (rom_q)
+// );
+
+// pokemonfireredmap_palette pokemonfireredmap_palette (
+// 	.index (rom_q),
+// 	.red   (palette_red),
+// 	.green (palette_green),
+// 	.blue  (palette_blue)
+// );
+
+northquaddraft_rom northquaddraft_rom (
 	.clock   (negedge_vga_clk),
 	.address (rom_address),
 	.q       (rom_q)
 );
 
-pokemonfireredmap_palette pokemonfireredmap_palette (
+northquaddraft_palette northquaddraft_palette (
 	.index (rom_q),
 	.red   (palette_red),
 	.green (palette_green),
