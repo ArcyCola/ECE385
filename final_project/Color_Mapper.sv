@@ -123,17 +123,17 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
         else begin
 				//checking if ScreenX is at min.
             if (ScreenX < Screen_X_Min) begin
-                Screen_X_Motion <= 0;
+                ScreenX <= Screen_X_Min;
             end
             // if ScreenX is at max
             else if (ScreenX > Screen_X_Max) begin
-                Screen_X_Motion <= 0;
+                ScreenX <= Screen_X_Max;
             end
 				else if (ScreenY < Screen_Y_Min) begin
-					Screen_Y_Motion <= 0;
+					ScreenY <= Screen_Y_Min;
 				end
 				else if (ScreenY > Screen_Y_Max) begin
-					Screen_Y_Motion <= 0;
+					ScreenY <= Screen_Y_Max;
 				end
             //might be able to combine the min/max checks into one if thing
             else begin
@@ -143,7 +143,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
                 case (keycode[7:0])
                     // A, going to the left
                     8'h04 : begin
-                        if (ScreenX - 1 < Screen_X_Min) begin
+                        if (ScreenX <= Screen_X_Min) begin
                             Screen_X_Motion <= 0;
                         end
                         else begin
@@ -152,7 +152,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
                     end
                     // D, going right
                     8'h07 : begin
-                        if (ScreenX + 1 > Screen_X_Max) begin
+                        if (ScreenX >= Screen_X_Max) begin
                             Screen_X_Motion <= 0;
                         end
                         else begin
@@ -161,7 +161,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
                     end
 						  // W, up
                     8'h1A : begin
-                        if (ScreenY - 1 < Screen_Y_Min) begin
+                        if (ScreenY <= Screen_Y_Min) begin
                             Screen_Y_Motion <= 0;
                         end
                         else begin
@@ -170,7 +170,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
                     end
                     // S, down
                     8'h16 : begin
-                        if (ScreenY + 1 > Screen_Y_Max) begin
+                        if (ScreenY >= Screen_Y_Max) begin
                             Screen_Y_Motion <= 0;
                         end
                         else begin
