@@ -35,9 +35,9 @@ module  ball ( input Reset, frame_clk,
         if (Reset)  // Asynchronous Reset
         begin 
             Ball_Y_Motion <= 10'd0; //Ball_Y_Step;
-				Ball_X_Motion <= 10'd0; //Ball_X_Step;
-				Ball_Y_Pos <= Ball_Y_Center;
-				Ball_X_Pos <= Ball_X_Center;
+			Ball_X_Motion <= 10'd0; //Ball_X_Step;
+			Ball_Y_Pos <= Ball_Y_Center;
+			Ball_X_Pos <= Ball_X_Center;
         end
            
         else 

@@ -13,27 +13,21 @@
 //-------------------------------------------------------------------------
 
 
-module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
-								input blank, vga_clk,
+module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size,
+                       input               blank, vga_clk, Reset, frame_clk,
+                       input        [15:0] keycode,
                        output logic [7:0]  Red, Green, Blue );
     
-    logic ball_on, GBAWindow;
+   
 	 
- /* Old Ball: Generated square box by checking if the current pixel is within a square of length
-    2*Ball_Size, centered at (BallX, BallY).  Note that this requires unsigned comparisons.
-	 
-    if ((DrawX >= BallX - Ball_size) &&
-       (DrawX <= BallX + Ball_size) &&
-       (DrawY >= BallY - Ball_size) &&
-       (DrawY <= BallY + Ball_size))
-
-     New Ball: Generates (pixelated) circle by using the standard circle formula.  Note that while 
-     this single line is quite powerful descriptively, it causes the synthesis tool to use up three
-     of the 12 available multipliers on the chip!  Since the multiplicants are required to be signed,
+    /*  New Ball: Generates (pixelated) circle by using the standard circle formula.  Note that while 
+      this single line is quite powerful descriptively, it causes the synthesis tool to use up three
+      of the 12 available multipliers on the chip!  Since the multiplicants are required to be signed,
 	  we have to first cast them from logic to int (signed by default) before they are multiplied). */
-	  
+
+	logic ball_on, GBAWindow;  
     int DistX, DistY, Size;
-	 assign DistX = DrawX - BallX;
+	assign DistX = DrawX - BallX;
     assign DistY = DrawY - BallY;
     assign Size = Ball_size;
 	// ------------------------------------------------
@@ -53,29 +47,52 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 
 
     // ------------------------------------------------
+    // following how ball moves, referencing ball.sv
+    // "Screen" is the 160x140 window that is outputted to the screen.
+    // location of top left corner of screen.
+    logic [9:0] ScreenX, ScreenY;
+
+    //setting min and max of top left pixel of screen, relative to map
+    //map size of 480x320
+    parameter [9:0] Screen_X_Min = 0;
+    parameter [9:0] Screen_Y_Min = 0;
+    parameter [9:0] Screen_X_Max = 239;
+    parameter [9:0] Screen_Y_Max = 159;
+    // idk if like we have to follow how ball does it, how
+    // each case for keycode defines X/Y motion, then changing 
+    // it outside of the huge if/else statement.
+    logic [9:0] Screen_X_Motion, Screen_Y_Motion;
+
+    //  not sure if we need step, used for bouncing off screen
+    //  for ball.
+    parameter [9:0] Screen_X_Step = 1; 
+    parameter [9:0] Screen_Y_Step = 1; 
+
+    //intializing ScreenX/Y to top left corner of map, can change later.
+    // assign ScreenX = 1'b0;
+    // assign ScreenY = 1'b0; 
+
     always_comb
     begin:Ball_on_proc
-        GBAWindow = (80 <= DrawX) & (DrawX < 560) & (80 <= DrawY) & (DrawY < 400);
-    
         if ( ( DistX*DistX + DistY*DistY) <= (Size * Size) ) 
             ball_on = 1'b1;
         else 
             ball_on = 1'b0;
 
+        //-----------------------------
+        //GBA screen implemenations
+        GBAWindow = (80 <= DrawX) & (DrawX < 560) & (80 <= DrawY) & (DrawY < 400);
+        
+        //no scrolling, static background code
+        // GBADraw2X = DrawX - 80; // GBADraw2X = [0, 480]
+        // GBADraw2Y = DrawY - 80; // GBADraw2Y = [0, 320]
 
-     end 
-       
-
-    always_comb begin
-			// GBADraw2X = [0, 480]
-			// GBADraw2Y = [0, 320]
- 			GBADraw2X = DrawX - 80;
-			GBADraw2Y = DrawY - 80;
-        //negedge_vga_clk = ~vga_clk;
-		
+        //scrolling implemention
+        GBADraw2X = DrawX - 80 + (ScreenX * 2);
+        GBADraw2Y = DrawY - 80 + (ScreenY * 2);
 
         // address into the rom = (x* xDim ) / 480 + ((y * yDim) / 320) * xDim
-//rom = (GBADraw2x* ImageXDim ) / ScreenWidth + ((GBADraw2Y* ImageYDim) / ScreenHeight) * ScreenWidth
+        //rom = (GBADraw2x* ImageXDim ) / ScreenWidth + ((GBADraw2Y* ImageYDim) / ScreenHeight) * ScreenWidth
 
         // for the pokemon firered map 1x 
         //rom_address = ((GBADraw2X * 240) / 480) + (((GBADraw2Y * 160) / 320) * 240);
@@ -91,8 +108,87 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 		  //---------------------------
 		  // res; 960 x 640, want to see top right 240x160 part
 		  //rom_address = (GBADraw2X / 4) + ((GBADraw2Y/4) * 960);
-    end
+        
+    end 
 
+
+    //need keycode and maybe Reset if we want to implement Reset to screen,
+    // if we do implement Reset comment out lines 73-74 (the assign ScreenX/Y)
+    always_ff @ (posedge frame_clk or posedge Reset)
+    begin: Move_Screen
+        if (Reset) begin
+            ScreenX <= 10'b0;
+            ScreenY <= 10'b0;
+        end
+        else begin
+				//checking if ScreenX is at min.
+            if (ScreenX < Screen_X_Min) begin
+                Screen_X_Motion <= 0;
+            end
+            // if ScreenX is at max
+            else if (ScreenX > Screen_X_Max) begin
+                Screen_X_Motion <= 0;
+            end
+				else if (ScreenY < Screen_Y_Min) begin
+					Screen_Y_Motion <= 0;
+				end
+				else if (ScreenY > Screen_Y_Max) begin
+					Screen_Y_Motion <= 0;
+				end
+            //might be able to combine the min/max checks into one if thing
+            else begin
+                Screen_X_Motion <= Screen_X_Motion;
+
+                //adding all these if's in the cases might make all the if's above redundant
+                case (keycode[7:0])
+                    // A, going to the left
+                    8'h04 : begin
+                        if (ScreenX - 1 < Screen_X_Min) begin
+                            Screen_X_Motion <= 0;
+                        end
+                        else begin
+                            Screen_X_Motion <= -1;
+                        end
+                    end
+                    // D, going right
+                    8'h07 : begin
+                        if (ScreenX + 1 > Screen_X_Max) begin
+                            Screen_X_Motion <= 0;
+                        end
+                        else begin
+                            Screen_X_Motion <= 1;
+                        end
+                    end
+						  // W, up
+                    8'h1A : begin
+                        if (ScreenY - 1 < Screen_Y_Min) begin
+                            Screen_Y_Motion <= 0;
+                        end
+                        else begin
+                            Screen_Y_Motion <= -1;
+                        end
+                    end
+                    // S, down
+                    8'h16 : begin
+                        if (ScreenY + 1 > Screen_Y_Max) begin
+                            Screen_Y_Motion <= 0;
+                        end
+                        else begin
+                            Screen_Y_Motion <= 1;
+                        end
+                    end
+                    default: begin
+                        Screen_X_Motion <= 0;
+                        Screen_Y_Motion <= 0;   
+                    end
+						  
+
+                endcase
+                ScreenX <= (ScreenX + Screen_X_Motion);
+                ScreenY <= (ScreenY + Screen_Y_Motion);
+            end
+        end
+    end
     
 
     always_ff @ (posedge vga_clk)
@@ -158,13 +254,13 @@ module  color_mapper ( input        [9:0] BallX, BallY, DrawX, DrawY, Ball_size,
 //	.blue  (palette_blue)
 //);
 
-map480pt2_rom map480_rom (
+fpmapdraft3_rom map480_rom (
 	.clock   (negedge_vga_clk),
 	.address (rom_address),
 	.q       (rom_q)
 );
 
-map480pt2_palette map480_palette (
+fpmapdraft3_palette map480_palette (
 	.index (rom_q),
 	.red   (palette_red),
 	.green (palette_green),
