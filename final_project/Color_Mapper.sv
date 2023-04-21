@@ -50,7 +50,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
     // following how ball moves, referencing ball.sv
     // "Screen" is the 160x140 window that is outputted to the screen.
     // location of top left corner of screen.
-    logic [9:0] ScreenX, ScreenY;
+    logic signed [9:0] ScreenX, ScreenY;
 
     //setting min and max of top left pixel of screen, relative to map
     //map size of 480x320
@@ -121,19 +121,19 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
             ScreenY <= 10'b0;
         end
         else begin
-				//checking if ScreenX is at min.
-            if (ScreenX < Screen_X_Min) begin
-                ScreenX <= Screen_X_Min;
+				//checking if ScreenX is at min. (unsigned -1 == 10'bFFF)
+				if (ScreenX == 10'hFFF) begin
+                ScreenX <= 0;
+            end
+            else if (ScreenX > Screen_X_Max) begin
+                ScreenX <= 239;
             end
             // if ScreenX is at max
-            else if (ScreenX > Screen_X_Max) begin
-                ScreenX <= Screen_X_Max;
-            end
-				else if (ScreenY < Screen_Y_Min) begin
-					ScreenY <= Screen_Y_Min;
+				else if (ScreenY == 10'hFFF) begin
+					ScreenY <= 0;
 				end
 				else if (ScreenY > Screen_Y_Max) begin
-					ScreenY <= Screen_Y_Max;
+					ScreenY <= 159;
 				end
             //might be able to combine the min/max checks into one if thing
             else begin
