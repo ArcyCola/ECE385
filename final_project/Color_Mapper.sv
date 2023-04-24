@@ -74,7 +74,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
 
     always_comb
     begin:Ball_on_proc
-        if ( ( DistX*DistX + DistY*DistY) <= (Size * Size) ) 
+        if ( ((-6 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 10))  ) ) 
             ball_on = 1'b1;
         else 
             ball_on = 1'b0;
@@ -117,6 +117,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
     always_ff @ (posedge frame_clk or posedge Reset)
     begin: Move_Screen
         if (Reset) begin
+		  // begin a
             ScreenX <= 10'b0;
             ScreenY <= 10'b0;
         end
@@ -140,9 +141,9 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
                 Screen_X_Motion <= Screen_X_Motion;
 
                 //adding all these if's in the cases might make all the if's above redundant
-                case (keycode[7:0])
+                case (keycode)
                     // A, going to the left
-                    8'h04 : begin
+                    16'h0004 : begin
                         if (ScreenX <= Screen_X_Min) begin
                             Screen_X_Motion <= 0;
                         end
@@ -151,7 +152,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
                         end
                     end
                     // D, going right
-                    8'h07 : begin
+                    16'h0007 : begin
                         if (ScreenX >= Screen_X_Max) begin
                             Screen_X_Motion <= 0;
                         end
@@ -160,7 +161,7 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
                         end
                     end
 						  // W, up
-                    8'h1A : begin
+                    16'h001A : begin
                         if (ScreenY <= Screen_Y_Min) begin
                             Screen_Y_Motion <= 0;
                         end
@@ -169,20 +170,174 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
                         end
                     end
                     // S, down
-                    8'h16 : begin
+                    16'h0016 : begin
                         if (ScreenY >= Screen_Y_Max) begin
                             Screen_Y_Motion <= 0;
                         end
                         else begin
                             Screen_Y_Motion <= 1;
                         end
+							end	
+							
+							// 2 key presses
+							
+						  // W, A, up, left
+						  16'h1A04 : begin
+								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 0;
+								end
+								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= -1;
+								end
+								if(!(ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= -1;
+									Screen_Y_Motion <= 0;
+								end
+								else begin
+									Screen_X_Motion <= -1;
+									Screen_Y_Motion <= -1;
+								end
+							end
+							// A, W, left, up
+							16'h041A : begin
+								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 0;
+								end
+								if((ScreenX <= Screen_X_Min) & !(ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= -1;
+								end
+								if(!(ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= -1;
+									Screen_Y_Motion <= 0;
+								end
+								else begin
+									Screen_X_Motion <= -1;
+									Screen_Y_Motion <= -1;
+								end
                     end
+						  // W, D, up, right
+						  16'h1A07 : begin
+								if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 0;
+								end
+								if((ScreenX >= Screen_X_Max) & !(ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= -1;
+								end
+								if(!(ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 1;
+									Screen_Y_Motion <= 0;
+								end
+								else begin
+									Screen_X_Motion <= 1;
+									Screen_Y_Motion <= -1;
+								end
+							end
+							// D,W, right, up
+						  16'h071A : begin
+								if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 0;
+								end
+								if((ScreenX >= Screen_X_Max) & !(ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= -1;
+								end
+								if(!(ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+									Screen_X_Motion <= 1;
+									Screen_Y_Motion <= 0;
+								end
+								else begin
+									Screen_X_Motion <= 1;
+									Screen_Y_Motion <= -1;
+								end
+							end
+							
+							// D, S, right, down
+							16'h0716 : begin
+								if((ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 0;
+								end
+								if((ScreenX >= Screen_X_Max) & !(ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 1;
+								end
+								if(!(ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 1;
+									Screen_Y_Motion <= 0;
+								end
+								else begin
+									Screen_X_Motion <= 1;
+									Screen_Y_Motion <= 1;
+								end
+							end
+							// S, D, down, right
+							16'h1607 : begin
+								if((ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 0;
+								end
+								if((ScreenX >= Screen_X_Max) & !(ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 1;
+								end
+								if(!(ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 1;
+									Screen_Y_Motion <= 0;
+								end
+								else begin
+									Screen_X_Motion <= 1;
+									Screen_Y_Motion <= 1;
+								end
+							end
+							// S, A, down, left
+							16'h1604 : begin
+								if((ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 0;
+								end
+								if((ScreenX <= Screen_X_Min) & !(ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 1;
+								end
+								if(!(ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= -1;
+									Screen_Y_Motion <= 0;
+								end
+								else begin
+									Screen_X_Motion <= -1;
+									Screen_Y_Motion <= 1;
+								end
+							end
+							// A, S, left, down
+							16'h1604 : begin
+								if((ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 0;
+								end
+								if((ScreenX <= Screen_X_Min) & !(ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= 0;
+									Screen_Y_Motion <= 1;
+								end
+								if(!(ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+									Screen_X_Motion <= -1;
+									Screen_Y_Motion <= 0;
+								end
+								else begin
+									Screen_X_Motion <= -1;
+									Screen_Y_Motion <= 1;
+								end
+							end
                     default: begin
                         Screen_X_Motion <= 0;
                         Screen_Y_Motion <= 0;   
                     end
-						  
-
                 endcase
                 ScreenX <= (ScreenX + Screen_X_Motion);
                 ScreenY <= (ScreenY + Screen_Y_Motion);
@@ -254,13 +409,13 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
 //	.blue  (palette_blue)
 //);
 
-fpmapdraft3_rom map480_rom (
+fpmapfinal_rom map480_rom (
 	.clock   (negedge_vga_clk),
 	.address (rom_address),
 	.q       (rom_q)
 );
 
-fpmapdraft3_palette map480_palette (
+fpmapfinal_palette map480_palette (
 	.index (rom_q),
 	.red   (palette_red),
 	.green (palette_green),
