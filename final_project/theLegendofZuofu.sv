@@ -58,7 +58,7 @@ module theLegendofZuofu (
 
 
 
-logic Reset_h, vssig, blank, sync, VGA_Clk;
+logic Reset_h, vssig, blank, sync, VGA_Clk, Key1_h;
 
 
 //=======================================================
@@ -119,6 +119,10 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	assign VGA_B = Blue[7:4];
 	assign VGA_G = Green[7:4];
 	
+	//ADDED FOR DEBUGGING
+	assign {Key1_h} = ~(KEY[1]);
+	
+	
 	
 	FP_TLOZ_soc u0 (
 		.clk_clk                           (MAX10_CLK1_50),  //clk.clk
@@ -162,9 +166,9 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 //instantiate a vga_controller, ball, and color_mapper here with the ports.
 
 // DISCONNECTED KEYCODE SO BALL DOESNT MOVE.
-ball ball0(.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
+//ball ball0(.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
 
-color_mapper color(.BallX(ballxsig), .BallY(ballysig), .DrawX(drawxsig), .DrawY(drawysig), .Ball_size(ballsizesig), .vga_clk(VGA_Clk),
+color_mapper color(.DrawX(drawxsig), .DrawY(drawysig), .vga_clk(VGA_Clk), .ball_reset(Key1_h),
 					.Red(Red), .Blue(Blue), .Green(Green), .blank(blank), .keycode(keycode), .Reset(Reset_h), .frame_clk(VGA_VS));
 
 vga_controller VGA(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .hs(VGA_HS), .vs(VGA_VS), 

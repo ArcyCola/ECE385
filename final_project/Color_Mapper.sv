@@ -13,8 +13,8 @@
 //-------------------------------------------------------------------------
 
 
-module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size,
-                       input               blank, vga_clk, Reset, frame_clk,
+module  color_mapper ( input        [9:0]  DrawX, DrawY, 
+                       input               blank, vga_clk, Reset, frame_clk, ball_reset,
                        input        [15:0] keycode,
                        output logic [7:0]  Red, Green, Blue );
     
@@ -25,11 +25,11 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
       of the 12 available multipliers on the chip!  Since the multiplicants are required to be signed,
 	  we have to first cast them from logic to int (signed by default) before they are multiplied). */
 
-	logic ball_on, GBAWindow;  
-    int DistX, DistY, Size;
-	assign DistX = DrawX - BallX;
-    assign DistY = DrawY - BallY;
-    assign Size = Ball_size;
+	logic ball_on, GBAWindow, isBallCenter, isWinOnAnyEdge, isWinOnLeftEdge, isWinOnRightEdge, isWinOnTopEdge, isWinOnBottomEdge;  
+	logic isWinOnTopLeftCorner, isWinOnTopRightCorner, isWinOnBottomLeftCorner, isWinOnBottomRightCorner, isWinOnAnyCorner;
+    int DistX, DistY;
+	
+
 	// ------------------------------------------------
     // adding stuff for background fjdguidgnfdm
 
@@ -47,10 +47,28 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
 
 
     // ------------------------------------------------
+	// copied from ball.sv
+
+	logic [9:0] BallX, Ball_X_Motion, BallY, Ball_Y_Motion;
+	 
+    parameter [9:0] Ball_X_Center=320;  // Center position on the X axis
+    parameter [9:0] Ball_Y_Center=240;  // Center position on the Y axis
+    parameter [9:0] Ball_X_Min=100;       // Leftmost point on the X axis
+    parameter [9:0] Ball_X_Max=539;     // Rightmost point on the X axis
+    parameter [9:0] Ball_Y_Min=100;       // Topmost point on the Y axis
+    parameter [9:0] Ball_Y_Max=379;     // Bottommost point on the Y axis
+    parameter [9:0] Ball_X_Step=1;      // Step size on the X axis
+    parameter [9:0] Ball_Y_Step=1;      // Step size on the Y axis
+
+    assign BallS = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
+   
+
+   //--------------------------------------
+
     // following how ball moves, referencing ball.sv
     // "Screen" is the 160x140 window that is outputted to the screen.
     // location of top left corner of screen.
-    logic signed [9:0] ScreenX, ScreenY;
+    logic [9:0] ScreenX, ScreenY;
 
     //setting min and max of top left pixel of screen, relative to map
     //map size of 480x320
@@ -58,6 +76,12 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
     parameter [9:0] Screen_Y_Min = 0;
     parameter [9:0] Screen_X_Max = 239;
     parameter [9:0] Screen_Y_Max = 159;
+
+	// creating constants for map when it is at a wall
+	parameter [9:0] MapXover4 = 119;
+	parameter [9:0] MapX3over4 = 359;
+	parameter [9:0] MapYover4 = 79;
+	parameter [9:0] MapY3over4 = 239;
     // idk if like we have to follow how ball does it, how
     // each case for keycode defines X/Y motion, then changing 
     // it outside of the huge if/else statement.
@@ -67,7 +91,14 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
     //  for ball.
     parameter [9:0] Screen_X_Step = 1; 
     parameter [9:0] Screen_Y_Step = 1; 
+	 
+	 assign DistX = DrawX - BallX;
+    assign DistY = DrawY - BallY;
 
+	 //comment this out when u use the always_ff 
+	 // ahhhhh read read
+	//  assign BallY = Ball_Y_Center;
+	//  assign BallX = Ball_X_Center;
     //intializing ScreenX/Y to top left corner of map, can change later.
     // assign ScreenX = 1'b0;
     // assign ScreenY = 1'b0; 
@@ -83,6 +114,23 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
         //GBA screen implemenations
         GBAWindow = (80 <= DrawX) & (DrawX < 560) & (80 <= DrawY) & (DrawY < 400);
         
+		isBallCenter = (BallX == Ball_X_Center) & (BallY == Ball_Y_Center);
+
+		// logic for determining if screen window is on edge of map
+		isWinOnLeftEdge = (ScreenX <= Screen_X_Min); 
+		isWinOnRightEdge = (ScreenX >= Screen_X_Max);
+		isWinOnTopEdge = (ScreenY <= Screen_Y_Min);
+		isWinOnBottomEdge = (ScreenY >= Screen_Y_Max);
+		// logic for determining if screen window is on a specific corner edge of map
+		isWinOnTopLeftCorner = isWinOnTopEdge & isWinOnLeftEdge;
+		isWinOnTopRightCorner = isWinOnTopEdge & isWinOnRightEdge;
+		isWinOnBottomLeftCorner = isWinOnBottomEdge & isWinOnLeftEdge;
+		isWinOnBottomRightCorner = isWinOnBottomEdge & isWinOnRightEdge;
+		// logic for determining if screen window is on a corner
+		isWinOnAnyCorner = isWinOnTopLeftCorner | isWinOnTopRightCorner | isWinOnBottomLeftCorner | isWinOnBottomRightCorner;
+		//all inclusive case sdjigfdjosjbfjdoisjg
+		isWinOnAnyEdge = isWinOnLeftEdge | isWinOnRightEdge | isWinOnTopEdge | isWinOnBottomEdge;  
+
         //no scrolling, static background code
         // GBADraw2X = DrawX - 80; // GBADraw2X = [0, 480]
         // GBADraw2Y = DrawY - 80; // GBADraw2Y = [0, 320]
@@ -137,7 +185,8 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
 					ScreenY <= 159;
 				end
             //might be able to combine the min/max checks into one if thing
-            else begin
+            	else if (isBallCenter)
+				begin
                 Screen_X_Motion <= Screen_X_Motion;
 
                 //adding all these if's in the cases might make all the if's above redundant
@@ -344,8 +393,127 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
             end
         end
     end
-    
 
+    //ball/sprite logic
+	always_ff @ (posedge Reset or posedge frame_clk or posedge ball_reset)
+    begin: Move_Ball
+        if (Reset)  // Asynchronous Reset
+        begin 
+            Ball_Y_Motion <= 10'd0; //Ball_Y_Step;
+			Ball_X_Motion <= 10'd0; //Ball_X_Step;
+			BallY <= Ball_Y_Center;
+			BallX <= Ball_X_Center;
+        end
+		  else if (ball_reset)
+		  begin 
+			BallY <= Ball_Y_Center;
+			BallX <= Ball_X_Center;
+		  end
+        else 
+        begin 
+				 if (isWinOnAnyEdge)
+				 begin
+					  Ball_Y_Motion <= Ball_Y_Motion;  // Ball is somewhere in the middle, don't bounce, just keep moving
+					  Ball_X_Motion <= Ball_X_Motion;
+				 case(keycode)
+					// two key press
+					16'h041A : begin	// A and W
+							Ball_Y_Motion <= -1; //W
+							Ball_X_Motion <= -1; // A
+							 end
+					16'h1A04 : begin	// W and A
+							Ball_Y_Motion <= -1; // W
+							Ball_X_Motion <= -1; // A
+							 end
+					16'h071A : begin // D and W
+					        Ball_X_Motion <= 1;//D
+							Ball_Y_Motion <= -1; // W
+							  end		 
+					16'h1A07 : begin // W and S
+					        Ball_X_Motion <= 1;//D
+							Ball_Y_Motion <= -1; // W
+							  end
+					16'h1607 : begin // S and D
+					        Ball_X_Motion <= 1;
+							Ball_Y_Motion <= 1;
+							  end
+					16'h0716 : begin // D and S
+					        Ball_X_Motion <= 1;
+							Ball_Y_Motion <= 1;
+							  end
+					16'h1604 : begin //S and A
+								Ball_X_Motion <= -1;
+								Ball_Y_Motion<= 1;
+							  end
+					16'h0416 : begin //A and S
+								Ball_X_Motion <= -1;
+								Ball_Y_Motion<= 1;
+							  end
+				 	// one key press
+				 	16'h0004 : begin //A
+								if(((isWinOnLeftEdge) & (BallX > Ball_X_Min)) | ((isWinOnRightEdge) & (BallX < Ball_X_Max)))
+									Ball_X_Motion <= -1;
+									//Ball_Y_Motion<= 0;
+								else if(BallX == Ball_X_Center)
+									Ball_X_Motion <= 0;
+								else 
+									Ball_X_Motion <= 0;
+							  end
+					16'h0007 : begin // D
+								if(((isWinOnRightEdge) & (BallX < Ball_X_Max)) | ((isWinOnLeftEdge) & (BallX > Ball_X_Min)))
+									Ball_X_Motion <= 1;
+									//Ball_Y_Motion <= 0;
+								else if(BallX == Ball_X_Center)
+									Ball_X_Motion <= 0;
+								else 
+									Ball_X_Motion <= 0;
+							  end
+					16'h0016 : begin //S
+							if((isWinOnBottomEdge) & (BallY < Ball_Y_Max))
+								Ball_Y_Motion <= 1;
+								//Ball_X_Motion <= 0;
+							end
+					16'h001A : begin //W
+					        Ball_Y_Motion <= -1;
+							  //Ball_X_Motion <= 0;
+							 end
+            		default: begin
+						Ball_X_Motion <= 0;
+						Ball_Y_Motion <= 0;
+					end
+				 endcase
+				end 
+				else if ( (BallY) > Ball_Y_Max )  // Ball is at the bottom edge, BOUNCE!
+				 begin
+					  BallY <= Ball_Y_Max;  // 2's complement.
+					  Ball_Y_Motion <= 0;
+				  end
+				 else if ( (BallY) < Ball_Y_Min )  // Ball is at the top edge, BOUNCE!
+				 begin
+					  BallY <= Ball_Y_Min;
+					  Ball_Y_Motion <= 0;
+				  end
+				  else if ( (BallX) > Ball_X_Max )  // Ball is at the Right edge, BOUNCE!
+				  begin
+					  BallX <= Ball_X_Max;  // 2's complement.
+					  Ball_X_Motion <= 0;
+				  end
+				 else if ( (BallX) < Ball_X_Min )  // Ball is at the Left edge, BOUNCE!
+				 begin
+					  BallX <= Ball_X_Min;
+					  Ball_X_Motion <= 0;
+				 end
+				 else 
+				 begin
+						Ball_X_Motion <= 0;
+						Ball_Y_Motion <= 0;
+				 end
+				 BallY <= (BallY + Ball_Y_Motion);  // Update ball position
+				 BallX <= (BallX + Ball_X_Motion);
+		end  
+    end
+
+	//drawing on screen
     always_ff @ (posedge vga_clk)
     begin:RGB_Display
 		if (blank) begin
@@ -366,48 +534,9 @@ module  color_mapper ( input        [9:0]  BallX, BallY, DrawX, DrawY, Ball_size
 					Green <= 8'h00;
 					Blue <= 8'h00;
               end
-//              if ( ((10'h4f) <= DrawX <= (10'h22f)) | ((10'h4f) <= DrawY <= (10'h18f)) ) begin
-//                    Red = 8'h00; 
-//						Green = 8'h00;
-//						Blue = 8'h00;
-//              end
 		 end
-		//  else
-		//  begin
-		// 	Red = 8'h00; 
-		// 	Green = 8'h00;
-		// 	Blue = 8'h00;
-		//  end
 			
     end 
-    
-// pokemonfireredmap_rom pokemonfireredmap_rom (
-// 	.clock   (negedge_vga_clk),
-// 	.address (rom_address),
-// 	.q       (rom_q)
-// );
-
-// pokemonfireredmap_palette pokemonfireredmap_palette (
-// 	.index (rom_q),
-// 	.red   (palette_red),
-// 	.green (palette_green),
-// 	.blue  (palette_blue)
-// );
-
-
-
-//fpmapdraft2_rom northquaddraft_rom (
-//	.clock   (negedge_vga_clk),
-//	.address (rom_address),
-//	.q       (rom_q)
-//);
-//
-//fpmapdraft2_palette northquaddraft_palette (
-//	.index (rom_q),
-//	.red   (palette_red),
-//	.green (palette_green),
-//	.blue  (palette_blue)
-//);
 
 fpmapfinal_rom map480_rom (
 	.clock   (negedge_vga_clk),
