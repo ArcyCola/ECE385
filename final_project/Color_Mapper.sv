@@ -33,12 +33,12 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 	// ------------------------------------------------
     // adding stuff for background fjdguidgnfdm
 
-    logic [17:0] rom_address;
+    logic signed [18:0] rom_address;
     logic [3:0] rom_q;
 
     logic [3:0] palette_red, palette_green, palette_blue;
 
-    logic [9:0] GBADraw2X, GBADraw2Y;
+    logic signed [10:0] GBADraw2X, GBADraw2Y;
 
     logic negedge_vga_clk;
     
@@ -68,14 +68,14 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     // following how ball moves, referencing ball.sv
     // "Screen" is the 160x140 window that is outputted to the screen.
     // location of top left corner of screen.
-    logic [9:0] ScreenX, ScreenY;
+    int ScreenX, ScreenY;
 
     //setting min and max of top left pixel of screen, relative to map
     //map size of 480x320
-    parameter [9:0] Screen_X_Min = 0;
-    parameter [9:0] Screen_Y_Min = 0;
-    parameter [9:0] Screen_X_Max = 239;
-    parameter [9:0] Screen_Y_Max = 159;
+	 int Screen_X_Min = -30;
+    int Screen_Y_Min = -30;
+    parameter [9:0] Screen_X_Max = 269;
+    parameter [9:0] Screen_Y_Max = 189;
 
 	// creating constants for map when it is at a wall
 	parameter [9:0] MapXover4 = 119;
@@ -95,10 +95,11 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 	 assign DistX = DrawX - BallX;
     assign DistY = DrawY - BallY;
 
+	 logic GBADraw2XBound, GBADraw2YBound;
 	 //comment this out when u use the always_ff 
 	 // ahhhhh read read
-	//  assign BallY = Ball_Y_Center;
-	//  assign BallX = Ball_X_Center;
+	  assign BallY = Ball_Y_Center;
+	  assign BallX = Ball_X_Center;
     //intializing ScreenX/Y to top left corner of map, can change later.
     // assign ScreenX = 1'b0;
     // assign ScreenY = 1'b0; 
@@ -116,6 +117,9 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
         
 		isBallCenter = (BallX == Ball_X_Center) & (BallY == Ball_Y_Center);
 
+		GBADraw2XBound = (0 <= GBADraw2X) & (GBADraw2X < 960);
+		GBADraw2YBound = (0 <= GBADraw2Y) & (GBADraw2Y < 640);
+		
 		// logic for determining if screen window is on edge of map
 		isWinOnLeftEdge = (ScreenX <= Screen_X_Min); 
 		isWinOnRightEdge = (ScreenX >= Screen_X_Max);
@@ -171,21 +175,21 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
         end
         else begin
 				//checking if ScreenX is at min. (unsigned -1 == 10'bFFF)
-				if (ScreenX == 10'hFFF) begin
-                ScreenX <= 0;
+				if (ScreenX < Screen_X_Min) begin
+                ScreenX <= Screen_X_Min;
             end
             else if (ScreenX > Screen_X_Max) begin
-                ScreenX <= 239;
+                ScreenX <= Screen_X_Max;
             end
             // if ScreenX is at max
-				else if (ScreenY == 10'hFFF) begin
-					ScreenY <= 0;
+				else if (ScreenY < Screen_Y_Min) begin
+					ScreenY <= Screen_Y_Min;
 				end
 				else if (ScreenY > Screen_Y_Max) begin
-					ScreenY <= 159;
+					ScreenY <= Screen_Y_Max;
 				end
             //might be able to combine the min/max checks into one if thing
-            	else if (isBallCenter)
+            	else 
 				begin
                 Screen_X_Motion <= Screen_X_Motion;
 
@@ -395,123 +399,123 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     end
 
     //ball/sprite logic
-	always_ff @ (posedge Reset or posedge frame_clk or posedge ball_reset)
-    begin: Move_Ball
-        if (Reset)  // Asynchronous Reset
-        begin 
-            Ball_Y_Motion <= 10'd0; //Ball_Y_Step;
-			Ball_X_Motion <= 10'd0; //Ball_X_Step;
-			BallY <= Ball_Y_Center;
-			BallX <= Ball_X_Center;
-        end
-		  else if (ball_reset)
-		  begin 
-			BallY <= Ball_Y_Center;
-			BallX <= Ball_X_Center;
-		  end
-        else 
-        begin 
-				 if (isWinOnAnyEdge)
-				 begin
-					  Ball_Y_Motion <= Ball_Y_Motion;  // Ball is somewhere in the middle, don't bounce, just keep moving
-					  Ball_X_Motion <= Ball_X_Motion;
-				 case(keycode)
-					// two key press
-					16'h041A : begin	// A and W
-							Ball_Y_Motion <= -1; //W
-							Ball_X_Motion <= -1; // A
-							 end
-					16'h1A04 : begin	// W and A
-							Ball_Y_Motion <= -1; // W
-							Ball_X_Motion <= -1; // A
-							 end
-					16'h071A : begin // D and W
-					        Ball_X_Motion <= 1;//D
-							Ball_Y_Motion <= -1; // W
-							  end		 
-					16'h1A07 : begin // W and S
-					        Ball_X_Motion <= 1;//D
-							Ball_Y_Motion <= -1; // W
-							  end
-					16'h1607 : begin // S and D
-					        Ball_X_Motion <= 1;
-							Ball_Y_Motion <= 1;
-							  end
-					16'h0716 : begin // D and S
-					        Ball_X_Motion <= 1;
-							Ball_Y_Motion <= 1;
-							  end
-					16'h1604 : begin //S and A
-								Ball_X_Motion <= -1;
-								Ball_Y_Motion<= 1;
-							  end
-					16'h0416 : begin //A and S
-								Ball_X_Motion <= -1;
-								Ball_Y_Motion<= 1;
-							  end
-				 	// one key press
-				 	16'h0004 : begin //A
-								if(((isWinOnLeftEdge) & (BallX > Ball_X_Min)) | ((isWinOnRightEdge) & (BallX < Ball_X_Max)))
-									Ball_X_Motion <= -1;
-									//Ball_Y_Motion<= 0;
-								else if(BallX == Ball_X_Center)
-									Ball_X_Motion <= 0;
-								else 
-									Ball_X_Motion <= 0;
-							  end
-					16'h0007 : begin // D
-								if(((isWinOnRightEdge) & (BallX < Ball_X_Max)) | ((isWinOnLeftEdge) & (BallX > Ball_X_Min)))
-									Ball_X_Motion <= 1;
-									//Ball_Y_Motion <= 0;
-								else if(BallX == Ball_X_Center)
-									Ball_X_Motion <= 0;
-								else 
-									Ball_X_Motion <= 0;
-							  end
-					16'h0016 : begin //S
-							if((isWinOnBottomEdge) & (BallY < Ball_Y_Max))
-								Ball_Y_Motion <= 1;
-								//Ball_X_Motion <= 0;
-							end
-					16'h001A : begin //W
-					        Ball_Y_Motion <= -1;
-							  //Ball_X_Motion <= 0;
-							 end
-            		default: begin
-						Ball_X_Motion <= 0;
-						Ball_Y_Motion <= 0;
-					end
-				 endcase
-				end 
-				else if ( (BallY) > Ball_Y_Max )  // Ball is at the bottom edge, BOUNCE!
-				 begin
-					  BallY <= Ball_Y_Max;  // 2's complement.
-					  Ball_Y_Motion <= 0;
-				  end
-				 else if ( (BallY) < Ball_Y_Min )  // Ball is at the top edge, BOUNCE!
-				 begin
-					  BallY <= Ball_Y_Min;
-					  Ball_Y_Motion <= 0;
-				  end
-				  else if ( (BallX) > Ball_X_Max )  // Ball is at the Right edge, BOUNCE!
-				  begin
-					  BallX <= Ball_X_Max;  // 2's complement.
-					  Ball_X_Motion <= 0;
-				  end
-				 else if ( (BallX) < Ball_X_Min )  // Ball is at the Left edge, BOUNCE!
-				 begin
-					  BallX <= Ball_X_Min;
-					  Ball_X_Motion <= 0;
-				 end
-				 else 
-				 begin
-						Ball_X_Motion <= 0;
-						Ball_Y_Motion <= 0;
-				 end
-				 BallY <= (BallY + Ball_Y_Motion);  // Update ball position
-				 BallX <= (BallX + Ball_X_Motion);
-		end  
-    end
+//	always_ff @ (posedge Reset or posedge frame_clk or posedge ball_reset)
+//    begin: Move_Ball
+//        if (Reset)  // Asynchronous Reset
+//        begin 
+//            Ball_Y_Motion <= 10'd0; //Ball_Y_Step;
+//			Ball_X_Motion <= 10'd0; //Ball_X_Step;
+//			BallY <= Ball_Y_Center;
+//			BallX <= Ball_X_Center;
+//        end
+//		  else if (ball_reset)
+//		  begin 
+//			BallY <= Ball_Y_Center;
+//			BallX <= Ball_X_Center;
+//		  end
+//        else 
+//        begin 
+//				 if (isWinOnAnyEdge)
+//				 begin
+//					  Ball_Y_Motion <= Ball_Y_Motion;  // Ball is somewhere in the middle, don't bounce, just keep moving
+//					  Ball_X_Motion <= Ball_X_Motion;
+//				 case(keycode)
+//					// two key press
+//					16'h041A : begin	// A and W
+//							Ball_Y_Motion <= -1; //W
+//							Ball_X_Motion <= -1; // A
+//							 end
+//					16'h1A04 : begin	// W and A
+//							Ball_Y_Motion <= -1; // W
+//							Ball_X_Motion <= -1; // A
+//							 end
+//					16'h071A : begin // D and W
+//					        Ball_X_Motion <= 1;//D
+//							Ball_Y_Motion <= -1; // W
+//							  end		 
+//					16'h1A07 : begin // W and S
+//					        Ball_X_Motion <= 1;//D
+//							Ball_Y_Motion <= -1; // W
+//							  end
+//					16'h1607 : begin // S and D
+//					        Ball_X_Motion <= 1;
+//							Ball_Y_Motion <= 1;
+//							  end
+//					16'h0716 : begin // D and S
+//					        Ball_X_Motion <= 1;
+//							Ball_Y_Motion <= 1;
+//							  end
+//					16'h1604 : begin //S and A
+//								Ball_X_Motion <= -1;
+//								Ball_Y_Motion<= 1;
+//							  end
+//					16'h0416 : begin //A and S
+//								Ball_X_Motion <= -1;
+//								Ball_Y_Motion<= 1;
+//							  end
+//				 	// one key press
+//				 	16'h0004 : begin //A
+//								if(((isWinOnLeftEdge) & (BallX > Ball_X_Min)) | ((isWinOnRightEdge) & (BallX < Ball_X_Max)))
+//									Ball_X_Motion <= -1;
+//									//Ball_Y_Motion<= 0;
+//								else if(BallX == Ball_X_Center)
+//									Ball_X_Motion <= 0;
+//								else 
+//									Ball_X_Motion <= 0;
+//							  end
+//					16'h0007 : begin // D
+//								if(((isWinOnRightEdge) & (BallX < Ball_X_Max)) | ((isWinOnLeftEdge) & (BallX > Ball_X_Min)))
+//									Ball_X_Motion <= 1;
+//									//Ball_Y_Motion <= 0;
+//								else if(BallX == Ball_X_Center)
+//									Ball_X_Motion <= 0;
+//								else 
+//									Ball_X_Motion <= 0;
+//							  end
+//					16'h0016 : begin //S
+//							if((isWinOnBottomEdge) & (BallY < Ball_Y_Max))
+//								Ball_Y_Motion <= 1;
+//								//Ball_X_Motion <= 0;
+//							end
+//					16'h001A : begin //W
+//					        Ball_Y_Motion <= -1;
+//							  //Ball_X_Motion <= 0;
+//							 end
+//            		default: begin
+//						Ball_X_Motion <= 0;
+//						Ball_Y_Motion <= 0;
+//					end
+//				 endcase
+//				end 
+//				else if ( (BallY) > Ball_Y_Max )  // Ball is at the bottom edge, BOUNCE!
+//				 begin
+//					  BallY <= Ball_Y_Max;  // 2's complement.
+//					  Ball_Y_Motion <= 0;
+//				  end
+//				 else if ( (BallY) < Ball_Y_Min )  // Ball is at the top edge, BOUNCE!
+//				 begin
+//					  BallY <= Ball_Y_Min;
+//					  Ball_Y_Motion <= 0;
+//				  end
+//				  else if ( (BallX) > Ball_X_Max )  // Ball is at the Right edge, BOUNCE!
+//				  begin
+//					  BallX <= Ball_X_Max;  // 2's complement.
+//					  Ball_X_Motion <= 0;
+//				  end
+//				 else if ( (BallX) < Ball_X_Min )  // Ball is at the Left edge, BOUNCE!
+//				 begin
+//					  BallX <= Ball_X_Min;
+//					  Ball_X_Motion <= 0;
+//				 end
+//				 else 
+//				 begin
+//						Ball_X_Motion <= 0;
+//						Ball_Y_Motion <= 0;
+//				 end
+//				 BallY <= (BallY + Ball_Y_Motion);  // Update ball position
+//				 BallX <= (BallX + Ball_X_Motion);
+//		end  
+//    end
 
 	//drawing on screen
     always_ff @ (posedge vga_clk)
@@ -523,12 +527,18 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 					Green <= 8'h55;
 					Blue <= 8'h00;
 			  end
-			  else if (GBAWindow)
+			  else if (GBAWindow & (GBADraw2XBound & GBADraw2YBound ))
 			  begin // drawing background
 					Red <= {palette_red, 4'b0};
-                    Green <= {palette_green, 4'b0};
-		            Blue <= {palette_blue, 4'b0};
+					Green <= {palette_green, 4'b0};
+					Blue <= {palette_blue, 4'b0};
 			  end
+//			  else if (!(GBADraw2XBound & GBADraw2YBound ))
+//			  begin
+//				 Red <= 8'hFF;
+//					Green <= 8'h00;
+//					Blue <= 8'h00;
+//			  end
               else begin
                     Red <= 8'h00;
 					Green <= 8'h00;
