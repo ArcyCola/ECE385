@@ -14,7 +14,7 @@
 
 
 module  color_mapper ( input        [9:0]  DrawX, DrawY, 
-                       input               blank, vga_clk, Reset, frame_clk, ball_reset,
+                       input               blank, vga_clk, Reset, frame_clk, ball_reset, battle,
                        input        [15:0] keycode,
                        output logic [7:0]  Red, Green, Blue );
     
@@ -64,6 +64,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
    
 
    //--------------------------------------
+	//shit cuz we have 2 roms now
+	logic [3:0] red_map, blue_map, green_map, red_battle, blue_battle, green_battle, rom_q_map, rom_q_battle;
 
     // following how ball moves, referencing ball.sv
     // "Screen" is the 160x140 window that is outputted to the screen.
@@ -105,7 +107,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     always_comb
     begin:Ball_on_proc
-        if ( ((-6 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 10))  ) ) 
+        if ( ((-6 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 10))  ) & ~battle ) 
             ball_on = 1'b1;
         else 
             ball_on = 1'b0;
@@ -151,8 +153,23 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		  
 		  //---------------------------
 		  // res; 480 x 320, want to see top right 240x160 part
-		  rom_address = (GBADraw2X / 2) + ((GBADraw2Y/2) * 480);
-		  
+		  if (battle)
+		  begin
+				rom_address = (GBADraw2X) + ((GBADraw2Y) * 480);
+				rom_q = rom_q_battle;
+				palette_red = red_battle;
+				palette_green = green_battle;
+				palette_blue = blue_battle;
+		  end
+		  else 
+		  begin	
+				rom_address = (GBADraw2X / 2) + ((GBADraw2Y / 2) * 480);
+				rom_q = rom_q_map;
+				palette_red = red_map;
+				palette_green = green_map;
+				palette_blue = blue_map;
+		  end
+//		  
 		  //---------------------------
 		  // res; 960 x 640, want to see top right 240x160 part
 		  //rom_address = (GBADraw2X / 4) + ((GBADraw2Y/4) * 960);
@@ -162,7 +179,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     //need keycode and maybe Reset if we want to implement Reset to screen,
     // if we do implement Reset comment out lines 73-74 (the assign ScreenX/Y)
-    always_ff @ (posedge frame_clk or posedge Reset)
+    always_ff @ (posedge frame_clk or posedge Reset or posedge battle)
     begin: Move_Screen
 		//-----------------------------
         //GBA screen implemenations
@@ -185,7 +202,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		//all inclusive case sdjigfdjosjbfjdoisjg
 		isWinOnAnyEdge = isWinOnLeftEdge | isWinOnRightEdge | isWinOnTopEdge | isWinOnBottomEdge; 
 
-        if (Reset) begin
+        if (Reset | battle) begin
 		  // begin a
             ScreenX <= 10'b0;
             ScreenY <= 10'b0;
@@ -208,7 +225,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 					ScreenY <= 160;
 				end
             //might be able to combine the min/max checks into one if thing
-            	else if (isBallCenter | (isWinOnAnyEdge & (~isBallCenter)))
+            	else if (isBallCenter | (isWinOnAnyEdge & ((BallX == Ball_X_Center) | (BallY == Ball_Y_Center))))
 				begin
                 Screen_X_Motion <= Screen_X_Motion;
 				Screen_Y_Motion <= Screen_Y_Motion;
@@ -569,14 +586,27 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 fpmapfinal_rom map480_rom (
 	.clock   (negedge_vga_clk),
 	.address (rom_address),
-	.q       (rom_q)
+	.q       (rom_q_map)
 );
 
 fpmapfinal_palette map480_palette (
 	.index (rom_q),
-	.red   (palette_red),
-	.green (palette_green),
-	.blue  (palette_blue)
+	.red   (red_map),
+	.green (green_map),
+	.blue  (blue_map)
+);
+
+battledraft_rom battledraft_rom (
+	.clock   (negedge_vga_clk),
+	.address (rom_address),
+	.q       (rom_q_battle)
+);
+
+battledraft_palette battledraft_palette (
+	.index (rom_q),
+	.red   (red_battle),
+	.green (green_battle),
+	.blue  (blue_battle)
 );
 
 endmodule
