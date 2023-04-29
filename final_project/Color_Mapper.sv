@@ -579,15 +579,13 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 					Red <= {palette_red, 4'b0};
                     Green <= {palette_green, 4'b0};
 		            Blue <= {palette_blue, 4'b0};
-					if ((sprite_on == 1'b1)) 
-					begin  // drawing ball
-						if (~spriteIgnore) //if it is not ignoring, hh 
-						begin
-							Red <= {sprite_red, 4'b0};
-							Green <= {sprite_green, 4'b0};
-							Blue <= {sprite_blue, 4'b0};
-						end
+					if ((sprite_on) & ~spriteIgnore) //if it's on sprite, and it isn't the ignore color 
+					begin  // drawing sprite
+						Red <= {sprite_red, 4'b0};
+						Green <= {sprite_green, 4'b0};
+						Blue <= {sprite_blue, 4'b0};
 					end
+
 			  end
               else begin
                     Red <= 8'h00;
@@ -611,13 +609,13 @@ fpmapfinal_palette map480_palette (
 	.blue  (blue_map)
 );
 
-battledraft_rom battledraft_rom (
+battledraft3_rom battledraft_rom (
 	.clock   (negedge_vga_clk),
 	.address (rom_address),
 	.q       (rom_q_battle)
 );
 
-battledraft_palette battledraft_palette (
+battledraft3_palette battledraft_palette (
 	.index (rom_q),
 	.red   (red_battle),
 	.green (green_battle),
