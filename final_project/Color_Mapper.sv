@@ -60,12 +60,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     parameter [9:0] Ball_X_Step=1;      // Step size on the X axis
     parameter [9:0] Ball_Y_Step=1;      // Step size on the Y axis
 
-    assign BallS = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
-   
-
+     // sprite drawing logic
+    logic [3:0] sprite_red, sprite_blue, sprite_green, sprite_rom_q;
+	logic [8:0] sprite_rom_addr;
+	logic spriteIgnore;
+	int SpriteDrawX, SpriteDrawY;
    //--------------------------------------
 	//shit cuz we have 2 roms now
 	logic [3:0] red_map, blue_map, green_map, red_battle, blue_battle, green_battle, rom_q_map, rom_q_battle;
+	
 
     // following how ball moves, referencing ball.sv
     // "Screen" is the 160x140 window that is outputted to the screen.
@@ -107,10 +110,19 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     always_comb
     begin:Ball_on_proc
-        if ( ((-6 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 10))  ) & ~battle ) 
+        if ( ((-7 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 9))  ) & ~battle ) 
             ball_on = 1'b1;
         else 
             ball_on = 1'b0;
+
+		//drawing sprite
+		SpriteDrawX = DistX + 7;
+		SpriteDrawY = DistY + 10;
+
+		sprite_rom_addr = (SpriteDrawX) + (SpriteDrawY * 14);
+
+		spriteIgnore = (sprite_red == 4'hF) & (sprite_green == 4'hC) & (sprite_blue == 4'h6);
+
 
         // //-----------------------------
         // //GBA screen implemenations
@@ -562,17 +574,20 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     always_ff @ (posedge vga_clk)
     begin:RGB_Display
 		if (blank) begin
-			  if ((ball_on == 1'b1)) 
-			  begin  // drawing ball
-					Red <= 8'hff;
-					Green <= 8'h55;
-					Blue <= 8'h00;
-			  end
-			  else if (GBAWindow)
+			  if (GBAWindow)
 			  begin // drawing background
 					Red <= {palette_red, 4'b0};
                     Green <= {palette_green, 4'b0};
 		            Blue <= {palette_blue, 4'b0};
+					if ((ball_on == 1'b1)) 
+					begin  // drawing ball
+						if (~spriteIgnore) //if it is not ignoring, hh 
+						begin
+							Red <= {sprite_red, 4'b0};
+							Green <= {sprite_green, 4'b0};
+							Blue <= {sprite_blue, 4'b0};
+						end
+					end
 			  end
               else begin
                     Red <= 8'h00;
@@ -607,6 +622,19 @@ battledraft_palette battledraft_palette (
 	.red   (red_battle),
 	.green (green_battle),
 	.blue  (blue_battle)
+);
+
+spritedraft_rom spritedraft_rom (
+	.clock   (negedge_vga_clk),
+	.address (sprite_rom_addr),
+	.q       (sprite_rom_q)
+);
+
+spritedraft_palette spritedraft_palette (
+	.index (sprite_rom_q),
+	.red   (sprite_red),
+	.green (sprite_green),
+	.blue  (sprite_blue)
 );
 
 endmodule
