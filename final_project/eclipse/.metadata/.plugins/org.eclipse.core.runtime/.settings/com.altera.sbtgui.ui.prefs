@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
-newSoftwareExampleWizardPage.defaultLocation=C\:\\ECE385\\final_project\\software\\usb_kb
-newSoftwareExampleWizardPage.sopcinfoFile=C\:\\ECE385\\final_project\\FP_TLOZ_soc.sopcinfo
-newSoftwareExampleWizardPage2.newBspLocation=C\:\\ECE385\\final_project\\software\\usb_kb_bsp
+newBspWizardPage.defaultLocation=C\:\\Users\\eemil\\OneDrive\\Documents\\GitHub\\ECE385\\final_project\\software\\test
+newBspWizardPage.sopcinfoFile=C\:\\Users\\eemil\\OneDrive\\Documents\\GitHub\\ECE385\\final_project\\FP_TLOZ_soc.sopcinfo
+newSoftwareExampleWizardPage.defaultLocation=C\:\\Users\\eemil\\OneDrive\\Documents\\GitHub\\ECE385\\final_project\\software\\testing
+newSoftwareExampleWizardPage.sopcinfoFile=C\:\\Users\\eemil\\OneDrive\\Documents\\GitHub\\ECE385\\final_project\\FP_TLOZ_soc.sopcinfo
+newSoftwareExampleWizardPage2.newBspLocation=C\:\\Users\\eemil\\OneDrive\\Documents\\GitHub\\ECE385\\final_project\\software\\testing_bsp
