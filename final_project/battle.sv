@@ -13,7 +13,7 @@ module battle (input [15:0] keycode,
 
 always_ff @ (posedge frame_clk) 
 begin
-    
+
 end
 
 
