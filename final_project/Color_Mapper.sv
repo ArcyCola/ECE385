@@ -62,7 +62,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
      // sprite drawing logic
     logic [3:0] sprite_red, sprite_blue, sprite_green, sprite_rom_q;
-	logic [8:0] sprite_rom_addr;
+	logic [10:0] sprite_rom_addr;
 	logic spriteIgnore;
 	int SpriteDrawX, SpriteDrawY;
    //--------------------------------------
@@ -116,7 +116,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     always_comb
     begin:sprite_on_proc
-        if ( ((-7 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 9))  ) & ~battle ) 
+        if ( ((-7 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 8))) & ~battle ) 
             sprite_on = 1'b1;
         else 
             sprite_on = 1'b0;
@@ -125,7 +125,23 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		SpriteDrawX = DistX + 7;
 		SpriteDrawY = DistY + 10;
 
-		sprite_rom_addr = (SpriteDrawX) + (SpriteDrawY * 14);
+		
+			if (keycode[7:0] == 8'h04) //if A is pressed, draw left sprite
+			begin
+				sprite_rom_addr = (SpriteDrawX) + ((SpriteDrawY + 19) * 28);
+			end
+			else if (keycode[7:0] == 8'h07) //if D is pressed, draw right sprite
+			begin
+				sprite_rom_addr = (SpriteDrawX + 14) + ((SpriteDrawY + 19) * 28);
+			end
+			else if (keycode[7:0] == 8'h1A) //if W is pressed, draw up sprite
+			begin
+				sprite_rom_addr = (SpriteDrawX + 14) + (SpriteDrawY * 28);
+			end
+			else //if S is pressed, draw down sprite.
+			begin 
+				sprite_rom_addr = (SpriteDrawX) + (SpriteDrawY * 28);
+			end
 
 		spriteIgnore = (sprite_red == 4'hF) & (sprite_green == 4'hC) & (sprite_blue == 4'h6);
 
@@ -636,13 +652,13 @@ battledraft3_palette battledraft_palette (
 	.blue  (blue_battle)
 );
 
-spritedraft_rom spritedraft_rom (
+sprite4dir_rom spritedraft_rom (
 	.clock   (negedge_vga_clk),
 	.address (sprite_rom_addr),
 	.q       (sprite_rom_q)
 );
 
-spritedraft_palette spritedraft_palette (
+sprite4dir_palette spritedraft_palette (
 	.index (sprite_rom_q),
 	.red   (sprite_red),
 	.green (sprite_green),
