@@ -248,53 +248,52 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
 				end
             //might be able to combine the min/max checks into one if thing
-            	else if (isBallCenter | (isWinOnAnyEdge & ((SpriteX == Sprite_X_Center) | (SpriteY == Sprite_Y_Center))))
+            	else 
 				begin
-                Screen_X_Motion <= Screen_X_Motion;
-				Screen_Y_Motion <= Screen_Y_Motion;
+					Screen_X_Motion <= Screen_X_Motion;
+					Screen_Y_Motion <= Screen_Y_Motion;
                 //adding all these if's in the cases might make all the if's above redundant
-                case (keycode)
-                    // A, going to the left
-                    16'h0004 : begin
-                        if (ScreenX <= Screen_X_Min) begin
-                            Screen_X_Motion <= 0;
-                        end
-                        else begin
-                            Screen_X_Motion <= -1;
-                        end
-                    end
-                    // D, going right
-                    16'h0007 : begin
-                        if (ScreenX >= Screen_X_Max) begin
-                            Screen_X_Motion <= 0;
-                        end
-                        else begin
-                            Screen_X_Motion <= 1;
-                        end
-                    end
-						  // W, up
-                    16'h001A : begin
-                        if (ScreenY <= Screen_Y_Min) begin
-                            Screen_Y_Motion <= 0;
-                        end
-                        else begin
-                            Screen_Y_Motion <= -1;
-                        end
-                    end
-                    // S, down
-                    16'h0016 : begin
-                        if (ScreenY >= Screen_Y_Max) begin
-                            Screen_Y_Motion <= 0;
-                        end
-                        else begin
-                            Screen_Y_Motion <= 1;
-                        end
-							end	
-							
+                	case (keycode)
+						// A, going to the left
+						16'h0004 : begin
+							if (ScreenX <= Screen_X_Min) begin
+								Screen_X_Motion <= 0;
+							end
+							else begin
+								Screen_X_Motion <= -1;
+							end
+						end
+						// D, going right
+						16'h0007 : begin
+							if (ScreenX >= Screen_X_Max) begin
+								Screen_X_Motion <= 0;
+							end
+							else begin
+								Screen_X_Motion <= 1;
+							end
+						end
+							// W, up
+						16'h001A : begin
+							if (ScreenY <= Screen_Y_Min) begin
+								Screen_Y_Motion <= 0;
+							end
+							else begin
+								Screen_Y_Motion <= -1;
+							end
+						end
+						// S, down
+						16'h0016 : begin
+							if (ScreenY >= Screen_Y_Max) begin
+								Screen_Y_Motion <= 0;
+							end
+							else begin
+								Screen_Y_Motion <= 1;
+							end
+						end		
 							// 2 key presses
-							
+					
 						  // W, A, up, left
-						  16'h1A04 : begin
+						  	16'h1A04 : begin
 								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
@@ -330,9 +329,9 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 									Screen_X_Motion <= -1;
 									Screen_Y_Motion <= -1;
 								end
-                    end
+                    		end
 						  // W, D, up, right
-						  16'h1A07 : begin
+						  	16'h1A07 : begin
 								if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
@@ -351,7 +350,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 								end
 							end
 							// D,W, right, up
-						  16'h071A : begin
+						  	16'h071A : begin
 								if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
@@ -587,15 +586,14 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     always_ff @ (posedge vga_clk)
     begin:RGB_Display
 		if (blank) begin
-
 			  if (GBAWindow & GBADraw2XBound & GBADraw2YBound)
-
-
+			  //if its in the window, AND in the bounds of the map
 			  begin // drawing background
 					Red <= {palette_red, 4'b0};
                     Green <= {palette_green, 4'b0};
 		            Blue <= {palette_blue, 4'b0};
-					if ((sprite_on) & ~spriteIgnore) //if it's on sprite, and it isn't the ignore color 
+					if (sprite_on & ~spriteIgnore) 
+					//if it's on sprite, AND isn't the ignore color 
 					begin  // drawing sprite
 						Red <= {sprite_red, 4'b0};
 						Green <= {sprite_green, 4'b0};
