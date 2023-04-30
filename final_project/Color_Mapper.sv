@@ -77,10 +77,12 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     //setting min and max of top left pixel of screen, relative to map
     //map size of 480x320
+
     int Screen_X_Min = -110;
     int Screen_Y_Min = -70;
     int Screen_X_Max = 350;
     int Screen_Y_Max = 230;
+
 
 	// creating constants for map when it is at a wall
 	parameter [9:0] MapXover4 = 119;
@@ -100,12 +102,14 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 	 assign DistX = DrawX - SpriteX;
     assign DistY = DrawY - SpriteY;
 
+
 	logic GBADraw2XBound, GBADraw2YBound;
 
 	 //comment this out when u use the always_ff 
 	 // ahhhhh read read
 //	 assign SpriteY = Sprite_Y_Center;
 //	 assign SpriteX = Sprite_X_Center;
+
     //intializing ScreenX/Y to top left corner of map, can change later.
     // assign ScreenX = 1'b0;
     // assign ScreenY = 1'b0; 
@@ -125,9 +129,10 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
 		spriteIgnore = (sprite_red == 4'hF) & (sprite_green == 4'hC) & (sprite_blue == 4'h6);
 
-		//
+
 		GBADraw2XBound = (0 <= GBADraw2X) & (GBADraw2X < 960);
 		GBADraw2YBound = (0 <= GBADraw2Y) & (GBADraw2Y < 640);
+
         // //-----------------------------
         // //GBA screen implemenations
         // GBAWindow = (80 <= DrawX) & (DrawX < 560) & (80 <= DrawY) & (DrawY < 400);
@@ -227,6 +232,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
         end
         else begin
 				//checking if ScreenX is at min. (unsigned -1 == 10'bFFF)
+
 				if ((ScreenX < Screen_X_Min)) begin
                 ScreenX <= Screen_X_Min;
 				end
@@ -239,9 +245,10 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 				end
 				else if ((ScreenY > Screen_Y_Max)) begin
 					ScreenY <= Screen_Y_Max;
+
 				end
             //might be able to combine the min/max checks into one if thing
-            	else if (isBallCenter)
+            	else if (isBallCenter | (isWinOnAnyEdge & ((SpriteX == Sprite_X_Center) | (SpriteY == Sprite_Y_Center))))
 				begin
                 Screen_X_Motion <= Screen_X_Motion;
 				Screen_Y_Motion <= Screen_Y_Motion;
@@ -249,7 +256,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
                  case (keycode)
                     // A, going to the left
                     16'h0004 : begin
-                        if (ScreenX <= Screen_X_Min) begin
+                        if (isWinOnLeftEdge) begin
                             Screen_X_Motion <= 0;
                         end
                         else begin
@@ -258,7 +265,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
                     end
                     // D, going right
                     16'h0007 : begin
-                        if (ScreenX >= Screen_X_Max) begin
+                        if (isWinOnRightEdge) begin
                             Screen_X_Motion <= 0;
                         end
                         else begin
@@ -267,7 +274,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
                     end
 						  // W, up
                     16'h001A : begin
-                        if (ScreenY <= Screen_Y_Min) begin
+                        if (isWinOnTopEdge) begin
                             Screen_Y_Motion <= 0;
                         end
                         else begin
@@ -276,7 +283,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
                     end
                     // S, down
                     16'h0016 : begin
-                        if (ScreenY >= Screen_Y_Max) begin
+                        if (isWinOnBottomEdge) begin
                             Screen_Y_Motion <= 0;
                         end
                         else begin
@@ -288,15 +295,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							
 						  // W, A, up, left
 						  16'h1A04 : begin
-								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+								if((isWinOnLeftEdge) & (isWinOnTopEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
 								end
-								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+								if((isWinOnLeftEdge) & (~isWinOnTopEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= -1;
 								end
-								if(!(ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+								if(!(isWinOnLeftEdge) & (isWinOnTopEdge)) begin
 									Screen_X_Motion <= -1;
 									Screen_Y_Motion <= 0;
 								end
@@ -307,15 +314,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							end
 							// A, W, left, up
 							16'h041A : begin
-								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+								if((isWinOnLeftEdge) & (isWinOnTopEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
 								end
-								if((ScreenX <= Screen_X_Min) & !(ScreenY <= Screen_Y_Min)) begin
+								if((isWinOnLeftEdge) & (~isWinOnTopEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= -1;
 								end
-								if(!(ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
+								if(!(isWinOnLeftEdge) & (isWinOnTopEdge)) begin
 									Screen_X_Motion <= -1;
 									Screen_Y_Motion <= 0;
 								end
@@ -323,18 +330,18 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 									Screen_X_Motion <= -1;
 									Screen_Y_Motion <= -1;
 								end
-                    end
+                    		end
 						  // W, D, up, right
 						  16'h1A07 : begin
-								if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+								if((isWinOnRightEdge) & (isWinOnTopEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
 								end
-								if((ScreenX >= Screen_X_Max) & !(ScreenY <= Screen_Y_Min)) begin
+								if((isWinOnRightEdge) & (~isWinOnTopEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= -1;
 								end
-								if(!(ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+								if((~isWinOnRightEdge) & (isWinOnTopEdge)) begin
 									Screen_X_Motion <= 1;
 									Screen_Y_Motion <= 0;
 								end
@@ -345,15 +352,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							end
 							// D,W, right, up
 						  16'h071A : begin
-								if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+								if((isWinOnRightEdge) & (isWinOnTopEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
 								end
-								if((ScreenX >= Screen_X_Max) & !(ScreenY <= Screen_Y_Min)) begin
+								if((isWinOnRightEdge) & (~isWinOnTopEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= -1;
 								end
-								if(!(ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+								if((~isWinOnRightEdge) & (isWinOnTopEdge)) begin
 									Screen_X_Motion <= 1;
 									Screen_Y_Motion <= 0;
 								end
@@ -365,15 +372,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							
 							// D, S, right, down
 							16'h0716 : begin
-								if((ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+								if((isWinOnRightEdge) & (isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
 								end
-								if((ScreenX >= Screen_X_Max) & !(ScreenY >= Screen_Y_Max)) begin
+								if((isWinOnRightEdge) & (~isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 1;
 								end
-								if(!(ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+								if((~isWinOnRightEdge) & (isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 1;
 									Screen_Y_Motion <= 0;
 								end
@@ -384,15 +391,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							end
 							// S, D, down, right
 							16'h1607 : begin
-								if((ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+								if((isWinOnRightEdge) & (isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
 								end
-								if((ScreenX >= Screen_X_Max) & !(ScreenY >= Screen_Y_Max)) begin
+								if((isWinOnRightEdge) & (~isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 1;
 								end
-								if(!(ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+								if((~isWinOnRightEdge) & (isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 1;
 									Screen_Y_Motion <= 0;
 								end
@@ -403,15 +410,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							end
 							// S, A, down, left
 							16'h1604 : begin
-								if((ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+								if((isWinOnLeftEdge) & (isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
 								end
-								if((ScreenX <= Screen_X_Min) & !(ScreenY >= Screen_Y_Max)) begin
+								if((isWinOnLeftEdge) & (~isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 1;
 								end
-								if(!(ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+								if((~isWinOnLeftEdge) & (isWinOnBottomEdge)) begin
 									Screen_X_Motion <= -1;
 									Screen_Y_Motion <= 0;
 								end
@@ -422,15 +429,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							end
 							// A, S, left, down
 							16'h1604 : begin
-								if((ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+								if((isWinOnLeftEdge) & (isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 0;
 								end
-								if((ScreenX <= Screen_X_Min) & !(ScreenY >= Screen_Y_Max)) begin
+								if((isWinOnLeftEdge) & (~isWinOnBottomEdge)) begin
 									Screen_X_Motion <= 0;
 									Screen_Y_Motion <= 1;
 								end
-								if(!(ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+								if((~isWinOnLeftEdge) & (isWinOnBottomEdge)) begin
 									Screen_X_Motion <= -1;
 									Screen_Y_Motion <= 0;
 								end
@@ -575,11 +582,15 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 	// 	end  
     // end
 
+
 	//drawing on screen
     always_ff @ (posedge vga_clk)
     begin:RGB_Display
 		if (blank) begin
+
 			  if (GBAWindow & GBADraw2XBound & GBADraw2YBound)
+
+
 			  begin // drawing background
 					Red <= {palette_red, 4'b0};
                     Green <= {palette_green, 4'b0};

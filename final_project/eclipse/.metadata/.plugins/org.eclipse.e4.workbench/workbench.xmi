@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
+
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_YKbeoOb4Ee2gVZuqPgmhcQ" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_YKbeoeb4Ee2gVZuqPgmhcQ" bindingContexts="_YKctd-b4Ee2gVZuqPgmhcQ">
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;main.c&quot; tooltip=&quot;usb_kb/main.c&quot;>&#xD;&#xA;&lt;persistable path=&quot;/usb_kb/main.c&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;MAX3421E.c&quot; tooltip=&quot;usb_kb/usb_kb/MAX3421E.c&quot;>&#xD;&#xA;&lt;persistable path=&quot;/usb_kb/usb_kb/MAX3421E.c&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.ui.DefaultTextEditor&quot; name=&quot;README&quot; tooltip=&quot;usb_kb/usb_kb/README&quot;>&#xD;&#xA;&lt;persistable path=&quot;/usb_kb/usb_kb/README&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;transfer.c&quot; tooltip=&quot;usb_kb/usb_kb/transfer.c&quot;>&#xD;&#xA;&lt;persistable path=&quot;/usb_kb/usb_kb/transfer.c&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;main.c&quot; tooltip=&quot;lab61_app/main.c&quot;>&#xD;&#xA;&lt;persistable path=&quot;/lab61_app/main.c&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.ide.FileStoreEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;MAX3421E.h&quot; tooltip=&quot;C:\ECE385\lab6\software\usb_kb\usb_kb\MAX3421E.h&quot;>&#xD;&#xA;&lt;persistable uri=&quot;file:/C:/ECE385/lab6/software/usb_kb/usb_kb/MAX3421E.h&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;file factoryID=&quot;org.eclipse.ui.ide.FileStoreEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;MAX3421E.c&quot; tooltip=&quot;C:\ECE385\lab6\software\usb_kb\usb_kb\MAX3421E.c&quot;>&#xD;&#xA;&lt;persistable uri=&quot;file:/C:/ECE385/lab6/software/usb_kb/usb_kb/MAX3421E.c&quot;/>&#xD;&#xA;&lt;/file>&#xD;&#xA;&lt;/mruList>&#xD;&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
   <children xsi:type="basic:TrimmedWindow" xmi:id="_YKbeoeb4Ee2gVZuqPgmhcQ" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_YKbeoub4Ee2gVZuqPgmhcQ" label="%trimmedwindow.label.eclipseSDK" x="63" y="51" width="2148" height="1259">
+
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="isRestored" value="true"/>
@@ -11,9 +13,11 @@
     <persistedState key="aggregateWorkingSetId" value="Aggregate for window 1678214213515"/>
     <persistedState key="show_in_time" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;show_in_time/>"/>
     <tags>topLevel</tags>
+
     <children xsi:type="basic:PartSashContainer" xmi:id="_YKbeoub4Ee2gVZuqPgmhcQ" selectedElement="_YKbeo-b4Ee2gVZuqPgmhcQ" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_YKbeo-b4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_YKbepOb4Ee2gVZuqPgmhcQ">
         <children xsi:type="advanced:Perspective" xmi:id="_YKbepOb4Ee2gVZuqPgmhcQ" elementId="com.altera.sbtgui.ui.cPerspective" selectedElement="_YKbepeb4Ee2gVZuqPgmhcQ" label="Nios II" iconURI="platform:/plugin/com.altera.sbtgui.ui/icons/sbtgui_persp.gif">
+
           <persistedState key="persp.hiddenItems" value="persp.hideToolbarSC:org.eclipse.debug.ui.commands.RunToLine,persp.hideToolbarSC:print,persp.hideToolbarSC:org.eclipse.ui.edit.text.toggleShowSelectedElementOnly,"/>
           <tags>persp.actionSet:org.eclipse.mylyn.doc.actionSet</tags>
           <tags>persp.actionSet:org.eclipse.mylyn.tasks.ui.navigation</tags>
@@ -45,6 +49,7 @@
           <tags>persp.perspSC:com.altera.sbtgui.ui.debugPerspective</tags>
           <tags>persp.viewSC:com.altera.sbtgui.launch.hardware.ByteStreamConsoleView</tags>
           <tags>persp.actionSet:org.eclipse.debug.ui.debugActionSet</tags>
+
           <children xsi:type="basic:PartSashContainer" xmi:id="_YKbepeb4Ee2gVZuqPgmhcQ" selectedElement="_YKbeq-b4Ee2gVZuqPgmhcQ" horizontal="true">
             <children xsi:type="basic:PartStack" xmi:id="_YKbepub4Ee2gVZuqPgmhcQ" elementId="topLeft" containerData="1472" selectedElement="_YKbep-b4Ee2gVZuqPgmhcQ">
               <children xsi:type="advanced:Placeholder" xmi:id="_YKbep-b4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.navigator.ProjectExplorer" ref="_YKcGbub4Ee2gVZuqPgmhcQ"/>
@@ -71,11 +76,13 @@
                 <children xsi:type="advanced:Placeholder" xmi:id="_YKbetub4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.views.PropertySheet" ref="_YKcG9-b4Ee2gVZuqPgmhcQ"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_YKbet-b4Ee2gVZuqPgmhcQ" elementId="com.altera.sbtgui.launch.hardware.ByteStreamConsoleView" toBeRendered="false" ref="_YKcHIOb4Ee2gVZuqPgmhcQ"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_YKbeuOb4Ee2gVZuqPgmhcQ" elementId="org.eclipse.debug.ui.DebugView" ref="_YKcHIeb4Ee2gVZuqPgmhcQ"/>
+
               </children>
             </children>
           </children>
         </children>
       </children>
+
       <children xsi:type="basic:PartStack" xmi:id="_YKbeueb4Ee2gVZuqPgmhcQ" elementId="stickyFolderRight" toBeRendered="false" containerData="2500">
         <children xsi:type="advanced:Placeholder" xmi:id="_YKbeuub4Ee2gVZuqPgmhcQ" elementId="org.eclipse.help.ui.HelpView" toBeRendered="false" ref="_YKcGXeb4Ee2gVZuqPgmhcQ"/>
         <children xsi:type="advanced:Placeholder" xmi:id="_YKbeu-b4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.internal.introview" toBeRendered="false" ref="_YKcGXub4Ee2gVZuqPgmhcQ"/>
@@ -99,73 +106,97 @@
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
         <children xsi:type="basic:Part" xmi:id="_YKcGYub4Ee2gVZuqPgmhcQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="MAX3421E.h" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
+
           <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;MAX3421E.h&quot; partName=&quot;MAX3421E.h&quot; title=&quot;MAX3421E.h&quot; tooltip=&quot;C:\ECE385\lab6\software\usb_kb\usb_kb\MAX3421E.h&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.ide.FileStoreEditorInputFactory&quot; uri=&quot;file:/C:/ECE385/lab6/software/usb_kb/usb_kb/MAX3421E.h&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
           <tags>removeOnHide</tags>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGY-b4Ee2gVZuqPgmhcQ" elementId="#CEditorContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#CEditorContext</tags>
             <tags>popup:org.eclipse.cdt.ui.editor.CEditor.EditorContext</tags>
             <tags>popup:#AbstractTextEditorContext</tags>
           </menus>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGZOb4Ee2gVZuqPgmhcQ" elementId="#CEditorRulerContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#CEditorRulerContext</tags>
             <tags>popup:org.eclipse.cdt.ui.editor.CEditor.RulerContext</tags>
             <tags>popup:#AbstractTextEditorRulerContext</tags>
           </menus>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGZeb4Ee2gVZuqPgmhcQ" elementId="#OverviewRulerContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#OverviewRulerContext</tags>
           </menus>
         </children>
+
         <children xsi:type="basic:Part" xmi:id="_YKcGZub4Ee2gVZuqPgmhcQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="MAX3421E.c" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
+
           <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;MAX3421E.c&quot; partName=&quot;MAX3421E.c&quot; title=&quot;MAX3421E.c&quot; tooltip=&quot;usb_kb/usb_kb/MAX3421E.c&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/usb_kb/usb_kb/MAX3421E.c&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;552&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
           <tags>removeOnHide</tags>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGZ-b4Ee2gVZuqPgmhcQ" elementId="#CEditorContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#CEditorContext</tags>
             <tags>popup:org.eclipse.cdt.ui.editor.CEditor.EditorContext</tags>
             <tags>popup:#AbstractTextEditorContext</tags>
           </menus>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGaOb4Ee2gVZuqPgmhcQ" elementId="#CEditorRulerContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#CEditorRulerContext</tags>
             <tags>popup:org.eclipse.cdt.ui.editor.CEditor.RulerContext</tags>
             <tags>popup:#AbstractTextEditorRulerContext</tags>
           </menus>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGaeb4Ee2gVZuqPgmhcQ" elementId="#OverviewRulerContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#OverviewRulerContext</tags>
           </menus>
         </children>
+
         <children xsi:type="basic:Part" xmi:id="_YKcGaub4Ee2gVZuqPgmhcQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="main.c" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
+
           <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;main.c&quot; partName=&quot;main.c&quot; title=&quot;main.c&quot; tooltip=&quot;usb_kb/main.c&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/usb_kb/main.c&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;3022&quot; selectionTopPixel=&quot;2633&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
           <tags>removeOnHide</tags>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGa-b4Ee2gVZuqPgmhcQ" elementId="#CEditorContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#CEditorContext</tags>
             <tags>popup:org.eclipse.cdt.ui.editor.CEditor.EditorContext</tags>
             <tags>popup:#AbstractTextEditorContext</tags>
           </menus>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGbOb4Ee2gVZuqPgmhcQ" elementId="#CEditorRulerContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#CEditorRulerContext</tags>
             <tags>popup:org.eclipse.cdt.ui.editor.CEditor.RulerContext</tags>
             <tags>popup:#AbstractTextEditorRulerContext</tags>
           </menus>
+
           <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGbeb4Ee2gVZuqPgmhcQ" elementId="#OverviewRulerContext">
+
             <tags>menuContribution:popup</tags>
             <tags>popup:#OverviewRulerContext</tags>
           </menus>
         </children>
       </children>
     </sharedElements>
+
     <sharedElements xsi:type="basic:Part" xmi:id="_YKcGbub4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.navigator.ProjectExplorer" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Project Explorer" iconURI="platform:/plugin/org.eclipse.ui.navigator.resources/icons/full/eview16/resource_persp.gif" tooltip="" closeable="true">
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view CommonNavigator.LINKING_ENABLED=&quot;0&quot; currentWorkingSetName=&quot;Aggregate for window 1678214213515&quot; org.eclipse.cdt.ui.cview.groupincludes=&quot;false&quot; org.eclipse.cdt.ui.cview.groupmacros=&quot;false&quot; org.eclipse.cdt.ui.editor.CUChildren=&quot;true&quot; org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets=&quot;0&quot;/>"/>
       <tags>View</tags>
@@ -209,20 +240,26 @@
         <tags>menuContribution:menu</tags>
       </menus>
       <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGyeb4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.views.ProblemView">
+
         <tags>menuContribution:popup</tags>
         <tags>popup:org.eclipse.ui.views.ProblemView</tags>
         <tags>popup:org.eclipse.ui.ide.MarkersView</tags>
       </menus>
+
       <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGyub4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.views.ProblemView">
+
         <tags>menuContribution:popup</tags>
         <tags>popup:org.eclipse.ui.views.ProblemView</tags>
         <tags>popup:org.eclipse.ui.ide.MarkersView</tags>
       </menus>
+
       <menus xsi:type="menu:PopupMenu" xmi:id="_YKcGy-b4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.views.ProblemView">
+
         <tags>menuContribution:popup</tags>
         <tags>popup:org.eclipse.ui.views.ProblemView</tags>
         <tags>popup:org.eclipse.ui.ide.MarkersView</tags>
       </menus>
+
       <toolbar xmi:id="_YKcGzOb4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.views.ProblemView" visible="false"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_YKcGzeb4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.views.TaskList" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Tasks" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/tasks_tsk.png" tooltip="" closeable="true">
@@ -230,10 +267,12 @@
       <tags>categoryTag:General</tags>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_YKcGzub4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.console.ConsoleView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Console" iconURI="platform:/plugin/org.eclipse.ui.console/icons/full/cview16/console_view.png" tooltip="" closeable="true">
+
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
       <tags>highlighted</tags>
+
       <menus xmi:id="_YKcGz-b4Ee2gVZuqPgmhcQ" elementId="org.eclipse.ui.console.ConsoleView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -349,10 +388,12 @@
       <toolbar xmi:id="_YKcHI-b4Ee2gVZuqPgmhcQ" elementId="org.eclipse.debug.ui.DebugView" visible="false"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_YKcHJOb4Ee2gVZuqPgmhcQ" elementId="com.altera.sbtgui.launch.hardware.ByteStreamConsoleView:USB-Blaster on localhost [USB-0].1.0" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Nios II Console" iconURI="platform:/plugin/com.altera.sbtgui.launch/icons/target.gif" tooltip="This Altera view is provided to monitor the input and output streams of an embedded process. The stop button turns the bytestream service off but does not pause the processor." closeable="true">
+
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:Nios II</tags>
       <tags>active</tags>
+
       <menus xmi:id="_YKcHJeb4Ee2gVZuqPgmhcQ" elementId="com.altera.sbtgui.launch.hardware.ByteStreamConsoleView">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -525,6 +566,7 @@
         <tags>SHOW_RESTORE_MENU</tags>
       </children>
       <children xsi:type="menu:ToolControl" xmi:id="_YKcHm-b4Ee2gVZuqPgmhcQ" elementId="PerspectiveSwitcher" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.e4.ui.workbench.addons.perspectiveswitcher.PerspectiveSwitcher">
+
         <tags>Draggable</tags>
         <tags>HIDEABLE</tags>
         <tags>SHOW_RESTORE_MENU</tags>
@@ -2268,4 +2310,5 @@
   <categories xmi:id="_YKeh9-b4Ee2gVZuqPgmhcQ" elementId="rpmstubby.commands" name="RPMStubby Commands" description="Commands for the RPM Stubby plugin"/>
   <categories xmi:id="_YKeh-Ob4Ee2gVZuqPgmhcQ" elementId="org.eclipse.cdt.debug.ui.category.reverseDebugging" name="Reverse Debugging Commands" description="Set of commands for Reverse Debugging"/>
   <categories xmi:id="_YKeh-eb4Ee2gVZuqPgmhcQ" elementId="org.eclipse.cdt.debug.ui.category.tracing" name="Tracing Commands" description="Category for Tracing Commands"/>
+
 </application:Application>
