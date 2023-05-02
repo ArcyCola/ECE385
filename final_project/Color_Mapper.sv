@@ -121,6 +121,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
         else 
             sprite_on = 1'b0;
 
+		GBAWindow = (80 <= DrawX) & (DrawX < 560) & (80 <= DrawY) & (DrawY < 400);
+
 		//drawing sprite
 		SpriteDrawX = DistX + 7;
 		SpriteDrawY = DistY + 10;
@@ -220,7 +222,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     begin: Move_Screen
 		//-----------------------------
         //GBA screen implemenations
-        GBAWindow = (80 <= DrawX) & (DrawX < 560) & (80 <= DrawY) & (DrawY < 400);
+
         
 		isBallCenter = (SpriteX == Sprite_X_Center) & (SpriteY == Sprite_Y_Center);
 
@@ -615,7 +617,6 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						Green <= {sprite_green, 4'b0};
 						Blue <= {sprite_blue, 4'b0};
 					end
-
 			  end
               else begin
                     Red <= 8'h00;
@@ -623,7 +624,6 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 					Blue <= 8'h00;
               end
 		 end
-			
     end 
 
 fpmapfinal_rom map480_rom (
