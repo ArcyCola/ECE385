@@ -4,8 +4,8 @@ module fpcollision_palette (
 );
 
 localparam [0:1][11:0] palette = {
-	{4'hF, 4'h0, 4'h8},
-	{4'hF, 4'hF, 4'hF}
+	{4'hF, 4'h0, 4'h8},		// index = 0 PINK
+	{4'hF, 4'hF, 4'hF}		// index = 1 WHITE
 };
 
 assign {red, green, blue} = palette[index];

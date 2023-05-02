@@ -39,7 +39,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     logic [3:0] palette_red, palette_green, palette_blue;
 
-    logic signed [10:0] GBADraw2X, GBADraw2Y;
+    logic signed [10:0] GBADraw2X, GBADraw2Y, GBADraw2X0, GBADraw2Y0;
 
     logic negedge_vga_clk;
     
@@ -48,11 +48,11 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 	// ------------------------------------------------
     // collision
 	logic [17:0] collision_rom_addr;
-	logic [3:0] collision_rom_q;
+	logic collision_rom_q; // 0 = PINK, 1 = WHITE. white is walkable
 	logic [3:0]	collision_red, collision_blue, collision_green;
+	logic [10:0] collisionXCenter, collisionYCenter;
 	// white = R/G/B = 4h'F, 4h'F, 4'hF WALKABLE AREAS
-	// pink = R/G/B = 4h'F, 4h'0, 4'h8 NONWALKABLE AREAS
-
+	// pink = R/G/B = 4h'F, 4h'0, 4'h8 NONWALKABLE AREAS	
 
     // ------------------------------------------------
 	// copied from ball.sv
@@ -82,7 +82,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     // "Screen" is the 160x140 window that is outputted to the screen.
     // location of top left corner of screen.
     int ScreenX, ScreenY;
-
+	
     //setting min and max of top left pixel of screen, relative to map
     //map size of 480x320
 
@@ -129,7 +129,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
         else 
             sprite_on = 1'b0;
 
-		GBAWindow = (80 <= DrawX) & (DrawX < 560) & (80 <= DrawY) & (DrawY < 400);
+		GBAWindow = (80 <= DrawX) & (DrawX < 560) & (80 <= DrawY) & (DrawY < 400); // X: [80-559] Y: [80-399]
 
 		//drawing sprite
 		SpriteDrawX = DistX + 7;
@@ -156,8 +156,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		spriteIgnore = (sprite_red == 4'hF) & (sprite_green == 4'hC) & (sprite_blue == 4'h6);
 
 
-		GBADraw2XBound = (0 <= GBADraw2X) & (GBADraw2X < 960);
-		GBADraw2YBound = (0 <= GBADraw2Y) & (GBADraw2Y < 640);
+		GBADraw2XBound = (0 <= GBADraw2X) & (GBADraw2X < 960); // [0-959]
+		GBADraw2YBound = (0 <= GBADraw2Y) & (GBADraw2Y < 640); // [0-639]
 
         // //-----------------------------
         // //GBA screen implemenations
@@ -188,6 +188,13 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
         GBADraw2X = DrawX - 80 + (ScreenX * 2);
         GBADraw2Y = DrawY - 80 + (ScreenY * 2);
 
+		GBADraw2X0 = DrawX - 80;
+		GBADraw2Y0 = DrawY - 80;
+
+		// collision center pixel calculation
+		collisionXCenter = Sprite_X_Center - 80 + (ScreenX * 2);
+		collisionYCenter = Sprite_Y_Center + 8 - 80 + (ScreenY * 2);
+
         // address into the rom = (x* xDim ) / 480 + ((y * yDim) / 320) * xDim
         //rom = (GBADraw2x* ImageXDim ) / ScreenWidth + ((GBADraw2Y* ImageYDim) / ScreenHeight) * ScreenWidth
 
@@ -201,9 +208,10 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		  //---------------------------
 		  // res; 480 x 320, want to see top right 240x160 part
 		  
-		  rom_address = (GBADraw2X / 2) + ((GBADraw2Y / 2) * 480);
+		  rom_address = (GBADraw2X / 2) + ((GBADraw2Y / 2) * 480); // calculating rom_address of map
 				rom_q = rom_q_map;
-				
+		//collision_rom_addr = (GBADraw2X / 2) + ((GBADraw2Y / 2) * 480);	// calculating rom address of collision map
+
 				
 		  if (battle)
 		  begin
@@ -235,7 +243,6 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		//-----------------------------
         //GBA screen implemenations
 
-        
 //		isBallCenter = (SpriteX == Sprite_X_Center) & (SpriteY == Sprite_Y_Center);
 //
 //		// logic for determining if screen window is on edge of map
@@ -255,7 +262,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
         if (Reset) begin
 		  // begin a
-            ScreenX <= 10'b0;
+            ScreenX <= 10'b0000010000;
             ScreenY <= 10'b0;
 			Screen_X_Motion <= 0;
 			Screen_Y_Motion <= 0;
@@ -281,13 +288,18 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
             //might be able to combine the min/max checks into one if thing
             	else 
 				begin
+		// // collision center pixel calculation
+		// collisionXCenter = Sprite_X_Center - 80 + (ScreenX * 2);
+		// collisionYCenter = Sprite_Y_Center + 10 - 80 + (ScreenY * 2);
 					Screen_X_Motion <= Screen_X_Motion;
 					Screen_Y_Motion <= Screen_Y_Motion;
                 //adding all these if's in the cases might make all the if's above redundant
                 	case (keycode)
 						// A, going to the left
 						16'h0004 : begin
-							if (ScreenX <= Screen_X_Min) begin
+							// calculate addr of left neighbor pixel
+							collision_rom_addr = ((collisionXCenter-1)/2) + (((collisionYCenter)/2)*480);
+							if ((ScreenX <= Screen_X_Min) | (collision_rom_q == 0)) begin
 								Screen_X_Motion <= 0;
 							end
 							else begin
@@ -296,7 +308,9 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						end
 						// D, going right
 						16'h0007 : begin
-							if (ScreenX >= Screen_X_Max) begin
+							// calculate addr of right neighbor pixel
+							collision_rom_addr = ((collisionXCenter+1)/2) + (((collisionYCenter)/2)*480);
+							if ((ScreenX >= Screen_X_Max) | (collision_rom_q == 0)) begin
 								Screen_X_Motion <= 0;
 							end
 							else begin
@@ -305,7 +319,9 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						end
 							// W, up
 						16'h001A : begin
-							if (ScreenY <= Screen_Y_Min) begin
+							// calculate addr of top neighbor pixel
+							collision_rom_addr = ((collisionXCenter)/2) + (((collisionYCenter-1)/2)*480);
+							if ((ScreenY <= Screen_Y_Min) | (collision_rom_q == 0)) begin
 								Screen_Y_Motion <= 0;
 							end
 							else begin
@@ -314,7 +330,9 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						end
 						// S, down
 						16'h0016 : begin
-							if (ScreenY >= Screen_Y_Max) begin
+							// calculate addr of bottom neighbor pixel
+							collision_rom_addr = ((collisionXCenter)/2) + (((collisionYCenter+1)/2)*480);
+							if ((ScreenY >= Screen_Y_Max) | (collision_rom_q == 0)) begin
 								Screen_Y_Motion <= 0;
 							end
 							else begin
@@ -691,7 +709,7 @@ fpcollision_palette collision_palette (
 	.blue  (collision_blue)
 );
 
-battle battle0(.keycode(keycode[7:0]), .vga_clk, .frame_clk, .GBADraw2X, .GBADraw2Y,
+battle battle0(.keycode(keycode[7:0]), .vga_clk, .frame_clk, .GBADraw2X(GBADraw2X0), .GBADraw2Y(GBADraw2Y0),
 				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset);
 
 endmodule
