@@ -1,5 +1,5 @@
 module battle (input [7:0] keycode,
-               input vga_clk,
+               input vga_clk, frame_clk, blank, debug, Reset,
                input logic signed [10:0] GBADraw2X, GBADraw2Y,
                output [3:0] Red, Green, Blue);
 
@@ -21,45 +21,76 @@ module battle (input [7:0] keycode,
     assign move = 0;
 
     //since width of the bar is 94,,, might as well just so its simpler.
-    int AEHealth = 94, ZuofuHealth = 94;
+    logic signed [10:0] AEHealth, ZuofuHealth, AEHealthBarStart, ZuofuHealthBarStart;
+    
+    assign AEHealth = 94;
+    //assign ZuofuHealth = 94;
+    // assign AEHealthBarStart = 349;
+    // assign ZuofuHealthBarStart = w
+
 
     logic AEHealthBar, ZuofuHealthBar;
 
+
     always_comb 
     begin
-        ZuofuHealthBar = (105 <= GBADraw2X) & (GBADraw2X <= 199) & (67 <= GBADraw2Y) & (GBADraw2Y <= 71);
+        ZuofuHealthBar = (105 <= GBADraw2X) & (GBADraw2X <= (105 + ZuofuHealth)) & (67 <= GBADraw2Y) & (GBADraw2Y <= 71);
 
-        AEHealthBar = (349 <= GBADraw2X) & (GBADraw2X <= 443) & (181 <= GBADraw2Y) & (GBADraw2Y <= 184);
+        AEHealthBar = (349 <= GBADraw2X) & (GBADraw2X <= (349 + AEHealth)) & (181 <= GBADraw2Y) & (GBADraw2Y <= 184);
     end
 
-    always_ff (posedge keycode)
-    begin:battling????????
+    always_ff @ (posedge keycode)
+    begin:battling 
 
     end
 
     //dont know if we need keycode here
-    always_ff @ (posedge vga_clk or posedge keycode) 
+    always_ff @ (posedge vga_clk) 
     begin:Drawing
+        if (blank)
+        begin
             Red <= red_battle;
             Green <= green_battle;
             Blue <= blue_battle;
-        if (ZuofuHealthBar) 
-        begin
-
+            if (ZuofuHealthBar) 
+            begin
+                Red <= 4'hF;
+                Green <= 4'h6;
+                Blue <= 4'h4;
+            end
+            else if (AEHealthBar)
+            begin
+                Red <= 4'hF;
+                Green <= 4'h6;
+                Blue <= 4'h4;
         end
-        else if (AEHealthBar)
+        end
+        else
         begin
-
+            Red <= 4'h0;
+            Green <= 4'h0;
+            Blue <= 4'h0;
         end
     end
+	 
+ //testing healthbar
+ always_ff @ (posedge debug or posedge Reset)
+ begin
+	if (Reset)
+		ZuofuHealth <= 94;
+	else if (debug)
+		ZuofuHealth <= ZuofuHealth - 4;
+	else
+		ZuofuHealth <= ZuofuHealth;
+ end
 
-battledraft3_rom battledraft_rom (
+battledraft4_rom battledraft_rom (
 	.clock   (negedge_vga_clk),
 	.address (rom_address),
 	.q       (rom_q)
 );
 
-battledraft3_palette battledraft_palette (
+battledraft4_palette battledraft_palette (
 	.index (rom_q),
 	.red   (red_battle),
 	.green (green_battle),

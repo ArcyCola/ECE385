@@ -14,7 +14,7 @@
 
 
 module  color_mapper ( input        [9:0]  DrawX, DrawY, 
-                       input               blank, vga_clk, Reset, frame_clk, ball_reset, battle,
+                       input               blank, vga_clk, Reset, frame_clk, debug, battle,
                        input        [15:0] keycode,
                        output logic [7:0]  Red, Green, Blue );
     
@@ -25,8 +25,9 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
       of the 12 available multipliers on the chip!  Since the multiplicants are required to be signed,
 	  we have to first cast them from logic to int (signed by default) before they are multiplied). */
 
-	logic sprite_on, GBAWindow, isBallCenter, isWinOnAnyEdge, isWinOnLeftEdge, isWinOnRightEdge, isWinOnTopEdge, isWinOnBottomEdge;  
-	logic isWinOnTopLeftCorner, isWinOnTopRightCorner, isWinOnBottomLeftCorner, isWinOnBottomRightCorner, isWinOnAnyCorner;
+	logic sprite_on, GBAWindow;
+	//, isBallCenter, isWinOnAnyEdge, isWinOnLeftEdge, isWinOnRightEdge, isWinOnTopEdge, isWinOnBottomEdge;  
+	//logic isWinOnTopLeftCorner, isWinOnTopRightCorner, isWinOnBottomLeftCorner, isWinOnBottomRightCorner, isWinOnAnyCorner;
     int DistX, DistY;
 	
 
@@ -44,6 +45,13 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     
     assign negedge_vga_clk = ~vga_clk;
 
+	// ------------------------------------------------
+    // collision
+	logic [17:0] collision_rom_addr;
+	logic [3:0] collision_rom_q;
+	logic [3:0]	collision_red, collision_blue, collision_green;
+	// white = R/G/B = 4h'F, 4h'F, 4'hF WALKABLE AREAS
+	// pink = R/G/B = 4h'F, 4h'0, 4'h8 NONWALKABLE AREAS
 
 
     // ------------------------------------------------
@@ -64,7 +72,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     logic [3:0] sprite_red, sprite_blue, sprite_green, sprite_rom_q;
 	logic [10:0] sprite_rom_addr;
 	logic spriteIgnore;
-	int SpriteDrawX, SpriteDrawY;
+	int SpriteDrawX, SpriteDrawY; 
    //--------------------------------------
 	//shit cuz we have 2 roms now
 	logic [3:0] red_map, blue_map, green_map, red_battle, blue_battle, green_battle, rom_q_map, rom_q_battle;
@@ -99,8 +107,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     parameter [9:0] Screen_X_Step = 1; 
     parameter [9:0] Screen_Y_Step = 1; 
 	 
-	 assign DistX = DrawX - SpriteX;
-    assign DistY = DrawY - SpriteY;
+	 assign DistX = DrawX - SpriteX; 	// x distance from center of sprite
+    assign DistY = DrawY - SpriteY;		// y distance from center of sprite
 
 
 	logic GBADraw2XBound, GBADraw2YBound;
@@ -117,7 +125,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     always_comb
     begin:sprite_on_proc
         if ( ((-7 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 8))) & ~battle ) 
-            sprite_on = 1'b1;
+            sprite_on = 1'b1; // sprite: 14x19
         else 
             sprite_on = 1'b0;
 
@@ -192,18 +200,22 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		  
 		  //---------------------------
 		  // res; 480 x 320, want to see top right 240x160 part
+		  
+		  rom_address = (GBADraw2X / 2) + ((GBADraw2Y / 2) * 480);
+				rom_q = rom_q_map;
+				
+				
 		  if (battle)
 		  begin
-				rom_address = (GBADraw2X) + ((GBADraw2Y) * 480);
-				rom_q = rom_q_battle;
+				// rom_address = (GBADraw2X) + ((GBADraw2Y) * 480);
+				// rom_q = rom_q_battle;
 				palette_red = red_battle;
 				palette_green = green_battle;
 				palette_blue = blue_battle;
 		  end
 		  else 
 		  begin	
-				rom_address = (GBADraw2X / 2) + ((GBADraw2Y / 2) * 480);
-				rom_q = rom_q_map;
+				
 				palette_red = red_map;
 				palette_green = green_map;
 				palette_blue = blue_map;
@@ -218,37 +230,38 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     //need keycode and maybe Reset if we want to implement Reset to screen,
     // if we do implement Reset comment out lines 73-74 (the assign ScreenX/Y)
-    always_ff @ (posedge frame_clk or posedge Reset or posedge battle)
+    always_ff @ (posedge frame_clk or posedge Reset)
     begin: Move_Screen
 		//-----------------------------
         //GBA screen implemenations
 
         
-		isBallCenter = (SpriteX == Sprite_X_Center) & (SpriteY == Sprite_Y_Center);
+//		isBallCenter = (SpriteX == Sprite_X_Center) & (SpriteY == Sprite_Y_Center);
+//
+//		// logic for determining if screen window is on edge of map
+//		isWinOnLeftEdge = (ScreenX <= Screen_X_Min); 
+//		isWinOnRightEdge = (ScreenX >= Screen_X_Max);
+//		isWinOnTopEdge = (ScreenY <= Screen_Y_Min);
+//		isWinOnBottomEdge = (ScreenY >= Screen_Y_Max);
+//		// logic for determining if screen window is on a specific corner edge of map
+//		isWinOnTopLeftCorner = isWinOnTopEdge & isWinOnLeftEdge;
+//		isWinOnTopRightCorner = isWinOnTopEdge & isWinOnRightEdge;
+//		isWinOnBottomLeftCorner = isWinOnBottomEdge & isWinOnLeftEdge;
+//		isWinOnBottomRightCorner = isWinOnBottomEdge & isWinOnRightEdge;
+//		// logic for determining if screen window is on a corner
+//		isWinOnAnyCorner = isWinOnTopLeftCorner | isWinOnTopRightCorner | isWinOnBottomLeftCorner | isWinOnBottomRightCorner;
+//		//all inclusive case sdjigfdjosjbfjdoisjg
+//		isWinOnAnyEdge = isWinOnLeftEdge | isWinOnRightEdge | isWinOnTopEdge | isWinOnBottomEdge; 
 
-		// logic for determining if screen window is on edge of map
-		isWinOnLeftEdge = (ScreenX <= Screen_X_Min); 
-		isWinOnRightEdge = (ScreenX >= Screen_X_Max);
-		isWinOnTopEdge = (ScreenY <= Screen_Y_Min);
-		isWinOnBottomEdge = (ScreenY >= Screen_Y_Max);
-		// logic for determining if screen window is on a specific corner edge of map
-		isWinOnTopLeftCorner = isWinOnTopEdge & isWinOnLeftEdge;
-		isWinOnTopRightCorner = isWinOnTopEdge & isWinOnRightEdge;
-		isWinOnBottomLeftCorner = isWinOnBottomEdge & isWinOnLeftEdge;
-		isWinOnBottomRightCorner = isWinOnBottomEdge & isWinOnRightEdge;
-		// logic for determining if screen window is on a corner
-		isWinOnAnyCorner = isWinOnTopLeftCorner | isWinOnTopRightCorner | isWinOnBottomLeftCorner | isWinOnBottomRightCorner;
-		//all inclusive case sdjigfdjosjbfjdoisjg
-		isWinOnAnyEdge = isWinOnLeftEdge | isWinOnRightEdge | isWinOnTopEdge | isWinOnBottomEdge; 
-
-        if (Reset | battle) begin
+        if (Reset) begin
 		  // begin a
             ScreenX <= 10'b0;
             ScreenY <= 10'b0;
 			Screen_X_Motion <= 0;
 			Screen_Y_Motion <= 0;
         end
-        else begin
+        else if (~battle) 
+		  begin
 				//checking if ScreenX is at min. (unsigned -1 == 10'bFFF)
 
 				if ((ScreenX < Screen_X_Min)) begin
@@ -475,16 +488,16 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     end
 
     // //ball/sprite logic
-	always_ff @ (posedge Reset or posedge frame_clk or posedge ball_reset)
+	always_ff @ (posedge Reset or posedge frame_clk or posedge debug)
     begin: Move_Ball
         if (Reset)  // Asynchronous Reset
         begin 
-            Sprite_Y_Motion <= 10'd0; //Sprite_Y_Step;
+			Sprite_Y_Motion <= 10'd0; //Sprite_Y_Step;
 			Sprite_X_Motion <= 10'd0; //Sprite_X_Step;
 			SpriteY <= Sprite_Y_Center;
 			SpriteX <= Sprite_X_Center;
         end
-		  else if (ball_reset)
+		  else if (debug)
 		  begin 
 			SpriteY <= Sprite_Y_Center;
 			SpriteX <= Sprite_X_Center;
@@ -639,18 +652,18 @@ fpmapfinal_palette map480_palette (
 	.blue  (blue_map)
 );
 
-battledraft3_rom battledraft_rom (
-	.clock   (negedge_vga_clk),
-	.address (rom_address),
-	.q       (rom_q_battle)
-);
+// battledraft3_rom battledraft_rom (
+// 	.clock   (negedge_vga_clk),
+// 	.address (rom_address),
+// 	.q       (rom_q_battle)
+// );
 
-battledraft3_palette battledraft_palette (
-	.index (rom_q),
-	.red   (red_battle),
-	.green (green_battle),
-	.blue  (blue_battle)
-);
+// battledraft3_palette battledraft_palette (
+// 	.index (rom_q),
+// 	.red   (red_battle),
+// 	.green (green_battle),
+// 	.blue  (blue_battle)
+// );
 
 sprite4dir_rom spritedraft_rom (
 	.clock   (negedge_vga_clk),
@@ -664,5 +677,21 @@ sprite4dir_palette spritedraft_palette (
 	.green (sprite_green),
 	.blue  (sprite_blue)
 );
+
+fpcollision_rom collision_rom (
+	.clock		(negedge_vga_clk),
+	.address 	(collision_rom_addr),
+	.q			(collision_rom_q)
+);
+
+fpcollision_palette collision_palette (
+	.index (collision_rom_q),
+	.red   (collision_red),
+	.green (collision_green),
+	.blue  (collision_blue)
+);
+
+battle battle0(.keycode(keycode[7:0]), .vga_clk, .frame_clk, .GBADraw2X, .GBADraw2Y,
+				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset);
 
 endmodule

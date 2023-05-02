@@ -168,7 +168,7 @@ logic Reset_h, vssig, blank, sync, VGA_Clk, Key1_h;
 // DISCONNECTED KEYCODE SO BALL DOESNT MOVE.
 //ball ball0(.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
 
-color_mapper color(.DrawX(drawxsig), .DrawY(drawysig), .vga_clk(VGA_Clk), .ball_reset(Key1_h),
+color_mapper color(.DrawX(drawxsig), .DrawY(drawysig), .vga_clk(VGA_Clk), .debug(Key1_h),
 					.Red(Red), .Blue(Blue), .Green(Green), .blank(blank), .keycode(keycode), .Reset(Reset_h), 
 					.frame_clk(VGA_VS), .battle(SW[0]));
 
