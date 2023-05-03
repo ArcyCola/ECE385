@@ -167,15 +167,15 @@ logic Reset_h, vssig, blank, sync, VGA_Clk, Key1_h;
 
 // DISCONNECTED KEYCODE SO BALL DOESNT MOVE.
 //ball ball0(.Reset(Reset_h), .frame_clk(VGA_VS), .keycode(), .BallX(ballxsig), .BallY(ballysig), .BallS(ballsizesig));
-
+logic battle;
 color_mapper color(.DrawX(drawxsig), .DrawY(drawysig), .vga_clk(VGA_Clk), .debug(Key1_h),
 					.Red(Red), .Blue(Blue), .Green(Green), .blank(blank), .keycode(keycode), .Reset(Reset_h), 
-					.frame_clk(VGA_VS), .battle(SW[0]));
+					.frame_clk(VGA_VS), .battle(battle));
 
 vga_controller VGA(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .hs(VGA_HS), .vs(VGA_VS), 
 .pixel_clk(VGA_Clk), 
 					.blank(blank), .sync(sync), .DrawX(drawxsig), .DrawY(drawysig));
 					
 // pokemonfireredmap_example map(.vga_clk(VGA_Clk), .red)
-					
+state_machine state(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .keycode(), .battle(battle));				
 endmodule
