@@ -48,8 +48,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
 	// ------------------------------------------------
     // collision
-	logic [17:0] collision_rom_addr; //_up, collision_rom_addr_down, collision_rom_addr_left, collision_rom_addr_right;
-	logic collision; //collision_up, collision_down, collision_left, collision_right; // 0 = PINK, 1 = WHITE. white is walkable
+	logic [17:0] collision_rom_addr_X, collision_rom_addr_Y; //_up, collision_rom_addr_down, collision_rom_addr_left, collision_rom_addr_right;
+	logic collisionX, collisionY; //collision_up, collision_down, collision_left, collision_right; // 0 = PINK, 1 = WHITE. white is walkable
 	//logic q1, q2, q3, q4;
 	// logic [3:0]	collision_red, collision_blue, collision_green;
 	logic [10:0] collisionXCenter, collisionYCenter;
@@ -222,7 +222,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
 
 
-		collision = ~q1;
+		collisionX = ~qX;
+		collisionY = ~qY;
 //		collision_down = ~q2;
 //		collision_left = ~q3;
 //		collision_right = ~q4;
@@ -314,8 +315,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						// A, going to the left
 						16'h0004 : begin
 							// calculate addr of left neighbor pixel
-							collision_rom_addr = ((collisionXCenter-7)/2) + (((collisionYCenter)/2)*480);
-							if ((ScreenX <= Screen_X_Min) | (collision)) begin
+							collision_rom_addr_X = ((collisionXCenter-7)/2) + (((collisionYCenter)/2)*480);
+							if ((ScreenX <= Screen_X_Min) | (collisionX)) begin
 								Screen_X_Motion <= 0;
 							end
 							else begin
@@ -325,8 +326,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						// D, going right
 						16'h0007 : begin
 							// calculate addr of right neighbor pixel
-							collision_rom_addr = ((collisionXCenter+6)/2) + (((collisionYCenter)/2)*480);
-							if ((ScreenX >= Screen_X_Max) | (collision)) begin
+							collision_rom_addr_X = ((collisionXCenter+6)/2) + (((collisionYCenter)/2)*480);
+							if ((ScreenX >= Screen_X_Max) | (collisionX)) begin
 								Screen_X_Motion <= 0;
 							end
 							else begin
@@ -336,8 +337,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							// W, up
 						16'h001A : begin
 							// calculate addr of top neighbor pixel
-							collision_rom_addr = ((collisionXCenter)/2) + (((collisionYCenter-8)/2)*480);
-							if ((ScreenY <= Screen_Y_Min) | (collision)) begin
+							collision_rom_addr_Y = ((collisionXCenter)/2) + (((collisionYCenter-8)/2)*480);
+							if ((ScreenY <= Screen_Y_Min) | (collisionY)) begin
 								Screen_Y_Motion <= 0;
 							end
 							else begin
@@ -347,169 +348,177 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						// S, down
 						16'h0016 : begin
 							// calculate addr of bottom neighbor pixel
-							collision_rom_addr = ((collisionXCenter)/2) + (((collisionYCenter+10)/2)*480);
-							if ((ScreenY >= Screen_Y_Max) | (collision)) begin
+							collision_rom_addr_Y = ((collisionXCenter)/2) + (((collisionYCenter+8)/2)*480);
+							if ((ScreenY >= Screen_Y_Max) | (collisionY)) begin
 								Screen_Y_Motion <= 0;
 							end
 							else begin
 								Screen_Y_Motion <= 1;
 							end
 						end		
-							// 2 key presses
+						// 	// 2 key presses
 					
-						  // W, A, up, left
-						  	16'h1A04 : begin
-								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 0;
-								end
-								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= -1;
-								end
-								if(!(ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= -1;
-									Screen_Y_Motion <= 0;
-								end
-								else begin
-									Screen_X_Motion <= -1;
-									Screen_Y_Motion <= -1;
-								end
-							end
-							// A, W, left, up
-							16'h041A : begin
-								if((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 0;
-								end
-								if((ScreenX <= Screen_X_Min) & !(ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= -1;
-								end
-								if(!(ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= -1;
-									Screen_Y_Motion <= 0;
-								end
-								else begin
-									Screen_X_Motion <= -1;
-									Screen_Y_Motion <= -1;
-								end
-                    		end
-						  // W, D, up, right
-						  	16'h1A07 : begin
-								if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 0;
-								end
-								if((ScreenX >= Screen_X_Max) & !(ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= -1;
-								end
-								if(!(ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 1;
-									Screen_Y_Motion <= 0;
-								end
-								else begin
-									Screen_X_Motion <= 1;
-									Screen_Y_Motion <= -1;
-								end
-							end
-							// D,W, right, up
-						  	16'h071A : begin
-								if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 0;
-								end
-								if((ScreenX >= Screen_X_Max) & !(ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= -1;
-								end
-								if(!(ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
-									Screen_X_Motion <= 1;
-									Screen_Y_Motion <= 0;
-								end
-								else begin
-									Screen_X_Motion <= 1;
-									Screen_Y_Motion <= -1;
-								end
-							end
+						//   // W, A, up, left
+						//   	16'h1A04 : begin
+						// 		// calculate addr of left neighbor pixel
+						// 		collision_rom_addr_X = ((collisionXCenter-7)/2) + (((collisionYCenter)/2)*480);
+						// 		// calculate addr of top neighbor pixel
+						// 		collision_rom_addr_Y = ((collisionXCenter-7)/2) + (((collisionYCenter-8)/2)*480);
+						// 		if(((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) | (collisionX & collisionY)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		if(((ScreenX <= Screen_X_Min) & !(ScreenY <= Screen_Y_Min)) | (collisionX & !collisionY)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= -1;
+						// 		end
+						// 		if((!(ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) | (!collisionX & collisionY)) begin
+						// 			Screen_X_Motion <= -1;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		else begin
+						// 			Screen_X_Motion <= -1;
+						// 			Screen_Y_Motion <= -1;
+						// 		end
+						// 	end
+						// 	// A, W, left, up
+						// 	16'h041A : begin
+						// 		// calculate addr of left neighbor pixel
+						// 		collision_rom_addr_X = ((collisionXCenter-7)/2) + (((collisionYCenter)/2)*480);
+						// 		// calculate addr of top neighbor pixel
+						// 		collision_rom_addr_Y = ((collisionXCenter-7)/2) + (((collisionYCenter-8)/2)*480);
+						// 		if(((ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) | (collisionX & collisionY)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		if(((ScreenX <= Screen_X_Min) & !(ScreenY <= Screen_Y_Min)) | (collisionX & !collisionY)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= -1;
+						// 		end
+						// 		if((!(ScreenX <= Screen_X_Min) & (ScreenY <= Screen_Y_Min)) | (!collisionX & collisionY)) begin
+						// 			Screen_X_Motion <= -1;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		else begin
+						// 			Screen_X_Motion <= -1;
+						// 			Screen_Y_Motion <= -1;
+						// 		end
+                    	// 	end
+						//   // W, D, up, right
+						//   	16'h1A07 : begin
+						// 		if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		if((ScreenX >= Screen_X_Max) & !(ScreenY <= Screen_Y_Min)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= -1;
+						// 		end
+						// 		if(!(ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+						// 			Screen_X_Motion <= 1;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		else begin
+						// 			Screen_X_Motion <= 1;
+						// 			Screen_Y_Motion <= -1;
+						// 		end
+						// 	end
+						// 	// D,W, right, up
+						//   	16'h071A : begin
+						// 		if((ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		if((ScreenX >= Screen_X_Max) & !(ScreenY <= Screen_Y_Min)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= -1;
+						// 		end
+						// 		if(!(ScreenX >= Screen_X_Max) & (ScreenY <= Screen_Y_Min)) begin
+						// 			Screen_X_Motion <= 1;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		else begin
+						// 			Screen_X_Motion <= 1;
+						// 			Screen_Y_Motion <= -1;
+						// 		end
+						// 	end
 							
-							// D, S, right, down
-							16'h0716 : begin
-								if((ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 0;
-								end
-								if((ScreenX >= Screen_X_Max) & !(ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 1;
-								end
-								if(!(ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 1;
-									Screen_Y_Motion <= 0;
-								end
-								else begin
-									Screen_X_Motion <= 1;
-									Screen_Y_Motion <= 1;
-								end
-							end
-							// S, D, down, right
-							16'h1607 : begin
-								if((ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 0;
-								end
-								if((ScreenX >= Screen_X_Max) & !(ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 1;
-								end
-								if(!(ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 1;
-									Screen_Y_Motion <= 0;
-								end
-								else begin
-									Screen_X_Motion <= 1;
-									Screen_Y_Motion <= 1;
-								end
-							end
-							// S, A, down, left
-							16'h1604 : begin
-								if((ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 0;
-								end
-								if((ScreenX <= Screen_X_Min) & !(ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 1;
-								end
-								if(!(ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= -1;
-									Screen_Y_Motion <= 0;
-								end
-								else begin
-									Screen_X_Motion <= -1;
-									Screen_Y_Motion <= 1;
-								end
-							end
-							// A, S, left, down
-							16'h0416 : begin
-								if((ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 0;
-								end
-								if((ScreenX <= Screen_X_Min) & !(ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= 0;
-									Screen_Y_Motion <= 1;
-								end
-								if(!(ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
-									Screen_X_Motion <= -1;
-									Screen_Y_Motion <= 0;
-								end
-								else begin
-									Screen_X_Motion <= -1;
-									Screen_Y_Motion <= 1;
-								end
-							end
+						// 	// D, S, right, down
+						// 	16'h0716 : begin
+						// 		if((ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		if((ScreenX >= Screen_X_Max) & !(ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 1;
+						// 		end
+						// 		if(!(ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 1;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		else begin
+						// 			Screen_X_Motion <= 1;
+						// 			Screen_Y_Motion <= 1;
+						// 		end
+						// 	end
+						// 	// S, D, down, right
+						// 	16'h1607 : begin
+						// 		if((ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		if((ScreenX >= Screen_X_Max) & !(ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 1;
+						// 		end
+						// 		if(!(ScreenX >= Screen_X_Max) & (ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 1;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		else begin
+						// 			Screen_X_Motion <= 1;
+						// 			Screen_Y_Motion <= 1;
+						// 		end
+						// 	end
+						// 	// S, A, down, left
+						// 	16'h1604 : begin
+						// 		if((ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		if((ScreenX <= Screen_X_Min) & !(ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 1;
+						// 		end
+						// 		if(!(ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= -1;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		else begin
+						// 			Screen_X_Motion <= -1;
+						// 			Screen_Y_Motion <= 1;
+						// 		end
+						// 	end
+						// 	// A, S, left, down
+						// 	16'h0416 : begin
+						// 		if((ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		if((ScreenX <= Screen_X_Min) & !(ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= 0;
+						// 			Screen_Y_Motion <= 1;
+						// 		end
+						// 		if(!(ScreenX <= Screen_X_Min) & (ScreenY >= Screen_Y_Max)) begin
+						// 			Screen_X_Motion <= -1;
+						// 			Screen_Y_Motion <= 0;
+						// 		end
+						// 		else begin
+						// 			Screen_X_Motion <= -1;
+						// 			Screen_Y_Motion <= 1;
+						// 		end
+						// 	end
 					default: begin
                         Screen_X_Motion <= 0;
                         Screen_Y_Motion <= 0;   
@@ -714,12 +723,12 @@ sprite4dir_palette spritedraft_palette (
 
 fpcollision_rom collision_rom (
 	.clock		(negedge_vga_clk),
-	.addr1 	(collision_rom_addr),
-//	.addr2 	(collision_rom_addr_down),
+	.addrX 	(collision_rom_addr_X),
+	.addrY 	(collision_rom_addr_Y),
 //	.addr3 	(collision_rom_addr_left),
 //	.addr4 	(collision_rom_addr_right),
-	.q1			(q1)//,
-//	.q2			(q2),
+	.qX			(qX),
+	.qY			(qY)//,
 //	.q3			(q3),
 //	.q4			(q4)
 );

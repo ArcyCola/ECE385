@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'FP_TLOZ_soc'
  * SOPC Builder design path: ../../FP_TLOZ_soc.sopcinfo
  *
- * Generated: Tue May 02 20:51:34 CDT 2023
+ * Generated: Wed May 03 13:10:33 CDT 2023
  */
 
 /*
