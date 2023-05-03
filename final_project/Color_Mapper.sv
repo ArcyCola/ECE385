@@ -1,4 +1,5 @@
 //-------------------------------------------------------------------------
+
 //    Color_Mapper.sv                                                    --
 //    Stephen Kempf                                                      --
 //    3-1-06                                                             --
@@ -47,9 +48,10 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
 	// ------------------------------------------------
     // collision
-	logic [17:0] collision_rom_addr;
-	logic collision_rom_q; // 0 = PINK, 1 = WHITE. white is walkable
-	logic [3:0]	collision_red, collision_blue, collision_green;
+	logic [17:0] collision_rom_addr; //_up, collision_rom_addr_down, collision_rom_addr_left, collision_rom_addr_right;
+	logic collision; //collision_up, collision_down, collision_left, collision_right; // 0 = PINK, 1 = WHITE. white is walkable
+	//logic q1, q2, q3, q4;
+	// logic [3:0]	collision_red, collision_blue, collision_green;
 	logic [10:0] collisionXCenter, collisionYCenter;
 	// white = R/G/B = 4h'F, 4h'F, 4'hF WALKABLE AREAS
 	// pink = R/G/B = 4h'F, 4h'0, 4'h8 NONWALKABLE AREAS	
@@ -209,10 +211,24 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		  // res; 480 x 320, want to see top right 240x160 part
 		  
 		  rom_address = (GBADraw2X / 2) + ((GBADraw2Y / 2) * 480); // calculating rom_address of map
-				rom_q = rom_q_map;
+			rom_q = rom_q_map;
 		//collision_rom_addr = (GBADraw2X / 2) + ((GBADraw2Y / 2) * 480);	// calculating rom address of collision map
+		//COLLISION CALLS TO ROM ---------------------
 
-				
+
+		
+		
+		
+
+
+
+		collision = ~q1;
+//		collision_down = ~q2;
+//		collision_left = ~q3;
+//		collision_right = ~q4;
+
+
+
 		  if (battle)
 		  begin
 				// rom_address = (GBADraw2X) + ((GBADraw2Y) * 480);
@@ -238,7 +254,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     //need keycode and maybe Reset if we want to implement Reset to screen,
     // if we do implement Reset comment out lines 73-74 (the assign ScreenX/Y)
-    always_ff @ (posedge frame_clk or posedge Reset)
+    always_ff @ (posedge frame_clk or posedge Reset or posedge battle)
     begin: Move_Screen
 		//-----------------------------
         //GBA screen implemenations
@@ -260,7 +276,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 //		//all inclusive case sdjigfdjosjbfjdoisjg
 //		isWinOnAnyEdge = isWinOnLeftEdge | isWinOnRightEdge | isWinOnTopEdge | isWinOnBottomEdge; 
 
-        if (Reset) begin
+        if (Reset | battle) begin
 		  // begin a
             ScreenX <= 10'b0000010000;
             ScreenY <= 10'b0;
@@ -298,8 +314,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						// A, going to the left
 						16'h0004 : begin
 							// calculate addr of left neighbor pixel
-							collision_rom_addr = ((collisionXCenter-1)/2) + (((collisionYCenter)/2)*480);
-							if ((ScreenX <= Screen_X_Min) | (collision_rom_q == 0)) begin
+							collision_rom_addr = ((collisionXCenter-7)/2) + (((collisionYCenter)/2)*480);
+							if ((ScreenX <= Screen_X_Min) | (collision)) begin
 								Screen_X_Motion <= 0;
 							end
 							else begin
@@ -309,8 +325,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						// D, going right
 						16'h0007 : begin
 							// calculate addr of right neighbor pixel
-							collision_rom_addr = ((collisionXCenter+1)/2) + (((collisionYCenter)/2)*480);
-							if ((ScreenX >= Screen_X_Max) | (collision_rom_q == 0)) begin
+							collision_rom_addr = ((collisionXCenter+6)/2) + (((collisionYCenter)/2)*480);
+							if ((ScreenX >= Screen_X_Max) | (collision)) begin
 								Screen_X_Motion <= 0;
 							end
 							else begin
@@ -320,8 +336,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 							// W, up
 						16'h001A : begin
 							// calculate addr of top neighbor pixel
-							collision_rom_addr = ((collisionXCenter)/2) + (((collisionYCenter-1)/2)*480);
-							if ((ScreenY <= Screen_Y_Min) | (collision_rom_q == 0)) begin
+							collision_rom_addr = ((collisionXCenter)/2) + (((collisionYCenter-8)/2)*480);
+							if ((ScreenY <= Screen_Y_Min) | (collision)) begin
 								Screen_Y_Motion <= 0;
 							end
 							else begin
@@ -331,8 +347,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 						// S, down
 						16'h0016 : begin
 							// calculate addr of bottom neighbor pixel
-							collision_rom_addr = ((collisionXCenter)/2) + (((collisionYCenter+1)/2)*480);
-							if ((ScreenY >= Screen_Y_Max) | (collision_rom_q == 0)) begin
+							collision_rom_addr = ((collisionXCenter)/2) + (((collisionYCenter+10)/2)*480);
+							if ((ScreenY >= Screen_Y_Max) | (collision)) begin
 								Screen_Y_Motion <= 0;
 							end
 							else begin
@@ -698,16 +714,22 @@ sprite4dir_palette spritedraft_palette (
 
 fpcollision_rom collision_rom (
 	.clock		(negedge_vga_clk),
-	.address 	(collision_rom_addr),
-	.q			(collision_rom_q)
+	.addr1 	(collision_rom_addr),
+//	.addr2 	(collision_rom_addr_down),
+//	.addr3 	(collision_rom_addr_left),
+//	.addr4 	(collision_rom_addr_right),
+	.q1			(q1)//,
+//	.q2			(q2),
+//	.q3			(q3),
+//	.q4			(q4)
 );
 
-fpcollision_palette collision_palette (
-	.index (collision_rom_q),
-	.red   (collision_red),
-	.green (collision_green),
-	.blue  (collision_blue)
-);
+// fpcollision_palette collision_palette (
+// 	.index (collision_rom_q),
+// 	.red   (collision_red),
+// 	.green (collision_green),
+// 	.blue  (collision_blue)
+// );
 
 battle battle0(.keycode(keycode[7:0]), .vga_clk, .frame_clk, .GBADraw2X(GBADraw2X0), .GBADraw2Y(GBADraw2Y0),
 				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset);
