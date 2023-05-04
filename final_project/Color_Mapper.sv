@@ -15,8 +15,9 @@
 
 
 module  color_mapper ( input        [9:0]  DrawX, DrawY, 
-                       input               blank, vga_clk, Reset, frame_clk, debug, battle,
+                       input               blank, vga_clk, Reset, frame_clk, debug, battle, intro, map,
                        input        [15:0] keycode,
+					   output logic        enterECEB,
                        output logic [7:0]  Red, Green, Blue );
     
    
@@ -56,6 +57,11 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 	// white = R/G/B = 4h'F, 4h'F, 4'hF WALKABLE AREAS
 	// pink = R/G/B = 4h'F, 4h'0, 4'h8 NONWALKABLE AREAS	
 
+	// ------------------------------------------------
+    // title screen
+	logic [17:0] titlescreen1_rom_address;
+	logic titlescreen1_rom_q;
+	logic [3:0] titlescreen1_red, titlescreen1_green, titlescreen1_blue;
     // ------------------------------------------------
 	// copied from ball.sv
 
@@ -114,6 +120,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
 
 	logic GBADraw2XBound, GBADraw2YBound;
+	//logic enterECEB;
 
 	 //comment this out when u use the always_ff 
 	 // ahhhhh read read
@@ -126,7 +133,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     always_comb
     begin:sprite_on_proc
-        if ( ((-7 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 8))) & ~battle ) 
+        if ( ((-7 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 8))) & ~battle & ~intro) 
             sprite_on = 1'b1; // sprite: 14x19
         else 
             sprite_on = 1'b0;
@@ -217,9 +224,10 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
 
 		
+		titlescreen1_rom_address = (GBADraw2X0 / 2) + ((GBADraw2Y0 / 2) * 240);
 		
-		
-
+		//when we tell the sprite is around the eceb door
+		enterECEB = (ScreenX < -50) & (ScreenY < -22);
 
 
 		collisionX = ~qX;
@@ -238,6 +246,12 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 				palette_green = green_battle;
 				palette_blue = blue_battle;
 		  end
+		  else if (intro) 
+		  begin
+				palette_red = titlescreen1_red;
+				palette_green = titlescreen1_green;
+				palette_blue = titlescreen1_blue;
+		  end
 		  else 
 		  begin	
 				
@@ -251,11 +265,10 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		  //rom_address = (GBADraw2X / 4) + ((GBADraw2Y/4) * 960);
         
     end 
-
-
+	
     //need keycode and maybe Reset if we want to implement Reset to screen,
     // if we do implement Reset comment out lines 73-74 (the assign ScreenX/Y)
-    always_ff @ (posedge frame_clk or posedge Reset or posedge battle)
+    always_ff @ (posedge frame_clk or posedge Reset or posedge battle or posedge intro)
     begin: Move_Screen
 		//-----------------------------
         //GBA screen implemenations
@@ -277,15 +290,22 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 //		//all inclusive case sdjigfdjosjbfjdoisjg
 //		isWinOnAnyEdge = isWinOnLeftEdge | isWinOnRightEdge | isWinOnTopEdge | isWinOnBottomEdge; 
 
-        if (Reset | battle) begin
+        if (Reset | intro | battle) begin
 		  // begin a
             ScreenX <= 10'b0000010000;
             ScreenY <= 10'b0;
 			Screen_X_Motion <= 0;
 			Screen_Y_Motion <= 0;
         end
-        else if (~battle) 
-		  begin
+		// else if (map) begin
+		//   // begin a
+        //     ScreenX <= 10'b0000010000;
+        //     ScreenY <= 10'b0;
+		// 	Screen_X_Motion <= 0;
+		// 	Screen_Y_Motion <= 0;
+        // end
+        else 
+		begin
 				//checking if ScreenX is at min. (unsigned -1 == 10'bFFF)
 
 				if ((ScreenX < Screen_X_Min)) begin
@@ -740,7 +760,20 @@ fpcollision_rom collision_rom (
 // 	.blue  (collision_blue)
 // );
 
+titlescreen1_rom titlescreen1_rom (
+	.clock   (negedge_vga_clk),
+	.address (titlescreen1_rom_address),
+	.q       (titlescreen1_rom_q)
+);
+
+titlescreen1_palette titlescreen1_palette (
+	.index (titlescreen1_rom_q),
+	.red   (titlescreen1_red),
+	.green (titlescreen1_green),
+	.blue  (titlescreen1_blue)
+);
+
 battle battle0(.keycode(keycode[7:0]), .vga_clk, .frame_clk, .GBADraw2X(GBADraw2X0), .GBADraw2Y(GBADraw2Y0),
-				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset);
+				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset, .battle, .intro);
 
 endmodule
