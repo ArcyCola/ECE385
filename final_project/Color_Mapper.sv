@@ -17,7 +17,7 @@
 module  color_mapper ( input        [9:0]  DrawX, DrawY, 
                        input               blank, vga_clk, Reset, frame_clk, debug, battle, intro, map,
                        input        [15:0] keycode,
-					   output logic        enterECEB,
+					   output logic        enterECEB, playerDied, ZuofuDied,
                        output logic [7:0]  Red, Green, Blue );
     
    
@@ -32,6 +32,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 	//logic isWinOnTopLeftCorner, isWinOnTopRightCorner, isWinOnBottomLeftCorner, isWinOnBottomRightCorner, isWinOnAnyCorner;
     int DistX, DistY;
 	
+	//logic playerDied, ZuofuDied; 
 
 	// ------------------------------------------------
     // adding stuff for background fjdguidgnfdm
@@ -227,7 +228,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		titlescreen1_rom_address = (GBADraw2X0 / 2) + ((GBADraw2Y0 / 2) * 240);
 		
 		//when we tell the sprite is around the eceb door
-		enterECEB = (ScreenX < -60) & (ScreenY < -20);
+		enterECEB = (ScreenX < -62) & (ScreenY < -40);
 
 
 		collisionX = ~qX;
@@ -252,13 +253,20 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 				palette_green = titlescreen1_green;
 				palette_blue = titlescreen1_blue;
 		  end
-		  else 
+		  else //if (map)
 		  begin	
 				
 				palette_red = red_map;
 				palette_green = green_map;
 				palette_blue = blue_map;
 		  end
+		//   else
+		// 	begin	
+				
+		// 		palette_red = red_end;
+		// 		palette_green = green_end;
+		// 		palette_blue = blue_end;
+		//   end
 //		  
 		  //---------------------------
 		  // res; 960 x 640, want to see top right 240x160 part
@@ -760,20 +768,33 @@ fpcollision_rom collision_rom (
 // 	.blue  (collision_blue)
 // );
 
-titlescreen1_rom titlescreen1_rom (
+titlescreen_rom titlescreen1_rom (
 	.clock   (negedge_vga_clk),
 	.address (titlescreen1_rom_address),
 	.q       (titlescreen1_rom_q)
 );
 
-titlescreen1_palette titlescreen1_palette (
+titlescreen_palette titlescreen1_palette (
 	.index (titlescreen1_rom_q),
 	.red   (titlescreen1_red),
 	.green (titlescreen1_green),
 	.blue  (titlescreen1_blue)
 );
 
+// endscreen_rom endscreen_rom (
+// 	.clock   (negedge_vga_clk),
+// 	.address (titlescreen1_rom_address),
+// 	.q       (end_rom_q)
+// );
+
+// endscreen_palette endscreen_palette (
+// 	.index (end_rom_q),
+// 	.red   (red_end),
+// 	.green (green_end),
+// 	.blue  (blue_end)
+// );
 battle battle0(.keycode(keycode[7:0]), .vga_clk, .frame_clk, .GBADraw2X(GBADraw2X0), .GBADraw2Y(GBADraw2Y0),
-				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset, .battle, .intro);
+				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset, .battle, .intro, 
+				.playerDied, .ZuofuDied);
 
 endmodule

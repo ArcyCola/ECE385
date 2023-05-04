@@ -59,7 +59,7 @@ module theLegendofZuofu (
 
 
 logic Reset_h, vssig, blank, sync, VGA_Clk, Key1_h;
-logic battle, intro, map, enterECEB;
+logic battle, intro, map, enterECEB, playerDied, ZuofuDied;
 
 
 //=======================================================
@@ -172,12 +172,13 @@ logic battle, intro, map, enterECEB;
 
 color_mapper color(.DrawX(drawxsig), .DrawY(drawysig), .vga_clk(VGA_Clk), .debug(Key1_h),
 					.Red(Red), .Blue(Blue), .Green(Green), .blank(blank), .keycode(keycode), .Reset(Reset_h), 
-					.frame_clk(VGA_VS), .battle(battle), .intro(intro), .map, .enterECEB);
+					.frame_clk(VGA_VS), .battle(battle), .intro(intro), .map, .enterECEB, .playerDied, .ZuofuDied);
 
 vga_controller VGA(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .hs(VGA_HS), .vs(VGA_VS), 
 .pixel_clk(VGA_Clk), 
 					.blank(blank), .sync(sync), .DrawX(drawxsig), .DrawY(drawysig));
 					
 // pokemonfireredmap_example map(.vga_clk(VGA_Clk), .red)
-state_machine state(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .keycode(keycode[7:0]), .battle(battle), .intro(intro), .map, .enterECEB);				
+state_machine state(.Clk(MAX10_CLK1_50), .Reset(Reset_h), .keycode(keycode[7:0]), .battle(battle), .intro(intro), .map, .enterECEB,
+					.playerDied, .ZuofuDied);				
 endmodule

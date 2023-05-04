@@ -1,6 +1,7 @@
 module battle (input [7:0] keycode,
                input vga_clk, frame_clk, blank, debug, Reset, battle, intro,
                input logic signed [10:0] GBADraw2X, GBADraw2Y,
+               output logic ZuofuDied, playerDied,
                output [3:0] Red, Green, Blue);
 
     logic move;
@@ -31,9 +32,30 @@ module battle (input [7:0] keycode,
     logic AEHealthBar, ZuofuHealthBar;
 
 
-always_ff @ (posedge frame_clk or posedge debug or posedge Reset or posedge battle or posedge move or negedge move or posedge keycode[0])
+always_comb 
 begin
-	if (Reset)
+    if (ZuofuHealth <= 0)
+    begin
+        ZuofuDied = 1'b1;
+    end
+    else
+         ZuofuDied = 1'b0;
+        
+    if (AEHealth <= 0)
+    begin
+        playerDied = 1'b1;
+    end
+    else 
+    begin
+        playerDied = 1'b0;
+    end
+end
+
+
+
+always_ff @ (posedge frame_clk)
+begin
+	if (Reset | intro)
     begin
 		ZuofuHealth <= 94;
         AEHealth <= 94;
@@ -41,15 +63,16 @@ begin
     end
 	else if (debug)
 		ZuofuHealth <= ZuofuHealth - 4;
-	else if (move) //move == 1 = zuofu
+	else if (move & ~keycode) //move == 1, and if no keys are pressed
     begin
-        AEHealth <= AEHealth - 8;
+        AEHealth <= AEHealth - 6;
         move <= 0;
     end
     else 
+    begin
         if (~move) 
         begin
-            if (keycode == 8'h19) //P
+            if (keycode == 8'h13) //P
             begin
                 ZuofuHealth <= ZuofuHealth - 20;
                 move <= 1;
@@ -64,7 +87,7 @@ begin
                 ZuofuHealth <= ZuofuHealth - 8;
                 move <= 1;
             end
-            else if (keycode == 8'h0F) //F
+            else if (keycode == 8'h0F) //L
             begin
                 ZuofuHealth <= ZuofuHealth - 12;
                 move <= 1;
@@ -79,6 +102,7 @@ begin
                 move <= 0;
             end
         end
+    end
 end
 
 //     enum logic [3:0] {Zuofu, AE, notInBattle,
@@ -274,13 +298,13 @@ end
 // 		ZuofuHealth <= ZuofuHealth;
 // end
 
-battledraft5_rom battledraft_rom (
+battlefinal_rom battledraft_rom (
 	.clock   (negedge_vga_clk),
 	.address (rom_address),
 	.q       (rom_q)
 );
 
-battledraft5_palette battledraft_palette (
+battlefinal_palette battledraft_palette (
 	.index (rom_q),
 	.red   (red_battle),
 	.green (green_battle),

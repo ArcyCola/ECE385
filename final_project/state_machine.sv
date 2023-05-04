@@ -1,4 +1,4 @@
-module state_machine(	input logic Clk, Reset, enterECEB,
+module state_machine(	input logic Clk, Reset, enterECEB, playerDied, ZuofuDied,
                         input logic [7:0] keycode,
                         //output logic intro, map, battle
                         output logic battle, intro, map
@@ -9,7 +9,7 @@ module state_machine(	input logic Clk, Reset, enterECEB,
 
     enum logic [1:0] {  introScreen,
                         mapScreen, 
-                        battleScreen} State, Next_State;
+                        battleScreen, endScreen} State, Next_State;
 
     always_ff @ (posedge Clk)
     begin
@@ -35,7 +35,7 @@ module state_machine(	input logic Clk, Reset, enterECEB,
                 begin
                     Next_State = battleScreen;
                 end
-                else   
+                else
                 begin
                     Next_State = mapScreen;
                 end
@@ -49,6 +49,14 @@ module state_machine(	input logic Clk, Reset, enterECEB,
                 if(keycode == 8'h29) // if escape is pressed go to next screen
                 begin
                     Next_State = mapScreen;
+                end
+                else if (playerDied)
+                begin
+                    Next_State = introScreen;
+                end
+                else if (ZuofuDied)
+                begin
+                    Next_State = endScreen;
                 end
                 else
                 begin
@@ -70,6 +78,15 @@ module state_machine(	input logic Clk, Reset, enterECEB,
                     Next_State = introScreen;
                 end
             end
+            endScreen:
+                if(keycode == 8'h28) // if escape is pressed go to next screen
+                begin
+                    Next_State = introScreen;
+                end
+                else
+                begin
+                    Next_State = endScreen;
+                end
             //default : ; //Next_State = mapScreen;
         endcase
 
@@ -94,6 +111,13 @@ module state_machine(	input logic Clk, Reset, enterECEB,
                 intro = 1'b1;
                 map = 1'b0;
             end
+
+            endScreen:
+            begin
+                battle = 1'b0;
+                intro = 1'b0;
+                map = 1'b0;
+            end   
             default ; //: battle = 1'b0;
         endcase
     end

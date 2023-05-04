@@ -437,8 +437,9 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
-set_global_assignment -name QIP_FILE battledraft5/battledraft5.qip
-set_global_assignment -name QIP_FILE titlescreen1/titlescreen1.qip
+set_global_assignment -name QIP_FILE endscreen/endscreen.qip
+set_global_assignment -name QIP_FILE titlescreen/titlescreen.qip
+set_global_assignment -name QIP_FILE battlefinal/battlefinal.qip
 set_global_assignment -name SYSTEMVERILOG_FILE battle.sv
 set_global_assignment -name QIP_FILE fpcollision/fpcollision.qip
 set_global_assignment -name QIP_FILE sprite4dir/sprite4dir.qip
