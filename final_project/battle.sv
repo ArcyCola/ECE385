@@ -31,7 +31,7 @@ module battle (input [7:0] keycode,
     logic AEHealthBar, ZuofuHealthBar;
 
 
-always_ff @ (posedge frame_clk or posedge Reset or posedge debug)
+always_ff @ (posedge frame_clk or posedge debug or posedge Reset or posedge battle or posedge move or negedge move or posedge keycode[0])
 begin
 	if (Reset)
     begin
@@ -49,27 +49,27 @@ begin
     else 
         if (~move) 
         begin
-            if (keycode == 8'h18)
+            if (keycode == 8'h19) //P
             begin
                 ZuofuHealth <= ZuofuHealth - 20;
                 move <= 1;
             end
-            else if (keycode == 8'h0B )
+            else if (keycode == 8'h0B ) //H
             begin
                 ZuofuHealth <= ZuofuHealth - 25;
                 move <= 1;
             end
-            else if (keycode == 8'h0D)
+            else if (keycode == 8'h0D) //J
             begin
                 ZuofuHealth <= ZuofuHealth - 8;
                 move <= 1;
             end
-            else if (keycode == 8'h0F)
+            else if (keycode == 8'h0F) //F
             begin
                 ZuofuHealth <= ZuofuHealth - 12;
                 move <= 1;
             end
-            else if (keycode == 8'h11)
+            else if (keycode == 8'h11) //N
             begin
                 ZuofuHealth <= ZuofuHealth;
                 move <= 1;

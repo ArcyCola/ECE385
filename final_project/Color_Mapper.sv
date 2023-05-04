@@ -227,7 +227,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		titlescreen1_rom_address = (GBADraw2X0 / 2) + ((GBADraw2Y0 / 2) * 240);
 		
 		//when we tell the sprite is around the eceb door
-		enterECEB = (ScreenX < -50) & (ScreenY < -22);
+		enterECEB = (ScreenX < -60) & (ScreenY < -20);
 
 
 		collisionX = ~qX;
