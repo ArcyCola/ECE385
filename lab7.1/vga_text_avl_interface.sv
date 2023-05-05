@@ -1,4 +1,5 @@
 /************************************************************************
+
 Avalon-MM Interface VGA Text mode display
 
 Register Map:

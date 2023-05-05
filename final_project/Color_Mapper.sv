@@ -46,6 +46,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     logic negedge_vga_clk;
     
+	logic fake_ram_q;
+
     assign negedge_vga_clk = ~vga_clk;
 
 	// ------------------------------------------------
@@ -79,13 +81,13 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
      // sprite drawing logic
     logic [3:0] sprite_red, sprite_blue, sprite_green, sprite_rom_q;
-	logic [10:0] sprite_rom_addr;
+	logic [9:0] sprite_rom_addr;
 	logic spriteIgnore;
 	int SpriteDrawX, SpriteDrawY; 
    //--------------------------------------
 	//shit cuz we have 2 roms now
 	logic [3:0] red_map, blue_map, green_map, red_battle, blue_battle, green_battle, rom_q_map, rom_q_battle;
-	
+	logic [3:0] red_end, blue_end, green_end;
 
     // following how ball moves, referencing ball.sv
     // "Screen" is the 160x140 window that is outputted to the screen.
@@ -132,9 +134,24 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     // assign ScreenX = 1'b0;
     // assign ScreenY = 1'b0; 
 
+
+	// reg [38399:0] endregister; // endscreen: 240x160
+
+	// initial begin
+	// 	reg [38399:0] mem_data;
+  	// 	$readmemb("binary_image.bin", mem_data);
+
+	// 	// Transfer contents of memory to registers
+	// 	for (int i = 0; i < 68400; i++) begin
+	// 		endregister[i] = mem_data[i];
+	// 	end
+	// end
+	
+	// logic title_end_rom_q;
+
     always_comb
     begin:sprite_on_proc
-        if ( ((-7 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 8))) & ~battle & ~intro) 
+        if ( ((-7 <= DistX) & (DistX <= 6) & ((-10 <= DistY) & (DistY <= 8))) & map) 
             sprite_on = 1'b1; // sprite: 14x19
         else 
             sprite_on = 1'b0;
@@ -249,24 +266,25 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 		  end
 		  else if (intro) 
 		  begin
+				//title_end_rom_q = titlescreen1_rom_q;
 				palette_red = titlescreen1_red;
 				palette_green = titlescreen1_green;
 				palette_blue = titlescreen1_blue;
 		  end
-		  else //if (map)
+		  else if (map)
 		  begin	
 				
 				palette_red = red_map;
 				palette_green = green_map;
 				palette_blue = blue_map;
 		  end
-		//   else
-		// 	begin	
-				
-		// 		palette_red = red_end;
-		// 		palette_green = green_end;
-		// 		palette_blue = blue_end;
-		//   end
+		  else
+			begin	
+				//title_end_rom_q = endregister[titlescreen1_rom_address];
+				palette_red = red_end;
+				palette_green = green_end;
+				palette_blue = blue_end;
+		  end
 //		  
 		  //---------------------------
 		  // res; 960 x 640, want to see top right 240x160 part
@@ -775,10 +793,14 @@ titlescreen_rom titlescreen1_rom (
 );
 
 titlescreen_palette titlescreen1_palette (
-	.index (titlescreen1_rom_q),
-	.red   (titlescreen1_red),
-	.green (titlescreen1_green),
-	.blue  (titlescreen1_blue)
+	.indexIntro (titlescreen1_rom_q),
+	.indexEnd	(fake_ram_q),
+	.redIntro   (titlescreen1_red),
+	.greenIntro (titlescreen1_green),
+	.blueIntro  (titlescreen1_blue),
+	.redEnd   	(red_end),
+	.greenEnd 	(green_end),
+	.blueEnd  	(blue_end)	
 );
 
 // endscreen_rom endscreen_rom (
@@ -797,4 +819,5 @@ battle battle0(.keycode(keycode[7:0]), .vga_clk, .frame_clk, .GBADraw2X(GBADraw2
 				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset, .battle, .intro, 
 				.playerDied, .ZuofuDied);
 
+//fakeramlmao endScreenLoL(.clk(vga_clk), .n(titlescreen1_rom_address), .pixelout(fake_ram_q) );
 endmodule

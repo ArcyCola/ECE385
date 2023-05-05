@@ -1,6 +1,6 @@
 module sprite4dir_rom (
 	input logic clock,
-	input logic [10:0] address,
+	input logic [9:0] address,
 	output logic [3:0] q
 );
 

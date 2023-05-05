@@ -56,7 +56,8 @@ module state_machine(	input logic Clk, Reset, enterECEB, playerDied, ZuofuDied,
                 end
                 else if (ZuofuDied)
                 begin
-                    Next_State = endScreen;
+                    //Next_State = endScreen;
+                    Next_State = introScreen;
                 end
                 else
                 begin
@@ -78,15 +79,15 @@ module state_machine(	input logic Clk, Reset, enterECEB, playerDied, ZuofuDied,
                     Next_State = introScreen;
                 end
             end
-            endScreen:
-                if(keycode == 8'h28) // if escape is pressed go to next screen
-                begin
-                    Next_State = introScreen;
-                end
-                else
-                begin
-                    Next_State = endScreen;
-                end
+            // endScreen:
+            //     if(keycode == 8'h28) // if escape is pressed go to next screen
+            //     begin
+            //         Next_State = introScreen;
+            //     end
+            //     else
+            //     begin
+            //         Next_State = endScreen;
+            //     end
             //default : ; //Next_State = mapScreen;
         endcase
 
