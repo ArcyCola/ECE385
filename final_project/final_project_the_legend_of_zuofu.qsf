@@ -437,6 +437,7 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name QIP_FILE sprite4dir2/sprite4dir2.qip
 set_global_assignment -name SYSTEMVERILOG_FILE fakeramlmao.sv
 set_global_assignment -name QIP_FILE endscreen/endscreen.qip
 set_global_assignment -name QIP_FILE titlescreen/titlescreen.qip
@@ -446,7 +447,6 @@ set_global_assignment -name QIP_FILE fpcollision/fpcollision.qip
 set_global_assignment -name QIP_FILE sprite4dir/sprite4dir.qip
 set_global_assignment -name QIP_FILE fpmapfinal/fpmapfinal.qip
 set_global_assignment -name QSYS_FILE FP_TLOZ_soc.qsys
-set_global_assignment -name SDC_FILE lab6.sdc
 set_global_assignment -name SYSTEMVERILOG_FILE VGA_controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE theLegendofZuofu.sv
 set_global_assignment -name SYSTEMVERILOG_FILE HexDriver.sv

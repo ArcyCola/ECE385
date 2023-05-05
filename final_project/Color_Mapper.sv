@@ -46,7 +46,9 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
     logic negedge_vga_clk;
     
-	logic fake_ram_q;
+	// logic fake_ram_q;
+	
+	logic qX, qY;
 
     assign negedge_vga_clk = ~vga_clk;
 
@@ -68,7 +70,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     // ------------------------------------------------
 	// copied from ball.sv
 
-	logic [9:0] SpriteX, Sprite_X_Motion, SpriteY, Sprite_Y_Motion;
+	logic [9:0] SpriteX, SpriteY, Sprite_Y_Motion;
+	//logic [9:0] Sprite_X_Motion, Sprite_Y_Motion;
 	 
     parameter [9:0] Sprite_X_Center=320;  // Center position on the X axis
     parameter [9:0] Sprite_Y_Center=240;  // Center position on the Y axis
@@ -81,7 +84,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 
      // sprite drawing logic
     logic [3:0] sprite_red, sprite_blue, sprite_green, sprite_rom_q;
-	logic [9:0] sprite_rom_addr;
+	logic [10:0] sprite_rom_addr;
 	logic spriteIgnore;
 	int SpriteDrawX, SpriteDrawY; 
    //--------------------------------------
@@ -181,7 +184,7 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
 			end
 
 		spriteIgnore = (sprite_red == 4'hF) & (sprite_green == 4'hC) & (sprite_blue == 4'h6);
-
+		//spriteIgnore = (sprite_red == 4'hF) & (sprite_green == 4'hB) & (sprite_blue == 4'hF);
 
 		GBADraw2XBound = (0 <= GBADraw2X) & (GBADraw2X < 960); // [0-959]
 		GBADraw2YBound = (0 <= GBADraw2Y) & (GBADraw2Y < 640); // [0-639]
@@ -581,8 +584,8 @@ module  color_mapper ( input        [9:0]  DrawX, DrawY,
     begin: Move_Ball
         if (Reset)  // Asynchronous Reset
         begin 
-			Sprite_Y_Motion <= 10'd0; //Sprite_Y_Step;
-			Sprite_X_Motion <= 10'd0; //Sprite_X_Step;
+//			Sprite_Y_Motion <= 10'd0; //Sprite_Y_Step;
+//			Sprite_X_Motion <= 10'd0; //Sprite_X_Step;
 			SpriteY <= Sprite_Y_Center;
 			SpriteX <= Sprite_X_Center;
         end
@@ -754,13 +757,13 @@ fpmapfinal_palette map480_palette (
 // 	.blue  (blue_battle)
 // );
 
-sprite4dir_rom spritedraft_rom (
+sprite4dir2_rom spritedraft_rom (
 	.clock   (negedge_vga_clk),
 	.address (sprite_rom_addr),
 	.q       (sprite_rom_q)
 );
 
-sprite4dir_palette spritedraft_palette (
+sprite4dir2_palette spritedraft_palette (
 	.index (sprite_rom_q),
 	.red   (sprite_red),
 	.green (sprite_green),
@@ -819,5 +822,5 @@ battle battle0(.keycode(keycode[7:0]), .vga_clk, .frame_clk, .GBADraw2X(GBADraw2
 				.Red(red_battle), .Green(green_battle), .Blue(blue_battle), .blank, .debug, .Reset, .battle, .intro, 
 				.playerDied, .ZuofuDied);
 
-//fakeramlmao endScreenLoL(.clk(vga_clk), .n(titlescreen1_rom_address), .pixelout(fake_ram_q) );
+// fakeramlmao endScreenLoL(.clk(vga_clk), .n(titlescreen1_rom_address), .pixelout(fake_ram_q) );
 endmodule
